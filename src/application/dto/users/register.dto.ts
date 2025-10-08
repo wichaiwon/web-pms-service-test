@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsEnum, IsOptional } from 'class-validator'
+import { IsString, IsNotEmpty, IsEnum, IsOptional, IsTimeZone } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger'
 import { UserRole } from 'src/shared/enum/user'
 import { Branch } from 'src/shared/enum/user'

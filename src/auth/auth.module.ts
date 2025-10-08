@@ -8,7 +8,11 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { Users } from '../domain/entities/user/user.entity';
 import { UserRepository } from '../infrastructure/repositories/user.repository';
-import { IUserRepository } from '../domain/repositories/user.repository.interface';
+import { LoginUseCase } from './use-cases/login.use-case';
+import { RegisterUseCase } from './use-cases/register.use-case';
+import { UpdatePasswordUseCase } from './use-cases/update-password.use-case';
+import { BcryptPasswordHasher } from '../infrastructure/services/password-hasher.service';
+import { JwtTokenService } from '../infrastructure/services/jwt-token.service';
 
 @Module({
   imports: [
@@ -24,9 +28,23 @@ import { IUserRepository } from '../domain/repositories/user.repository.interfac
     AuthService,
     LocalStrategy,
     JwtStrategy,
+    // Use Cases
+    LoginUseCase,
+    RegisterUseCase,
+    UpdatePasswordUseCase,
+    // Repository
     {
       provide: 'IUserRepository',
       useClass: UserRepository,
+    },
+    // Infrastructure Services
+    {
+      provide: 'IPasswordHasher',
+      useClass: BcryptPasswordHasher,
+    },
+    {
+      provide: 'IJwtTokenService',
+      useClass: JwtTokenService,
     },
   ],
   exports: [AuthService],
