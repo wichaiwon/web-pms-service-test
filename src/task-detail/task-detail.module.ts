@@ -14,7 +14,7 @@ import { CreateTaskDetailAdditionalServiceUseCase } from './use-cases/create-tas
 import { GetTaskDetailAdditionalServiceUseCase } from './use-cases/get-task-detail-additional-service.use-case'
 import { UpdateTaskDetailAdditionalServiceUseCase } from './use-cases/update-task-detail-additional-service.use-case'
 import { TaskDetailRepository } from 'src/infrastructure/repositories/task/task-detail/task_detail.repository'
-import { TaskDetailAdditionalServiceRepository } from 'src/infrastructure/repositories/task/task-detail/task-detail-additional.repository'
+import { TaskDetailAdditionalServiceRepository } from 'src/infrastructure/repositories/task/task-detail/task-detail-additional-service.repository'
 
 @Module({
   imports: [
