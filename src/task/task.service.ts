@@ -39,10 +39,6 @@ export class TaskService implements ITaskService {
     return this.updateTaskUseCase.execute(id, updateTaskDto)
   }
 
-  async deleteTask(id: string): Promise<void> {
-    return this.updateTaskUseCase.executeDelete(id)
-  }
-
   async getTasksByStatus(status: string): Promise<Tasks[]> {
     return this.getTaskUseCase.executeByStatus(status)
   }

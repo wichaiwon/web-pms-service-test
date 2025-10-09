@@ -30,18 +30,4 @@ export class UpdateTaskUseCase {
 
     return this.taskRepository.update(id, updateData)
   }
-
-  async executeDelete(id: string): Promise<void> {
-    // Check if task exists and can be deleted
-    const existingTask = await this.taskRepository.findById(id)
-    if (!existingTask) {
-      throw new Error(`Task with id ${id} not found`)
-    }
-
-    if (existingTask.success_flag) {
-      throw new Error('Cannot delete completed task')
-    }
-
-    await this.taskRepository.delete(id)
-  }
 }

@@ -8,6 +8,5 @@ export interface ITaskRepository {
   findByResponsible(userId: string): Promise<Tasks[]>
   create(task: Partial<Tasks>): Promise<Tasks>
   update(id: string, task: Partial<Tasks>): Promise<Tasks>
-  delete(id: string): Promise<void>
   findByStatus(status: string): Promise<Tasks[]>
 }

@@ -9,6 +9,5 @@ export interface ITaskService {
   getTasksByCustomerId(customerId: string): Promise<Tasks[]>
   getTasksByResponsible(userId: string): Promise<Tasks[]>
   updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<Tasks>
-  deleteTask(id: string): Promise<void>
   getTasksByStatus(status: string): Promise<Tasks[]>
 }

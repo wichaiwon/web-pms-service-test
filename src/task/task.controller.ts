@@ -3,7 +3,6 @@ import {
   Get, 
   Post, 
   Put, 
-  Delete, 
   Body, 
   Param, 
   Query,
@@ -147,23 +146,6 @@ export class TaskController {
         success: false,
         message: error.message,
         data: null
-      }
-    }
-  }
-
-  @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteTask(@Param('id') id: string) {
-    try {
-      await this.taskService.deleteTask(id)
-      return {
-        success: true,
-        message: 'Task deleted successfully'
-      }
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message
       }
     }
   }

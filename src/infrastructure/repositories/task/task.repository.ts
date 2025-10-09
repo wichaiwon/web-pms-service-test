@@ -57,13 +57,6 @@ export class TaskRepository implements ITaskRepository {
     return updatedTask
   }
 
-  async delete(id: string): Promise<void> {
-    const result = await this.taskRepository.delete(id)
-    if (result.affected === 0) {
-      throw new Error(`Task with id ${id} not found`)
-    }
-  }
-
   async findByStatus(status: string): Promise<Tasks[]> {
     return this.taskRepository.find({
       where: [{ status_repair_order: status as any }, { status_report: status as any }],

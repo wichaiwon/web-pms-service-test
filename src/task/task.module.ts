@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Tasks } from '../domain/entities/task/task.entity'
-import { TaskRepository } from '../infrastructure/repositories/task.repository'
+import { TaskRepository } from '../infrastructure/repositories/task/task.repository'
 import { TaskController } from './task.controller'
 import { TaskService } from './task.service'
 import { CreateTaskUseCase } from './use-cases/create-task.use-case'
