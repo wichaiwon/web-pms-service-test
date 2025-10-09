@@ -2,6 +2,11 @@ import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray, isEnum, isN
 import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 
 export class UpdateTaskDto {
+
+  @IsOptional()
+  @IsBoolean()
+  success_flag?: boolean
+  
   @IsOptional()
   @IsArray()
   @IsUUID('4', { each: true })

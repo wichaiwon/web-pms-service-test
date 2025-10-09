@@ -1,7 +1,7 @@
 import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
-@Entity()
+@Entity('tasks')
 export class Tasks {
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -13,10 +13,10 @@ export class Tasks {
   vehicle_registration: string
 
   @Column({ type: 'varchar', nullable: false })
-  engine: string
+  engine_number: string
 
   @Column({ type: 'varchar', nullable: false })
-  chassis: string
+  chassis_number: string
 
   @Column({ type: 'uuid', nullable: false })
   customer_id: string

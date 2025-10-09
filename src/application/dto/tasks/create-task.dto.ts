@@ -4,7 +4,7 @@ import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/e
 export class CreateTaskDto {
   @IsOptional()
   @IsBoolean()
-  walkin_flag?: boolean
+  walk_in_flag?: boolean
 
   @IsOptional()
   vehicle_registration?: string
@@ -40,9 +40,5 @@ export class CreateTaskDto {
   status_report: StatusReport
 
   @IsNotEmpty()
-  @IsUUID()
   created_by: string
-
-  @IsNotEmpty()
-  created_at: Date
 }
