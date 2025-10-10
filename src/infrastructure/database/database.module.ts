@@ -3,10 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { Users } from 'src/domain/entities/user/user.entity'
 import { Tasks } from 'src/domain/entities/task/task.entity'
-import { TaskDetail } from 'src/domain/entities/task/task-detail/task-detail.entity'
-import { TaskDetailAdditionalService } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
-import { TaskDetailStepOne } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity'
-import { TaskDetailStepOneAdditionalService } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one-additional-service.entity'
+import { TaskDetailEntity } from 'src/domain/entities/task/task-detail/task-detail.entity'
+import { TaskDetailAdditionalServiceEntity } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
+import { TaskDetailStepOneEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity'
+import { TaskDetailStepOneAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one-additional-service.entity'
+import { TaskDetailStepTwoEntity } from 'src/domain/entities/task/task-detail-step-two/task-detail-step-two.entity'
+import { TaskDetailStepTwoAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-two/task-detail-step-two-additional-service.entity'
 
 @Module({
   imports: [
@@ -22,10 +24,12 @@ import { TaskDetailStepOneAdditionalService } from 'src/domain/entities/task/tas
         entities: [
           Users,
           Tasks,
-          TaskDetail,
-          TaskDetailAdditionalService,
-          TaskDetailStepOne,
-          TaskDetailStepOneAdditionalService,
+          TaskDetailEntity,
+          TaskDetailAdditionalServiceEntity,
+          TaskDetailStepOneEntity,
+          TaskDetailStepOneAdditionalServiceEntity,
+          TaskDetailStepTwoEntity,
+          TaskDetailStepTwoAdditionalServiceEntity,
         ],
         synchronize: configService.get('NODE_ENV') !== 'production',
         logging: configService.get('NODE_ENV') === 'development',
