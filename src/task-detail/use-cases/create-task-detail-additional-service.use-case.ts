@@ -1,6 +1,6 @@
 import { Injectable, Inject, BadRequestException } from '@nestjs/common'
-import type { ITaskDetailAdditionalServiceRepository } from '../../domain/repositories/task/task_detail/task_detail_addtional_service.repository.interface'
-import type { ITaskDetailRepository } from '../../domain/repositories/task/task_detail/task_detail.repository.interface'
+import type { ITaskDetailAdditionalServiceRepository } from '../../domain/repositories/task/task-detail/task-detail-addtional-service.repository.interface'
+import type { ITaskDetailRepository } from '../../domain/repositories/task/task-detail/task-detail.repository.interface'
 import { CreateTaskDetailAdditionalServiceDto } from 'src/application/dto/tasks/task-detail/create-task-detail-addtional-service.dto'
 import { TaskDetailAdditionalService } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
 import { AdditionalService } from 'src/shared/enum/task-detail'

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { TaskDetail } from 'src/domain/entities/task/task-detail/task-detail.entity'
-import { ITaskDetailRepository } from 'src/domain/repositories/task/task_detail/task_detail.repository.interface'
+import { ITaskDetailRepository } from 'src/domain/repositories/task/task-detail/task-detail.repository.interface'
 import { Repository } from 'typeorm'
 
 @Injectable()
@@ -25,8 +25,7 @@ export class TaskDetailRepository implements ITaskDetailRepository {
   async create(taskDetailData: Partial<TaskDetail>): Promise<TaskDetail> {
     const taskDetail = this.taskDetailRepository.create({
       ...taskDetailData,
-      success_flag: false,
-      created_at: new Date()
+      success_flag: false
     })
     return this.taskDetailRepository.save(taskDetail)
   }

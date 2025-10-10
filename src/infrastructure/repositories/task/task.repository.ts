@@ -40,7 +40,6 @@ export class TaskRepository implements ITaskRepository {
     const task = this.taskRepository.create({
       ...taskData,
       success_flag: false,
-      created_at: new Date(),
     })
     return this.taskRepository.save(task)
   }

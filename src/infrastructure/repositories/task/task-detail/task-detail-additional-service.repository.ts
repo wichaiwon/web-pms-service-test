@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { TaskDetailAdditionalService } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
-import { ITaskDetailAdditionalServiceRepository } from 'src/domain/repositories/task/task_detail/task_detail_addtional_service.repository.interface'
+import { ITaskDetailAdditionalServiceRepository } from 'src/domain/repositories/task/task-detail/task-detail-addtional-service.repository.interface'
 import { Repository } from 'typeorm'
 
 @Injectable()

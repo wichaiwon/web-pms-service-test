@@ -1,6 +1,6 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common'
 import { TaskDetailAdditionalService } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
-import type { ITaskDetailAdditionalServiceRepository } from 'src/domain/repositories/task/task_detail/task_detail_addtional_service.repository.interface'
+import type { ITaskDetailAdditionalServiceRepository } from 'src/domain/repositories/task/task-detail/task-detail-addtional-service.repository.interface'
 
 @Injectable()
 export class GetTaskDetailAdditionalServiceUseCase {

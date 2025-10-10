@@ -1,5 +1,5 @@
 import { Branch, UserRole } from 'src/shared/enum/user'
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
 
 @Entity('users')
 export class Users {
@@ -50,6 +50,6 @@ export class Users {
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date
 
-  @UpdateDateColumn({nullable: true })
+  @Column({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 }

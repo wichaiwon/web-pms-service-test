@@ -6,7 +6,6 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm'
 import { Tasks } from '../task.entity'
 
@@ -40,7 +39,7 @@ export class TaskDetail {
   @Column({ type: 'uuid', nullable: true })
   created_by: string
 
-  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true, onUpdate: 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })
