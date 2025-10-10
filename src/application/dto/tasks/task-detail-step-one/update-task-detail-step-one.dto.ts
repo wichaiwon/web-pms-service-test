@@ -4,7 +4,7 @@ import { damageCar } from 'src/shared/enum/task-detail-step-one'
 export class UpdateTaskDetailStepOneDto {
   @IsOptional()
   @IsEnum(damageCar)
-  damage: damageCar
+  damage_car: damageCar
 
   @IsOptional()
   damage_car_image?: string

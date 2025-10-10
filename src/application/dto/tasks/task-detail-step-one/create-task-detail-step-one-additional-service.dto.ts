@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsOptional, IsUUID, isUUID } from 'class-validator'
+import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator'
 
-export class TaskDetailStepOneAdditionalServiceDto {
+export class CreateTaskDetailStepOneAdditionalServiceDto {
   @IsNotEmpty()
   @IsUUID()
   task_detail_step_one_id: string

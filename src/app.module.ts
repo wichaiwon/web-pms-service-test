@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module'
 import { TaskModule } from './task/task.module'
 import { DatabaseModule } from './infrastructure/database/database.module'
 import { TaskDetailModule } from './task-detail/task-detail.module'
+import { TaskDetailStepOneModule } from './task-detail-step-one/task-detail-step-one.module'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { TaskDetailModule } from './task-detail/task-detail.module'
     AuthModule,
     TaskModule,
     TaskDetailModule,
+    TaskDetailStepOneModule,
   ],
   controllers: [AppController],
   providers: [AppService],
