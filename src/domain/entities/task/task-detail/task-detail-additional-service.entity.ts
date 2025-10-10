@@ -1,9 +1,9 @@
 import { AdditionalService, TirePressure } from 'src/shared/enum/task-detail'
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
-import { TaskDetail } from './task-detail.entity'
+import { TaskDetailEntity } from './task-detail.entity'
 
 @Entity('task_detail_additional_service')
-export class TaskDetailAdditionalService {
+export class TaskDetailAdditionalServiceEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -26,7 +26,7 @@ export class TaskDetailAdditionalService {
   comment: string
 
   // Relations
-  @ManyToOne(() => TaskDetail)
+  @ManyToOne(() => TaskDetailEntity)
   @JoinColumn({ name: 'task_detail_id' })
-  taskDetail: TaskDetail
+  taskDetail: TaskDetailEntity
 }

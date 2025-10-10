@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 import { Tasks } from '../task.entity'
 
 @Entity('task_detail_step_one')
-export class TaskDetailStepOne {
+export class TaskDetailStepOneEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 

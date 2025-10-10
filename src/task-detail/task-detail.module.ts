@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { TaskDetailAdditionalService } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
-import { TaskDetail } from 'src/domain/entities/task/task-detail/task-detail.entity'
+import { TaskDetailAdditionalServiceEntity } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
+import { TaskDetailEntity } from 'src/domain/entities/task/task-detail/task-detail.entity'
 import { TaskModule } from 'src/task/task.module'
 import { TaskDetailController } from './task-detail.controller'
 import { TaskDetailAdditionalServiceController } from './additional-service/task-detail-additional-service.controller'
@@ -18,7 +18,7 @@ import { TaskDetailAdditionalServiceRepository } from 'src/infrastructure/reposi
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([TaskDetail, TaskDetailAdditionalService]),
+    TypeOrmModule.forFeature([TaskDetailEntity, TaskDetailAdditionalServiceEntity]),
     TaskModule
   ],
   controllers: [

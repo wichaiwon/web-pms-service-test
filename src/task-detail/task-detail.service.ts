@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { TaskDetail } from '../domain/entities/task/task-detail/task-detail.entity'
+import { TaskDetailEntity } from '../domain/entities/task/task-detail/task-detail.entity'
 import { CreateTaskDetailDto } from '../application/dto/tasks/task-detail/create-task-detail.dto'
 import { UpdateTaskDetailDto } from '../application/dto/tasks/task-detail/update-task-detail.dto'
 import { ITaskDetailService } from '../application/interfaces/tasks/task-detail/task-detail.service.interface'
@@ -15,19 +15,19 @@ export class TaskDetailService implements ITaskDetailService {
     private readonly updateTaskDetailUseCase: UpdateTaskDetailUseCase,
   ) {}
 
-  async createTaskDetail(createDto: CreateTaskDetailDto): Promise<TaskDetail> {
+  async createTaskDetail(createDto: CreateTaskDetailDto): Promise<TaskDetailEntity> {
     return this.createTaskDetailUseCase.execute(createDto)
   }
 
-  async getTaskDetailById(id: string): Promise<TaskDetail> {
+  async getTaskDetailById(id: string): Promise<TaskDetailEntity> {
     return this.getTaskDetailUseCase.execute(id)
   }
 
-  async getTaskDetailsByTaskId(taskId: string): Promise<TaskDetail[]> {
+  async getTaskDetailsByTaskId(taskId: string): Promise<TaskDetailEntity[]> {
     return this.getTaskDetailUseCase.executeByTaskId(taskId)
   }
 
-  async updateTaskDetail(id: string, updateDto: UpdateTaskDetailDto): Promise<TaskDetail> {
+  async updateTaskDetail(id: string, updateDto: UpdateTaskDetailDto): Promise<TaskDetailEntity> {
     return this.updateTaskDetailUseCase.execute(id, updateDto)
   }
 }

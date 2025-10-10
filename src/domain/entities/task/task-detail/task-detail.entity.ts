@@ -10,7 +10,7 @@ import {
 import { Tasks } from '../task.entity'
 
 @Entity('task_detail')
-export class TaskDetail {
+export class TaskDetailEntity {
   // Define columns and relationships here
   @PrimaryGeneratedColumn('uuid')
   id: string

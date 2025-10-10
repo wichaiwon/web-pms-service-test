@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common'
-import { TaskDetailStepOne } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity'
+import { TaskDetailStepOneEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity'
 import type { ITaskDetailStepOneRepository } from 'src/domain/repositories/task/task-detail-step-one/task-detail-step-one.repository'
 
 @Injectable()
@@ -9,11 +9,11 @@ export class GetTaskDetailStepOneUseCase {
     private readonly taskDetailStepOneRepository: ITaskDetailStepOneRepository,
   ) {}
 
-  async executeById(id: string): Promise<TaskDetailStepOne> {
+  async executeById(id: string): Promise<TaskDetailStepOneEntity> {
     return this.taskDetailStepOneRepository.getTaskDetailStepOneById(id)
   }
 
-  async executeByTaskId(taskId: string): Promise<TaskDetailStepOne[]> {
+  async executeByTaskId(taskId: string): Promise<TaskDetailStepOneEntity[]> {
     return this.taskDetailStepOneRepository.getTaskDetailStepOneByTaskId(taskId)
   }
 }

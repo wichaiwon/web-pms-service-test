@@ -2,7 +2,7 @@ import { Injectable, Inject, BadRequestException } from '@nestjs/common'
 import type { ITaskDetailAdditionalServiceRepository } from '../../domain/repositories/task/task-detail/task-detail-addtional-service.repository.interface'
 import type { ITaskDetailRepository } from '../../domain/repositories/task/task-detail/task-detail.repository.interface'
 import { CreateTaskDetailAdditionalServiceDto } from 'src/application/dto/tasks/task-detail/create-task-detail-addtional-service.dto'
-import { TaskDetailAdditionalService } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
+import { TaskDetailAdditionalServiceEntity } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
 import { AdditionalService } from 'src/shared/enum/task-detail'
 
 @Injectable()
@@ -14,7 +14,7 @@ export class CreateTaskDetailAdditionalServiceUseCase {
     private readonly taskDetailRepository: ITaskDetailRepository,
   ) {}
 
-  async execute(dto: CreateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalService> {
+  async execute(dto: CreateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalServiceEntity> {
     // Validate task detail exists
     const taskDetail = await this.taskDetailRepository.findById(dto.task_detail_id)
     if (!taskDetail) {
@@ -39,7 +39,7 @@ export class CreateTaskDetailAdditionalServiceUseCase {
       }
     }
 
-    const serviceData: Partial<TaskDetailAdditionalService> = {
+    const serviceData: Partial<TaskDetailAdditionalServiceEntity> = {
       task_detail_id: dto.task_detail_id,
       tire_pressure: dto.tire_pressure,
       additional_service: dto.additional_service,

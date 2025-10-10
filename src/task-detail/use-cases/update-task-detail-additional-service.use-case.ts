@@ -1,5 +1,5 @@
 import { Injectable, Inject, NotFoundException, BadRequestException } from '@nestjs/common'
-import { TaskDetailAdditionalService } from '../../domain/entities/task/task-detail/task-detail-additional-service.entity'
+import { TaskDetailAdditionalServiceEntity } from '../../domain/entities/task/task-detail/task-detail-additional-service.entity'
 import type { ITaskDetailAdditionalServiceRepository } from '../../domain/repositories/task/task-detail/task-detail-addtional-service.repository.interface'
 import { UpdateTaskDetailAdditionalServiceDto } from '../../application/dto/tasks/task-detail/update-task-detail-additional-service.dto'
 import { AdditionalService } from 'src/shared/enum/task-detail'
@@ -11,7 +11,7 @@ export class UpdateTaskDetailAdditionalServiceUseCase {
     private readonly repository: ITaskDetailAdditionalServiceRepository,
   ) {}
 
-  async execute(id: string, dto: UpdateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalService> {
+  async execute(id: string, dto: UpdateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalServiceEntity> {
     const existing = await this.repository.findById(id)
     if (!existing) {
       throw new NotFoundException(`TaskDetailAdditionalService with id ${id} not found`)

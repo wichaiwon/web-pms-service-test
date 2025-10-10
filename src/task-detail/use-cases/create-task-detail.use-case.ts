@@ -1,7 +1,7 @@
 import { Injectable, Inject, BadRequestException } from '@nestjs/common'
 import type { ITaskDetailRepository } from '../../domain/repositories/task/task-detail/task-detail.repository.interface'
-import type { ITaskRepository } from '../../domain/repositories/task/task.repository.interface'
-import { TaskDetail } from 'src/domain/entities/task/task-detail/task-detail.entity'
+import type { ITaskRepository } from '../../domain/repositories/task/task.repository'
+import { TaskDetailEntity } from 'src/domain/entities/task/task-detail/task-detail.entity'
 import { CreateTaskDetailDto } from 'src/application/dto/tasks/task-detail/create-task-detail.dto'
 
 @Injectable()
@@ -13,7 +13,7 @@ export class CreateTaskDetailUseCase {
     private readonly taskRepository: ITaskRepository,
   ) {}
 
-  async execute(dto: CreateTaskDetailDto): Promise<TaskDetail> {
+  async execute(dto: CreateTaskDetailDto): Promise<TaskDetailEntity> {
     // Validate task exists
     const task = await this.taskRepository.findById(dto.task_id)
     if (!task) {
@@ -31,7 +31,7 @@ export class CreateTaskDetailUseCase {
       throw new BadRequestException('Car mileage cannot be negative')
     }
 
-    const taskDetailData: Partial<TaskDetail> = {
+    const taskDetailData: Partial<TaskDetailEntity> = {
       task_id: dto.task_id,
       task_detail_image1: dto.task_detail_image1,
       task_detail_image2: dto.task_detail_image2,

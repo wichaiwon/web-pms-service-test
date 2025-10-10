@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { TaskDetailStepOne } from './task-detail-step-one.entity'
+import { TaskDetailStepOneEntity } from './task-detail-step-one.entity'
 
 @Entity('task_detail_step_one_additional_service')
-export class TaskDetailStepOneAdditionalService {
+export class TaskDetailStepOneAdditionalServiceEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
   @Column({ type: 'uuid', nullable: false })
@@ -14,7 +14,7 @@ export class TaskDetailStepOneAdditionalService {
   @Column({ type: 'varchar', nullable: true })
   comment: string
 
-  @ManyToOne(() => TaskDetailStepOne)
+  @ManyToOne(() => TaskDetailStepOneEntity)
   @JoinColumn({ name: 'task_detail_step_one_id' })
-  taskDetailStepOne: TaskDetailStepOne
+  taskDetailStepOne: TaskDetailStepOneEntity
 }

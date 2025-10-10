@@ -21,7 +21,4 @@ export class CreateTaskDetailStepOneDto {
   @IsUUID()
   created_by: string
 
-  @IsOptional()
-  @IsUUID()
-  updated_by?: string
 }

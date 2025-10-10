@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { TaskDetailStepOneAdditionalService } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one-additional-service.entity'
-import { TaskDetailStepOne } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity'
 import { TaskDetailStepOneController } from './task-detail-step-one.controller'
 import { TaskDetailStepOneAdditionalServiceController } from './additional-service/task-detail-step-one-additional-service.controller'
 import { TaskDetailStepOneService } from './task-detail-step-one.service'
@@ -15,9 +13,11 @@ import { CreateTaskDetailStepOneAdditionalServiceUseCase } from './use-cases/cre
 import { GetTaskDetailStepOneAdditionalServiceUseCase } from './use-cases/get-task-detail-step-one-additional-service.use-case'
 import { UpdateTaskDetailStepOneAdditionalServiceUseCase } from './use-cases/update-task-detail-step-one-additional-service.use-case'
 import { TaskModule } from 'src/task/task.module'
+import { TaskDetailStepOneEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity'
+import { TaskDetailStepOneAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one-additional-service.entity'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TaskDetailStepOne, TaskDetailStepOneAdditionalService]), TaskModule],
+  imports: [TypeOrmModule.forFeature([TaskDetailStepOneEntity, TaskDetailStepOneAdditionalServiceEntity]), TaskModule],
   controllers: [TaskDetailStepOneController, TaskDetailStepOneAdditionalServiceController],
   providers: [
     TaskDetailStepOneService,

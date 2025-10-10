@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common'
 import { Tasks } from '../../domain/entities/task/task.entity'
-import type { ITaskRepository } from '../../domain/repositories/task/task.repository.interface'
+import type { ITaskRepository } from '../../domain/repositories/task/task.repository'
 import { CreateTaskDto } from '../../application/dto/tasks/create-task.dto'
 
 @Injectable()

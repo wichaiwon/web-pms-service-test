@@ -1,6 +1,6 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common'
 import type { ITaskDetailRepository } from '../../domain/repositories/task/task-detail/task-detail.repository.interface'
-import { TaskDetail } from 'src/domain/entities/task/task-detail/task-detail.entity'
+import { TaskDetailEntity } from 'src/domain/entities/task/task-detail/task-detail.entity'
 
 @Injectable()
 export class GetTaskDetailUseCase {
@@ -9,7 +9,7 @@ export class GetTaskDetailUseCase {
     private readonly taskDetailRepository: ITaskDetailRepository,
   ) {}
 
-  async execute(id: string): Promise<TaskDetail> {
+  async execute(id: string): Promise<TaskDetailEntity> {
     const taskDetail = await this.taskDetailRepository.findById(id)
     if (!taskDetail) {
       throw new NotFoundException(`TaskDetail with id ${id} not found`)
@@ -17,7 +17,7 @@ export class GetTaskDetailUseCase {
     return taskDetail
   }
 
-  async executeByTaskId(taskId: string): Promise<TaskDetail[]> {
+  async executeByTaskId(taskId: string): Promise<TaskDetailEntity[]> {
     return this.taskDetailRepository.findByTaskId(taskId)
   }
 }

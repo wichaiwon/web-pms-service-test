@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray, isEnum, isNotEmpty } from 'class-validator'
+import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray} from 'class-validator'
 import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 
 export class CreateTaskDto {
