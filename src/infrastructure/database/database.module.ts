@@ -9,6 +9,8 @@ import { TaskDetailStepOneEntity } from 'src/domain/entities/task/task-detail-st
 import { TaskDetailStepOneAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one-additional-service.entity'
 import { TaskDetailStepTwoEntity } from 'src/domain/entities/task/task-detail-step-two/task-detail-step-two.entity'
 import { TaskDetailStepTwoAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-two/task-detail-step-two-additional-service.entity'
+import { TaskDetailStepThreeEntity } from 'src/domain/entities/task/task-detail-step-three/task-detail-step-three.entity'
+import { TaskDetailStepThreeAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-three/task-detail-step-three-additional-service.entity'
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { TaskDetailStepTwoAdditionalServiceEntity } from 'src/domain/entities/ta
           TaskDetailStepOneAdditionalServiceEntity,
           TaskDetailStepTwoEntity,
           TaskDetailStepTwoAdditionalServiceEntity,
+          TaskDetailStepThreeEntity,
+          TaskDetailStepThreeAdditionalServiceEntity,
         ],
         synchronize: configService.get('NODE_ENV') !== 'production',
         logging: configService.get('NODE_ENV') === 'development',

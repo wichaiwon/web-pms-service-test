@@ -10,16 +10,16 @@ import { Repository } from 'typeorm'
 export class TaskDetailStepTwoAdditionalServiceRepository implements ITaskDetailStepTwoAdditionalServiceRepository {
   constructor(
     @InjectRepository(TaskDetailStepTwoAdditionalServiceEntity)
-    private readonly repository: Repository<TaskDetailStepTwoAdditionalServiceEntity>,
+    private readonly taskDetailStepTwoAdditionalServiceRepository: Repository<TaskDetailStepTwoAdditionalServiceEntity>,
   ) {}
   async createTaskDetailStepTwoAdditionalService(
     createDto: CreateTaskDetailStepTwoAdditionalServiceDto,
   ): Promise<TaskDetailStepTwoAdditionalServiceEntity> {
-    const entity = this.repository.create(createDto)
-    return this.repository.save(entity)
+    const entity = this.taskDetailStepTwoAdditionalServiceRepository.create(createDto)
+    return this.taskDetailStepTwoAdditionalServiceRepository.save(entity)
   }
   async getTaskDetailStepTwoAdditionalServiceById(id: string): Promise<TaskDetailStepTwoAdditionalServiceEntity> {
-    const service = await this.repository.findOne({ where: { id } })
+    const service = await this.taskDetailStepTwoAdditionalServiceRepository.findOne({ where: { id } })
     if (!service) {
       throw new Error('TaskDetailStepTwoAdditionalService not found')
     }
@@ -28,13 +28,13 @@ export class TaskDetailStepTwoAdditionalServiceRepository implements ITaskDetail
   async getTaskDetailStepTwoAdditionalServiceByTaskDetailStepTwoId(
     taskDetailStepTwoId: string,
   ): Promise<TaskDetailStepTwoAdditionalServiceEntity[]> {
-    return this.repository.find({ where: { task_detail_step_two_id: taskDetailStepTwoId } })
+    return this.taskDetailStepTwoAdditionalServiceRepository.find({ where: { task_detail_step_two_id: taskDetailStepTwoId } })
   }
   async updateTaskDetailStepTwoAdditionalService(
     id: string,
     updateDto: UpdateTaskDetailStepTwoAdditionalServiceDto,
   ): Promise<void> {
-    const result = await this.repository.update(id, updateDto)
+    const result = await this.taskDetailStepTwoAdditionalServiceRepository.update(id, updateDto)
     if (result.affected === 0) {
       throw new Error('TaskDetailStepTwoAdditionalService not found or no changes made')
     }

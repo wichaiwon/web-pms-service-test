@@ -8,6 +8,7 @@ import { DatabaseModule } from './infrastructure/database/database.module'
 import { TaskDetailModule } from './task-detail/task-detail.module'
 import { TaskDetailStepOneModule } from './task-detail-step-one/task-detail-step-one.module'
 import { TaskDetailStepTwoModule } from './task-detail-step-two/task-detail-step-two.module'
+import { TaskDetailStepThreeModule } from './task-detail-step-three/task-detail-step-three.module'
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { TaskDetailStepTwoModule } from './task-detail-step-two/task-detail-step
     TaskModule,
     TaskDetailModule,
     TaskDetailStepOneModule,
-    TaskDetailStepTwoModule
+    TaskDetailStepTwoModule,
+    TaskDetailStepThreeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

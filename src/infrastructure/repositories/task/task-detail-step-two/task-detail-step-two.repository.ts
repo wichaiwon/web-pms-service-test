@@ -21,7 +21,7 @@ export class TaskDetailStepTwoRepository implements ITaskDetailStepTwoRepository
   async getTaskDetailStepTwoById(id: string): Promise<TaskDetailStepTwoEntity> {
     const taskDetailStepTwo = await this.taskDetailStepTwoRepository.findOne({ where: { id } })
     if (!taskDetailStepTwo) {
-      throw new NotFoundException('TaskDetailStepTwo not found')
+      throw new Error('TaskDetailStepTwo not found')
     }
     return taskDetailStepTwo
   }
@@ -36,7 +36,7 @@ export class TaskDetailStepTwoRepository implements ITaskDetailStepTwoRepository
       updated_at: new Date(),
     })
     if (result.affected === 0) {
-      throw new NotFoundException('TaskDetailStepTwo not found or no changes made')
+      throw new Error('TaskDetailStepTwo not found or no changes made')
     }
   }
 }
