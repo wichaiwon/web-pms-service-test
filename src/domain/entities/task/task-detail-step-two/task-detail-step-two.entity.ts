@@ -107,7 +107,7 @@ export class TaskDetailStepTwoEntity {
   @Column({ type: 'uuid', nullable: true })
   updated_by: string
 
-  @ManyToOne(() => Tasks)
+  @ManyToOne(() => Tasks, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'task_id' })
   task: Tasks
 }

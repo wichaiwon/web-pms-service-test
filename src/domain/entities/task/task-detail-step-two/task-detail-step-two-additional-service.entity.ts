@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { TaskDetailStepTwoEntity } from './task-detail-step-two.entity'
 
 @Entity('task_detail_step_two_additional_service')
 export class TaskDetailStepTwoAdditionalServiceEntity {
@@ -22,4 +23,8 @@ export class TaskDetailStepTwoAdditionalServiceEntity {
 
   @Column({ type: 'varchar', nullable: true })
   comment: string
+
+  @ManyToOne(() => TaskDetailStepTwoEntity, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'task_detail_step_two_id' })
+  task_detail_step_two: TaskDetailStepTwoEntity
 }
