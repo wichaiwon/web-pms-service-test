@@ -1,12 +1,5 @@
 import { FuelLevel } from 'src/shared/enum/task-detail'
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Tasks } from '../task.entity'
 
 @Entity('task_detail')
@@ -46,7 +39,7 @@ export class TaskDetailEntity {
   updated_by: string
 
   // Relations
-  @ManyToOne(() => Tasks)
+  @ManyToOne(() => Tasks, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'task_id' })
   task: Tasks
 }

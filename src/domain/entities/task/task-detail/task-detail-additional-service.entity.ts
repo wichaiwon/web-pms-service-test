@@ -26,7 +26,7 @@ export class TaskDetailAdditionalServiceEntity {
   comment: string
 
   // Relations
-  @ManyToOne(() => TaskDetailEntity)
+  @ManyToOne(() => TaskDetailEntity, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'task_detail_id' })
   taskDetail: TaskDetailEntity
 }
