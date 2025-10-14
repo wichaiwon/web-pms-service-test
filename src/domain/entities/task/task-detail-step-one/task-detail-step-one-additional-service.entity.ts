@@ -14,7 +14,7 @@ export class TaskDetailStepOneAdditionalServiceEntity {
   @Column({ type: 'varchar', nullable: true })
   comment: string
 
-  @ManyToOne(() => TaskDetailStepOneEntity)
+  @ManyToOne(() => TaskDetailStepOneEntity, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'task_detail_step_one_id' })
   taskDetailStepOne: TaskDetailStepOneEntity
 }
