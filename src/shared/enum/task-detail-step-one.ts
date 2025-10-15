@@ -1,5 +1,5 @@
 
-export enum damageCar {
+export enum DamageCar {
  NONE = 'ไม่พบความเสียหาย',
  //ไม่สามารถตรวจสอบได้อย่างละเอียด
  CANNOT_CHECK = 'ไม่สามารถตรวจสอบได้',   

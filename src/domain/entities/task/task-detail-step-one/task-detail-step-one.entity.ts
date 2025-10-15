@@ -1,4 +1,4 @@
-import { damageCar } from 'src/shared/enum/task-detail-step-one'
+import { DamageCar } from 'src/shared/enum/task-detail-step-one'
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Tasks } from '../task.entity'
 
@@ -10,8 +10,8 @@ export class TaskDetailStepOneEntity {
   @Column({ type: 'uuid' })
   task_id: string
 
-  @Column({ type: 'enum', enum: damageCar, nullable: false })
-  damage_car: damageCar
+  @Column({ type: 'enum', enum: DamageCar, nullable: false })
+  damage_car: DamageCar
 
   @Column({ type: 'varchar', nullable: false })
   damage_car_image: string

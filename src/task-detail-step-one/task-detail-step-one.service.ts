@@ -4,28 +4,29 @@ import { UpdateTaskDetailStepOneDto } from 'src/application/dto/tasks/task-detai
 import { CreateTaskDetailStepOneUseCase } from './use-cases/create-task-detail-step-one.use-case'
 import { GetTaskDetailStepOneUseCase } from './use-cases/get-task-detail-step-one.use-case'
 import { UpdateTaskDetailStepOneUseCase } from './use-cases/update-task-detail-step-one.use-case'
+import { ITaskDetailStepOneService } from 'src/application/interfaces/tasks/task-detail-step-one/task-detail-step-one.service.interface'
 
 @Injectable()
-export class TaskDetailStepOneService {
+export class TaskDetailStepOneService implements ITaskDetailStepOneService {
   constructor(
     private readonly createTaskDetailStepOneUseCase: CreateTaskDetailStepOneUseCase,
     private readonly getTaskDetailStepOneUseCase: GetTaskDetailStepOneUseCase,
     private readonly updateTaskDetailStepOneUseCase: UpdateTaskDetailStepOneUseCase,
   ) {}
 
-  async create(createDto: CreateTaskDetailStepOneDto) {
+  async createTaskDetailStepOne(createDto: CreateTaskDetailStepOneDto) {
     return this.createTaskDetailStepOneUseCase.execute(createDto)
   }
 
-  async findById(id: string) {
+  async getTaskDetailStepOneById(id: string) {
     return this.getTaskDetailStepOneUseCase.executeById(id)
   }
 
-  async findByTaskId(taskId: string) {
+  async getTaskDetailStepOneByTaskId(taskId: string) {
     return this.getTaskDetailStepOneUseCase.executeByTaskId(taskId)
   }
 
-  async update(id: string, updateDto: UpdateTaskDetailStepOneDto) {
+  async updateTaskDetailStepOne(id: string, updateDto: UpdateTaskDetailStepOneDto) {
     return this.updateTaskDetailStepOneUseCase.execute(id, updateDto)
   }
 }

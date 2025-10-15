@@ -1,10 +1,10 @@
 import { IsBoolean, IsEnum, IsOptional } from 'class-validator'
-import { damageCar } from 'src/shared/enum/task-detail-step-one'
+import { DamageCar } from 'src/shared/enum/task-detail-step-one'
 
 export class UpdateTaskDetailStepOneDto {
   @IsOptional()
-  @IsEnum(damageCar)
-  damage_car: damageCar
+  @IsEnum(DamageCar)
+  damage_car: DamageCar
 
   @IsOptional()
   damage_car_image?: string

@@ -11,21 +11,21 @@ export class TaskDetailStepOneController {
 
   @Post()
   async create(@Body() createDto: CreateTaskDetailStepOneDto) {
-    return this.taskDetailStepOneService.create(createDto)
+    return this.taskDetailStepOneService.createTaskDetailStepOne(createDto)
   }
 
   @Get(':id')
   async findById(@Param('id') id: string) {
-    return this.taskDetailStepOneService.findById(id)
+    return this.taskDetailStepOneService.getTaskDetailStepOneById(id)
   }
 
   @Get('task/:taskId')
   async findByTaskId(@Param('taskId') taskId: string) {
-    return this.taskDetailStepOneService.findByTaskId(taskId)
+    return this.taskDetailStepOneService.getTaskDetailStepOneByTaskId(taskId)
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailStepOneDto) {
-    return this.taskDetailStepOneService.update(id, updateDto)
+    return this.taskDetailStepOneService.updateTaskDetailStepOne(id, updateDto)
   }
 }

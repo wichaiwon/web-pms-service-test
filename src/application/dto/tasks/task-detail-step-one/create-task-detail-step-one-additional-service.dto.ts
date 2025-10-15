@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator'
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator'
 
 export class CreateTaskDetailStepOneAdditionalServiceDto {
   @IsNotEmpty()
@@ -6,8 +6,10 @@ export class CreateTaskDetailStepOneAdditionalServiceDto {
   task_detail_step_one_id: string
   
   @IsOptional()
+  @IsString({ each: true })
   additional_image?: string[]
 
   @IsOptional()
+  @IsString()
   comment?: string
 }

@@ -9,21 +9,21 @@ export class TaskDetailStepOneAdditionalServiceController {
 
   @Post()
   async create(@Body() createDto: CreateTaskDetailStepOneAdditionalServiceDto) {
-    return this.taskDetailStepOneAdditionalService.create(createDto)
+    return this.taskDetailStepOneAdditionalService.createTaskDetailStepOneAdditionalService(createDto)
   }
 
   @Get(':id')
   async findById(@Param('id') id: string) {
-    return this.taskDetailStepOneAdditionalService.findById(id)
+    return this.taskDetailStepOneAdditionalService.getTaskDetailStepOneAdditionalServiceById(id)
   }
 
   @Get('task-detail-step-one/:taskDetailStepOneId')
   async findByTaskDetailStepOneId(@Param('taskDetailStepOneId') taskDetailStepOneId: string) {
-    return this.taskDetailStepOneAdditionalService.findByTaskDetailStepOneId(taskDetailStepOneId)
+    return this.taskDetailStepOneAdditionalService.getTaskDetailStepOneAdditionalServiceByTaskDetailId(taskDetailStepOneId)
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailStepOneAdditionalServiceDto) {
-    return this.taskDetailStepOneAdditionalService.update(id, updateDto)
+    return this.taskDetailStepOneAdditionalService.updateTaskDetailStepOneAdditionalService(id, updateDto)
   }
 }

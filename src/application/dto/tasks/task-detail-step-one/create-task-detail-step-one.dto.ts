@@ -1,5 +1,5 @@
-import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsUUID } from 'class-validator'
-import { damageCar } from 'src/shared/enum/task-detail-step-one'
+import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator'
+import { DamageCar } from 'src/shared/enum/task-detail-step-one'
 
 export class CreateTaskDetailStepOneDto {
   @IsNotEmpty()
@@ -7,10 +7,11 @@ export class CreateTaskDetailStepOneDto {
   task_id: string
 
   @IsNotEmpty()
-  @IsEnum(damageCar)
-  damage_car: damageCar
+  @IsEnum(DamageCar)
+  damage_car: DamageCar
 
   @IsNotEmpty()
+  @IsString()
   damage_car_image: string
 
   @IsOptional()
