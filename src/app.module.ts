@@ -9,6 +9,7 @@ import { TaskDetailModule } from './task-detail/task-detail.module'
 import { TaskDetailStepOneModule } from './task-detail-step-one/task-detail-step-one.module'
 import { TaskDetailStepTwoModule } from './task-detail-step-two/task-detail-step-two.module'
 import { TaskDetailStepThreeModule } from './task-detail-step-three/task-detail-step-three.module'
+import { TaskDetailStepFourModule } from './task-detail-step-four/task-detail-step-four.module'
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TaskDetailStepThreeModule } from './task-detail-step-three/task-detail-
     TaskDetailStepOneModule,
     TaskDetailStepTwoModule,
     TaskDetailStepThreeModule,
+    TaskDetailStepFourModule,
   ],
   controllers: [AppController],
   providers: [AppService],
