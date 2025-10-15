@@ -25,7 +25,7 @@ export class TaskDetailAdditionalServiceController {
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() createDto: CreateTaskDetailAdditionalServiceDto) {
     try {
-      const result = await this.service.create(createDto)
+      const result = await this.service.createTaskDetailAdditionalService(createDto)
       return {
         success: true,
         message: 'Task detail additional service created successfully',
@@ -43,7 +43,7 @@ export class TaskDetailAdditionalServiceController {
   @Get(':id')
   async getById(@Param('id') id: string) {
     try {
-      const result = await this.service.getById(id)
+      const result = await this.service.getTaskDetailAdditionalServiceById(id)
       return {
         success: true,
         message: 'Additional service retrieved successfully',
@@ -61,7 +61,7 @@ export class TaskDetailAdditionalServiceController {
   @Get('task-detail/:taskDetailId')
   async getByTaskDetailId(@Param('taskDetailId') taskDetailId: string) {
     try {
-      const result = await this.service.getByTaskDetailId(taskDetailId)
+      const result = await this.service.getTaskDetailAdditionalServiceByTaskDetailId(taskDetailId)
       return {
         success: true,
         message: 'Additional services retrieved successfully',
@@ -82,17 +82,15 @@ export class TaskDetailAdditionalServiceController {
     @Body() updateDto: UpdateTaskDetailAdditionalServiceDto
   ) {
     try {
-      const result = await this.service.update(id, updateDto)
+      await this.service.updateTaskDetailAdditionalService(id, updateDto)
       return {
         success: true,
-        message: 'Additional service updated successfully',
-        data: result
+        message: 'Additional service updated successfully'
       }
     } catch (error) {
       return {
         success: false,
-        message: error.message,
-        data: null
+        message: error.message
       }
     }
   }

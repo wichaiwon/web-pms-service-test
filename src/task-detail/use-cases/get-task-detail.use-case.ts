@@ -10,7 +10,7 @@ export class GetTaskDetailUseCase {
   ) {}
 
   async execute(id: string): Promise<TaskDetailEntity> {
-    const taskDetail = await this.taskDetailRepository.findById(id)
+    const taskDetail = await this.taskDetailRepository.getTaskDetailById(id)
     if (!taskDetail) {
       throw new NotFoundException(`TaskDetail with id ${id} not found`)
     }
@@ -18,6 +18,6 @@ export class GetTaskDetailUseCase {
   }
 
   async executeByTaskId(taskId: string): Promise<TaskDetailEntity[]> {
-    return this.taskDetailRepository.findByTaskId(taskId)
+    return this.taskDetailRepository.getTaskDetailByTaskId(taskId)
   }
 }

@@ -5,28 +5,29 @@ import { GetTaskDetailAdditionalServiceUseCase } from '../use-cases/get-task-det
 import { UpdateTaskDetailAdditionalServiceUseCase } from '../use-cases/update-task-detail-additional-service.use-case'
 import { TaskDetailAdditionalServiceEntity } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
 import { UpdateTaskDetailAdditionalServiceDto } from 'src/application/dto/tasks/task-detail/update-task-detail-additional-service.dto'
+import { ITaskDetailAdditionalServiceService } from 'src/application/interfaces/tasks/task-detail/task-detail-additional-service.service.interface'
 
 @Injectable()
-export class TaskDetailAdditionalServiceService {
+export class TaskDetailAdditionalServiceService implements ITaskDetailAdditionalServiceService {
   constructor(
     private readonly createUseCase: CreateTaskDetailAdditionalServiceUseCase,
     private readonly getUseCase: GetTaskDetailAdditionalServiceUseCase,
     private readonly updateUseCase: UpdateTaskDetailAdditionalServiceUseCase,
   ) {}
 
-  async create(createDto: CreateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalServiceEntity> {
+  async createTaskDetailAdditionalService(createDto: CreateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalServiceEntity> {
     return this.createUseCase.execute(createDto)
   }
 
-  async getById(id: string): Promise<TaskDetailAdditionalServiceEntity> {
+  async getTaskDetailAdditionalServiceById(id: string): Promise<TaskDetailAdditionalServiceEntity> {
     return this.getUseCase.execute(id)
   }
 
-  async getByTaskDetailId(taskDetailId: string): Promise<TaskDetailAdditionalServiceEntity[]> {
+  async getTaskDetailAdditionalServiceByTaskDetailId(taskDetailId: string): Promise<TaskDetailAdditionalServiceEntity[]> {
     return this.getUseCase.executeByTaskDetailId(taskDetailId)
   }
 
-  async update(id: string, updateDto: UpdateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalServiceEntity> {
+  async updateTaskDetailAdditionalService(id: string, updateDto: UpdateTaskDetailAdditionalServiceDto): Promise<void> {
     return this.updateUseCase.execute(id, updateDto)
   }
 }

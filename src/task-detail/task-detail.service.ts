@@ -27,7 +27,7 @@ export class TaskDetailService implements ITaskDetailService {
     return this.getTaskDetailUseCase.executeByTaskId(taskId)
   }
 
-  async updateTaskDetail(id: string, updateDto: UpdateTaskDetailDto): Promise<TaskDetailEntity> {
+  async updateTaskDetail(id: string, updateDto: UpdateTaskDetailDto): Promise<void> {
     return this.updateTaskDetailUseCase.execute(id, updateDto)
   }
 }

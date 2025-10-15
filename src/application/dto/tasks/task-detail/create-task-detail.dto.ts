@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID, IsOptional, IsEnum, IsNumber, IsBoolean } from 'class-validator'
+import { IsNotEmpty, IsUUID, IsOptional, IsEnum, IsNumber, IsBoolean, IsString } from 'class-validator'
 import { FuelLevel } from 'src/shared/enum/task-detail'
 
 export class CreateTaskDetailDto {
@@ -7,9 +7,11 @@ export class CreateTaskDetailDto {
   task_id: string
 
   @IsNotEmpty()
+  @IsString()
   task_detail_image1: string
 
   @IsNotEmpty()
+  @IsString()
   task_detail_image2: string
 
   @IsOptional()

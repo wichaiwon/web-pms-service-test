@@ -6,5 +6,5 @@ export interface ITaskDetailService {
   createTaskDetail(createDto: CreateTaskDetailDto): Promise<TaskDetailEntity>
   getTaskDetailById(id: string): Promise<TaskDetailEntity>
   getTaskDetailsByTaskId(taskId: string): Promise<TaskDetailEntity[]>
-  updateTaskDetail(id: string, updateDto: UpdateTaskDetailDto): Promise<TaskDetailEntity>
+  updateTaskDetail(id: string, updateDto: UpdateTaskDetailDto): Promise<void>
 }

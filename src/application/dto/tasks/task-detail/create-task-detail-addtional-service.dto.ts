@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID, IsOptional, IsEnum, IsNumber, ValidateIf } from 'class-validator'
+import { IsNotEmpty, IsUUID, IsOptional, IsEnum, IsNumber, ValidateIf, IsString } from 'class-validator'
 import { TirePressure, AdditionalService } from 'src/shared/enum/task-detail'
 
 export class CreateTaskDetailAdditionalServiceDto {
@@ -27,5 +27,6 @@ export class CreateTaskDetailAdditionalServiceDto {
   back_tire_pressure?: number
 
   @IsOptional()
+  @IsString()
   comment?: string
 }

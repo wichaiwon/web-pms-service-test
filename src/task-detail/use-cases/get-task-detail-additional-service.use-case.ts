@@ -10,7 +10,7 @@ export class GetTaskDetailAdditionalServiceUseCase {
   ) {}
 
   async execute(id: string): Promise<TaskDetailAdditionalServiceEntity> {
-    const service = await this.repository.findById(id)
+    const service = await this.repository.getTaskDetailAdditionalServiceById(id)
     if (!service) {
       throw new NotFoundException(`TaskDetailAdditionalService with id ${id} not found`)
     }
@@ -18,6 +18,6 @@ export class GetTaskDetailAdditionalServiceUseCase {
   }
 
   async executeByTaskDetailId(taskDetailId: string): Promise<TaskDetailAdditionalServiceEntity[]> {
-    return this.repository.findByTaskDetailId(taskDetailId)
+    return this.repository.getTaskDetailAdditionalServicesByTaskDetailId(taskDetailId)
   }
 }

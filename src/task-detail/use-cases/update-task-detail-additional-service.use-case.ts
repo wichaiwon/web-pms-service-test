@@ -11,17 +11,17 @@ export class UpdateTaskDetailAdditionalServiceUseCase {
     private readonly repository: ITaskDetailAdditionalServiceRepository,
   ) {}
 
-  async execute(id: string, dto: UpdateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalServiceEntity> {
-    const existing = await this.repository.findById(id)
+  async execute(id: string, updateDto: UpdateTaskDetailAdditionalServiceDto): Promise<void> {
+    const existing = await this.repository.getTaskDetailAdditionalServiceById(id)
     if (!existing) {
       throw new NotFoundException(`TaskDetailAdditionalService with id ${id} not found`)
     }
 
     // Business Rule: ถ้าเปลี่ยนเป็น "เติมลมยาง" ต้องมี tire pressure
-    const newService = dto.additional_service || existing.additional_service
+    const newService = updateDto.additional_service || existing.additional_service
     if (newService === AdditionalService.TIRE_INFLATION) {
-      const frontPressure = dto.front_tire_pressure !== undefined ? dto.front_tire_pressure : existing.front_tire_pressure
-      const backPressure = dto.back_tire_pressure !== undefined ? dto.back_tire_pressure : existing.back_tire_pressure
+      const frontPressure = updateDto.front_tire_pressure !== undefined ? updateDto.front_tire_pressure : existing.front_tire_pressure
+      const backPressure = updateDto.back_tire_pressure !== undefined ? updateDto.back_tire_pressure : existing.back_tire_pressure
 
       if (!frontPressure || !backPressure) {
         throw new BadRequestException(
@@ -34,6 +34,6 @@ export class UpdateTaskDetailAdditionalServiceUseCase {
       }
     }
 
-    return this.repository.update(id, dto)
+    return this.repository.updateTaskDetailAdditionalService(id, updateDto)
   }
 }
