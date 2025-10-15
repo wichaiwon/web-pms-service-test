@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
+import { UpdateTaskDto } from 'src/application/dto/tasks/update-task.dto'
 import { Tasks } from 'src/domain/entities/task/task.entity'
-import { ITaskRepository } from 'src/domain/repositories/task/task.repository'
+import { ITaskRepository } from 'src/domain/repositories/task/task.repository.interface'
 import { Repository } from 'typeorm'
 
 @Injectable()
@@ -11,24 +13,28 @@ export class TaskRepository implements ITaskRepository {
     private readonly taskRepository: Repository<Tasks>,
   ) {}
 
-  async findById(id: string): Promise<Tasks | null> {
-    return this.taskRepository.findOne({ where: { id } })
+  async getTaskById(id: string): Promise<Tasks> {
+    const task = await this.taskRepository.findOne({ where: { id } })
+    if (!task) {
+      throw new Error(`Task with id ${id} not found`)
+    }
+    return task
   }
 
-  async findAll(): Promise<Tasks[]> {
+  async getTasks(): Promise<Tasks[]> {
     return this.taskRepository.find({
       order: { created_at: 'DESC' },
     })
   }
 
-  async findByCustomerId(customerId: string): Promise<Tasks[]> {
+  async getTaskByCustomerId(customerId: string): Promise<Tasks[]> {
     return this.taskRepository.find({
       where: { customer_id: customerId },
       order: { created_at: 'DESC' },
     })
   }
 
-  async findByResponsible(userId: string): Promise<Tasks[]> {
+  async getTaskByResponsible(userId: string): Promise<Tasks[]> {
     return this.taskRepository
       .createQueryBuilder('task')
       .where(':userId = ANY(task.responsible)', { userId })
@@ -36,27 +42,25 @@ export class TaskRepository implements ITaskRepository {
       .getMany()
   }
 
-  async create(taskData: Partial<Tasks>): Promise<Tasks> {
+  async createTask(createDto: CreateTaskDto): Promise<Tasks> {
     const task = this.taskRepository.create({
-      ...taskData,
+      ...createDto,
       success_flag: false,
     })
     return this.taskRepository.save(task)
   }
 
-  async update(id: string, taskData: Partial<Tasks>): Promise<Tasks> {
-    await this.taskRepository.update(id, {
-      ...taskData,
+  async updateTask(id: string, updateDto: UpdateTaskDto): Promise<void> {
+    const result = await this.taskRepository.update(id, {
+      ...updateDto,
       updated_at: new Date(),
     })
-    const updatedTask = await this.findById(id)
-    if (!updatedTask) {
+    if (result.affected === 0) {
       throw new Error(`Task with id ${id} not found`)
     }
-    return updatedTask
   }
 
-  async findByStatus(status: string): Promise<Tasks[]> {
+  async getTaskByStatus(status: string): Promise<Tasks[]> {
     return this.taskRepository.find({
       where: [{ status_repair_order: status as any }, { status_report: status as any }],
       order: { created_at: 'DESC' },

@@ -35,7 +35,7 @@ export class TaskService implements ITaskService {
     return this.getTaskUseCase.executeByResponsible(userId)
   }
 
-  async updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<Tasks> {
+  async updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<void> {
     return this.updateTaskUseCase.execute(id, updateTaskDto)
   }
 

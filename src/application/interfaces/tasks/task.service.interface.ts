@@ -8,6 +8,6 @@ export interface ITaskService {
   getAllTasks(): Promise<Tasks[]>
   getTasksByCustomerId(customerId: string): Promise<Tasks[]>
   getTasksByResponsible(userId: string): Promise<Tasks[]>
-  updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<Tasks>
+  updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<void>
   getTasksByStatus(status: string): Promise<Tasks[]>
 }

@@ -1,8 +1,9 @@
-import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray } from 'class-validator'
-import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
+import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray, IsString } from 'class-validator'
+import {  StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 
 export class UpdateTaskDto {
   @IsOptional()
+  @IsString()
   vehicle_registration?: string
 
   @IsOptional()

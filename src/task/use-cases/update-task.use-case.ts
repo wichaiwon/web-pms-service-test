@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common'
 import { Tasks } from '../../domain/entities/task/task.entity'
-import type { ITaskRepository } from '../../domain/repositories/task/task.repository'
+import type { ITaskRepository } from '../../domain/repositories/task/task.repository.interface'
 import { UpdateTaskDto } from '../../application/dto/tasks/update-task.dto'
 
 @Injectable()
@@ -10,9 +10,9 @@ export class UpdateTaskUseCase {
     private readonly taskRepository: ITaskRepository,
   ) {}
 
-  async execute(id: string, updateTaskDto: UpdateTaskDto): Promise<Tasks> {
+  async execute(id: string, updateTaskDto: UpdateTaskDto): Promise<void> {
     // Check if task exists
-    const existingTask = await this.taskRepository.findById(id)
+    const existingTask = await this.taskRepository.getTaskById(id)
     if (!existingTask) {
       throw new Error(`Task with id ${id} not found`)
     }
@@ -21,13 +21,7 @@ export class UpdateTaskUseCase {
     if (existingTask.success_flag && updateTaskDto.success_flag === false) {
       throw new Error('Cannot revert completed task to incomplete')
     }
-
-    // Update with business rules
-    const updateData: Partial<Tasks> = {
-      ...updateTaskDto,
-      updated_at: new Date(),
-    }
-
-    return this.taskRepository.update(id, updateData)
+    
+    await this.taskRepository.updateTask(id, updateTaskDto)
   }
 }

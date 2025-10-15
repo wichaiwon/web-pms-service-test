@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray} from 'class-validator'
+import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray, IsString} from 'class-validator'
 import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 
 export class CreateTaskDto {
@@ -7,15 +7,19 @@ export class CreateTaskDto {
   walk_in_flag?: boolean
 
   @IsOptional()
+  @IsString()
   vehicle_registration?: string
 
   @IsNotEmpty()
+  @IsString()
   engine_number: string
 
   @IsNotEmpty()
+  @IsString()
   chassis_number: string
 
   @IsNotEmpty()
+  @IsString()
   customer_id: string
 
   @IsOptional()

@@ -15,11 +15,9 @@ import { UpdateTaskUseCase } from './use-cases/update-task.use-case'
   controllers: [TaskController],
   providers: [
     TaskService,
-    // Use Cases
     CreateTaskUseCase,
     GetTaskUseCase,
     UpdateTaskUseCase,
-    // Repository
     {
       provide: 'ITaskRepository',
       useClass: TaskRepository,
