@@ -5,42 +5,42 @@ import { Branch } from 'src/shared/enum/user'
 
 export class RegisterDto {
   @ApiProperty({ example: '5608216' })
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   pkg_id_member: string
   
   @ApiProperty({ example: '405121010' })
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   mirai_id: string
 
   @ApiProperty({ example: 'Puy11111111' })
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   password: string
 
   @ApiProperty({ example: 'อนุสสรา' })
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   name: string
 
   @ApiProperty({ example: 'โตสุข' })
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   surname: string
 
   @ApiProperty({example: '123456'})
-  @IsString()
   @IsOptional()
+  @IsString()
   pin_code?: string
 
   @ApiProperty({ example: 'admin', enum: UserRole, default: UserRole.ADMIN })
-  @IsEnum(UserRole)
   @IsOptional()
+  @IsEnum(UserRole)
   role?: UserRole
 
   @ApiProperty({ example: 'head_office', enum: Branch, default: Branch.HEAD_OFFICE })
-  @IsEnum(Branch)
   @IsOptional()
+  @IsEnum(Branch)
   branch?: Branch
 }
