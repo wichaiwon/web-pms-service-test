@@ -4,24 +4,39 @@ import { CreateTaskDetailStepThreeAdditionalServiceUseCase } from '../use-cases/
 import { UpdateTaskDetailStepThreeAdditionalServiceUseCase } from '../use-cases/update-task-detail-step-three-additional-service.use-case'
 import { CreateTaskDetailStepThreeAdditionalServiceDto } from 'src/application/dto/tasks/task-detail-step-three/create-task-detail-step-three-additional-service.dto'
 import { UpdateTaskDetailStepThreeAdditionalServiceDto } from 'src/application/dto/tasks/task-detail-step-three/update-task-detail-step-three-additional-service'
+import { ITaskDetailStepThreeAdditionalServiceService } from 'src/application/interfaces/tasks/task-detail-step-three/task-detail-step-three-additional-service.service.interface'
 
 @Injectable()
-export class TaskDetailStepThreeAdditionalServiceService {
+export class TaskDetailStepThreeAdditionalServiceService implements ITaskDetailStepThreeAdditionalServiceService {
   constructor(
     private readonly getTaskDetailStepThreeAdditionalServiceUseCase: GetTaskDetailStepThreeAdditionalServiceUseCase,
     private readonly createTaskDetailStepThreeAdditionalServiceUseCase: CreateTaskDetailStepThreeAdditionalServiceUseCase,
     private readonly updateTaskDetailStepThreeAdditionalServiceUseCase: UpdateTaskDetailStepThreeAdditionalServiceUseCase,
   ) {}
-  async create(createDto: CreateTaskDetailStepThreeAdditionalServiceDto) {
+  async createTaskDetailStepThreeAdditionalService(createDto: CreateTaskDetailStepThreeAdditionalServiceDto) {
     return this.createTaskDetailStepThreeAdditionalServiceUseCase.execute(createDto)
   }
-  async findById(id: string) {
+  async getTaskDetailStepThreeAdditionalServiceById(id: string) {
     return this.getTaskDetailStepThreeAdditionalServiceUseCase.executeById(id)
   }
-  async findByTaskDetailStepThreeId(taskDetailStepThreeId: string) {
+  async getTaskDetailStepThreeAdditionalServiceByTaskDetailId(taskDetailStepThreeId: string) {
     return this.getTaskDetailStepThreeAdditionalServiceUseCase.executeByTaskDetailStepThreeId(taskDetailStepThreeId)
   }
-  async update(id: string, updateDto: UpdateTaskDetailStepThreeAdditionalServiceDto) {
+  async updateTaskDetailStepThreeAdditionalService(id: string, updateDto: UpdateTaskDetailStepThreeAdditionalServiceDto) {
     return this.updateTaskDetailStepThreeAdditionalServiceUseCase.execute(id, updateDto)
+  }
+
+  // Methods needed by controller
+  async create(createDto: CreateTaskDetailStepThreeAdditionalServiceDto) {
+    return this.createTaskDetailStepThreeAdditionalService(createDto)
+  }
+  async findById(id: string) {
+    return this.getTaskDetailStepThreeAdditionalServiceById(id)
+  }
+  async findByTaskDetailStepThreeId(taskDetailStepThreeId: string) {
+    return this.getTaskDetailStepThreeAdditionalServiceByTaskDetailId(taskDetailStepThreeId)
+  }
+  async update(id: string, updateDto: UpdateTaskDetailStepThreeAdditionalServiceDto) {
+    return this.updateTaskDetailStepThreeAdditionalService(id, updateDto)
   }
 }

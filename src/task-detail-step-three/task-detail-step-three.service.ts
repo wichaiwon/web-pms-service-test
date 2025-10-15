@@ -4,25 +4,26 @@ import { UpdateTaskDetailStepThreeUseCase } from './use-cases/update-task-detail
 import { CreateTaskDetailStepThreeUseCase } from './use-cases/create-task-detail-step-three.use-case'
 import { CreateTaskDetailStepThreeDto } from 'src/application/dto/tasks/task-detail-step-three/create-task-detail-step-three.dto'
 import { UpdateTaskDetailStepThreeDto } from 'src/application/dto/tasks/task-detail-step-three/update-task-detail-step-three.dto'
+import { ITaskDetailStepThreeService } from 'src/application/interfaces/tasks/task-detail-step-three/task-detail-step-three.service.interface'
 
 @Injectable()
-export class TaskDetailStepThreeService {
+export class TaskDetailStepThreeService implements ITaskDetailStepThreeService {
   constructor(
     private readonly getTaskDetailStepThreeRepository: GetTaskDetailStepThreeUseCase,
     private readonly updateTaskDetailStepThreeRepository: UpdateTaskDetailStepThreeUseCase,
     private readonly createTaskDetailStepThreeRepository: CreateTaskDetailStepThreeUseCase,
   ) {}
 
-  async create(createDto: CreateTaskDetailStepThreeDto) {
+  async createTaskDetailStepThree(createDto: CreateTaskDetailStepThreeDto) {
     return this.createTaskDetailStepThreeRepository.execute(createDto)
   }
-  async findById(id: string) {
+  async getTaskDetailStepThreeById(id: string) {
     return this.getTaskDetailStepThreeRepository.executeById(id)
   }
-  async findByTaskId(taskId: string) {
+  async getTaskDetailStepThreeByTaskId(taskId: string) {
     return this.getTaskDetailStepThreeRepository.executeByTaskId(taskId)
   }
-  async update(id: string, updateDto: UpdateTaskDetailStepThreeDto) {
+  async updateTaskDetailStepThree(id: string, updateDto: UpdateTaskDetailStepThreeDto) {
     return this.updateTaskDetailStepThreeRepository.execute(id, updateDto)
   }
 }
