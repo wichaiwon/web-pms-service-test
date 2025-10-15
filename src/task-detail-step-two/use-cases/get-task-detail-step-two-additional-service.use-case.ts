@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { TaskDetailStepTwoAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-two/task-detail-step-two-additional-service.entity'
-import type { ITaskDetailStepTwoAdditionalServiceRepository } from 'src/domain/repositories/task/task-detail-step-two/task-detail-step-two-additional-service.repository'
+import type { ITaskDetailStepTwoAdditionalServiceRepository } from 'src/domain/repositories/task/task-detail-step-two/task-detail-step-two-additional-service.repository.interface'
 
 @Injectable()
 export class GetTaskDetailStepTwoAdditionalServiceUseCase {

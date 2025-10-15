@@ -9,19 +9,19 @@ export class TaskDetailStepTwoAdditionalServiceController {
 
   @Post()
   async create(@Body() createDto: CreateTaskDetailStepTwoAdditionalServiceDto) {
-    return this.taskDetailStepTwoAdditionalService.create(createDto)
+    return this.taskDetailStepTwoAdditionalService.createTaskDetailStepTwoAdditionalService(createDto)
   }
   @Get(':id')
   async findById(@Body('id') id: string) {
-    return this.taskDetailStepTwoAdditionalService.findById(id)
+    return this.taskDetailStepTwoAdditionalService.getTaskDetailStepTwoAdditionalServiceById(id)
   }
   @Get('task-detail-step-two/:taskDetailStepTwoId')
   async findByTaskDetailStepTwoId(@Body('taskDetailStepTwoId') taskDetailStepTwoId: string) {
-    return this.taskDetailStepTwoAdditionalService.findByTaskDetailStepTwoId(taskDetailStepTwoId)
+    return this.taskDetailStepTwoAdditionalService.getTaskDetailStepTwoAdditionalServiceByTaskDetailId(taskDetailStepTwoId)
   }
 
   @Put(':id')
   async update(@Body('id') id: string, @Body() updateDto: UpdateTaskDetailStepTwoAdditionalServiceDto) {
-    return this.taskDetailStepTwoAdditionalService.update(id, updateDto)
+    return this.taskDetailStepTwoAdditionalService.updateTaskDetailStepTwoAdditionalService(id, updateDto)
   }
 }
