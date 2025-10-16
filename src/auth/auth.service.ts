@@ -2,9 +2,10 @@ import { Injectable, Inject } from '@nestjs/common'
 import { Users } from '../domain/entities/user/user.entity'
 import { LoginDto } from '../application/dto/users/login.dto'
 import { RegisterDto } from '../application/dto/users/register.dto'
-import { LoginUseCase, LoginResult } from './use-cases/login.use-case'
+import { LoginUseCase } from './use-cases/login.use-case'
 import { RegisterUseCase } from './use-cases/register.use-case'
 import { UpdatePasswordUseCase } from './use-cases/update-password.use-case'
+import { LoginResult } from 'src/shared/types/login'
 
 @Injectable()
 export class AuthService {

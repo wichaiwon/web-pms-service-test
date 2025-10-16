@@ -1,4 +1,4 @@
-export interface LoginResult {
+export type LoginResult = {
   access_token: string
   user: {
     id: string

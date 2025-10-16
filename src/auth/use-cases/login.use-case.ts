@@ -1,21 +1,9 @@
 import { Injectable, UnauthorizedException, Inject } from '@nestjs/common'
-import { Users } from '../../domain/entities/user/user.entity'
 import type { IUserRepository } from '../../domain/repositories/user/user.repository.interface'
 import { LoginDto } from '../../application/dto/users/login.dto'
 import type { IJwtTokenService } from '../../infrastructure/services/jwt-token.service'
 import type { IPasswordHasher } from '../../infrastructure/services/password-hasher.service'
-
-export interface LoginResult {
-  access_token: string
-  user: {
-    id: string
-    name: string
-    surname: string
-    mirai_id: string
-    role: string
-    branch: string
-  }
-}
+import { LoginResult } from 'src/shared/types/login'
 
 @Injectable()
 export class LoginUseCase {
