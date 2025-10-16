@@ -27,10 +27,6 @@ export class TaskService implements ITaskService {
     return this.getTaskUseCase.executeAll()
   }
 
-  async getTasksByCustomerId(customerId: string): Promise<Tasks[]> {
-    return this.getTaskUseCase.executeByCustomerId(customerId)
-  }
-
   async getTasksByResponsible(userId: string): Promise<Tasks[]> {
     return this.getTaskUseCase.executeByResponsible(userId)
   }

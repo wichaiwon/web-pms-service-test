@@ -1,30 +1,35 @@
-import { IsString, IsNotEmpty, IsEnum, IsOptional, IsTimeZone } from 'class-validator'
+import { IsString, IsNotEmpty, IsEnum, IsOptional } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger'
 import { UserRole } from 'src/shared/enum/user'
 import { Branch } from 'src/shared/enum/user'
 
 export class RegisterDto {
-  @ApiProperty({ example: '5608216' })
+  @ApiProperty({ example: '6805018' })
   @IsNotEmpty()
   @IsString()
   pkg_id_member: string
-  
-  @ApiProperty({ example: '405121010' })
+
+  @ApiProperty({ example: '405680518' })
   @IsNotEmpty()
   @IsString()
   mirai_id: string
 
-  @ApiProperty({ example: 'Puy11111111' })
+  @ApiProperty({ example: 'wichai.wongfu.pkg@gmail.com' })
+  @IsNotEmpty()
+  @IsString()
+  email: string
+
+  @ApiProperty({ example: '1234567890' })
   @IsNotEmpty()
   @IsString()
   password: string
 
-  @ApiProperty({ example: 'อนุสสรา' })
+  @ApiProperty({ example: 'วิชัย' })
   @IsNotEmpty()
   @IsString()
   name: string
 
-  @ApiProperty({ example: 'โตสุข' })
+  @ApiProperty({ example: 'วงค์ฟู' })
   @IsNotEmpty()
   @IsString()
   surname: string
@@ -39,7 +44,7 @@ export class RegisterDto {
   @IsEnum(UserRole)
   role?: UserRole
 
-  @ApiProperty({ example: 'head_office', enum: Branch, default: Branch.HEAD_OFFICE })
+  @ApiProperty({ example: 'สำนักงานใหญ่', enum: Branch, default: Branch.HEAD_OFFICE })
   @IsOptional()
   @IsEnum(Branch)
   branch?: Branch

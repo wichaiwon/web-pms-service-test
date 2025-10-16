@@ -23,13 +23,6 @@ export class GetTaskUseCase {
     return this.taskRepository.getTasks()
   }
 
-  async executeByCustomerId(customerId: string): Promise<Tasks[]> {
-    if (!customerId) {
-      throw new Error('Customer ID is required')
-    }
-    return this.taskRepository.getTaskByCustomerId(customerId)
-  }
-
   async executeByResponsible(userId: string): Promise<Tasks[]> {
     if (!userId) {
       throw new Error('User ID is required')

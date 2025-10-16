@@ -9,6 +9,9 @@ export class Users {
   @Column({ unique: true })
   pkg_id_member: string
 
+  @Column({ unique: true })
+  email: string
+
   @Column({ nullable: false })
   name: string
 

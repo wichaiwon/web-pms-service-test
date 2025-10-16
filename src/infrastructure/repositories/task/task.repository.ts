@@ -27,12 +27,6 @@ export class TaskRepository implements ITaskRepository {
     })
   }
 
-  async getTaskByCustomerId(customerId: string): Promise<Tasks[]> {
-    return this.taskRepository.find({
-      where: { customer_id: customerId },
-      order: { created_at: 'DESC' },
-    })
-  }
 
   async getTaskByResponsible(userId: string): Promise<Tasks[]> {
     return this.taskRepository

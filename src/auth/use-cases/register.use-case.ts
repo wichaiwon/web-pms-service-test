@@ -31,7 +31,6 @@ export class RegisterUseCase {
       is_active: true,
       pin_code: registerDto.pin_code,
       created_by: 'admin',
-      password_updated_at: new Date(),
     }
 
     // 4. Create user

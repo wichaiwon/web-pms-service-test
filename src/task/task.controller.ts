@@ -74,23 +74,6 @@ export class TaskController {
     }
   }
 
-  @Get('customer/:customerId')
-  async getTasksByCustomerId(@Param('customerId') customerId: string) {
-    try {
-      const tasks = await this.taskService.getTasksByCustomerId(customerId)
-      return {
-        success: true,
-        message: 'Customer tasks retrieved successfully',
-        data: tasks
-      }
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: []
-      }
-    }
-  }
 
   @Get('responsible/:userId')
   async getTasksByResponsible(@Param('userId') userId: string) {
