@@ -10,6 +10,8 @@ import { TaskDetailStepOneModule } from './task-detail-step-one/task-detail-step
 import { TaskDetailStepTwoModule } from './task-detail-step-two/task-detail-step-two.module'
 import { TaskDetailStepThreeModule } from './task-detail-step-three/task-detail-step-three.module'
 import { TaskDetailStepFourModule } from './task-detail-step-four/task-detail-step-four.module'
+import { ScheduleServicesModule } from './infrastructure/services/schedule-services.module'
+import { AppointmentSyncController } from './appointment-sync.controller'
 
 @Module({
   imports: [
@@ -25,8 +27,9 @@ import { TaskDetailStepFourModule } from './task-detail-step-four/task-detail-st
     TaskDetailStepTwoModule,
     TaskDetailStepThreeModule,
     TaskDetailStepFourModule,
+    ScheduleServicesModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AppointmentSyncController],
   providers: [AppService],
 })
 export class AppModule {}

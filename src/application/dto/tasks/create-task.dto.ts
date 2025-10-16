@@ -2,6 +2,7 @@ import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray, IsString} f
 import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 
 export class CreateTaskDto {
+
   @IsOptional()
   @IsBoolean()
   walk_in_flag?: boolean
@@ -24,7 +25,7 @@ export class CreateTaskDto {
 
   @IsOptional()
   @IsArray()
-  @IsUUID('4', { each: true })
+  @IsUUID()
   responsible?: string[]
 
   @IsNotEmpty()

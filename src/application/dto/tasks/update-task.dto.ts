@@ -12,7 +12,7 @@ export class UpdateTaskDto {
 
   @IsOptional()
   @IsArray()
-  @IsUUID('4', { each: true })
+  @IsUUID()
   responsible?: string[]
 
   @IsOptional()
