@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray, IsString } from 'class-validator'
-import {  StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
+import { StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 
 export class UpdateTaskDto {
   @IsOptional()
@@ -9,10 +9,22 @@ export class UpdateTaskDto {
   @IsOptional()
   @IsBoolean()
   success_flag?: boolean
+  
+  @IsNotEmpty()
+  @IsString()
+  vin_number: string
+
+  @IsNotEmpty()
+  @IsString()
+  engine_number: string
+
+  @IsNotEmpty()
+  @IsString()
+  chassis_number: string
 
   @IsOptional()
   @IsArray()
-  @IsUUID('4', { each: true })
+  @IsUUID()
   responsible?: string[]
 
   @IsOptional()

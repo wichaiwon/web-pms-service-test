@@ -1,5 +1,5 @@
 import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('tasks')
 export class Tasks {
@@ -12,14 +12,26 @@ export class Tasks {
   @Column({ type: 'varchar', nullable: true })
   vehicle_registration: string
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
+  vehicle_registration_province: string
+
+  @Column({ type: 'varchar', nullable: true })
+  vin_number: string
+
+  @Column({ type: 'varchar', nullable: true })
   engine_number: string
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   chassis_number: string
 
-  @Column({ type: 'uuid', nullable: false })
-  customer_id: string
+  @Column({ type: 'varchar', nullable: false })
+  customer_name: string
+
+  @Column({ type: 'varchar', nullable: false })
+  customer_surname: string
+
+  @Column({ type: 'varchar', nullable: false })
+  customer_contact: string
 
   @Column({ type: 'uuid', array: true, nullable: true })
   responsible: string[]

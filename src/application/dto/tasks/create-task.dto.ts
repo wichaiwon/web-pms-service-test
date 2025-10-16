@@ -10,21 +10,33 @@ export class CreateTaskDto {
   @IsString()
   vehicle_registration?: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  engine_number: string
+  vin_number?: string
+
+  @IsOptional()
+  @IsString()
+  engine_number?: string
+
+  @IsOptional()
+  @IsString()
+  chassis_number?: string
 
   @IsNotEmpty()
   @IsString()
-  chassis_number: string
+  customer_name: string
 
   @IsNotEmpty()
   @IsString()
-  customer_id: string
+  customer_surname: string
+
+  @IsNotEmpty()
+  @IsString()
+  customer_contact: string
 
   @IsOptional()
   @IsArray()
-  @IsUUID('4', { each: true })
+  @IsUUID()
   responsible?: string[]
 
   @IsNotEmpty()

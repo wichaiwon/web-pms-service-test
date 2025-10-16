@@ -1,5 +1,4 @@
 import { Injectable, Inject } from '@nestjs/common'
-import { Tasks } from '../../domain/entities/task/task.entity'
 import type { ITaskRepository } from '../../domain/repositories/task/task.repository.interface'
 import { UpdateTaskDto } from '../../application/dto/tasks/update-task.dto'
 
