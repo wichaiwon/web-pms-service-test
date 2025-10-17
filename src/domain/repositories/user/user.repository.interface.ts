@@ -1,5 +1,4 @@
-import { Users } from "src/domain/entities/user/user.entity"
-
+import { Users } from 'src/domain/entities/user/user.entity'
 
 export interface IUserRepository {
   findByMiraiId(mirai_id: string): Promise<Users | null>

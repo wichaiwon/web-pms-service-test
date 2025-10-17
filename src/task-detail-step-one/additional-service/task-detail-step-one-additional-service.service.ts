@@ -8,14 +8,16 @@ import { UpdateTaskDetailStepOneAdditionalServiceUseCase } from '../use-cases/up
 import { ITaskDetailStepOneAdditionalServiceService } from 'src/application/interfaces/tasks/task-detail-step-one/task-detail-step-one-additional-service.service.interface'
 
 @Injectable()
-export class TaskDetailStepOneAdditionalServiceService implements ITaskDetailStepOneAdditionalServiceService{
+export class TaskDetailStepOneAdditionalServiceService implements ITaskDetailStepOneAdditionalServiceService {
   constructor(
     private readonly createTaskDetailStepOneAdditionalServiceUseCase: CreateTaskDetailStepOneAdditionalServiceUseCase,
     private readonly getTaskDetailStepOneAdditionalServiceUseCase: GetTaskDetailStepOneAdditionalServiceUseCase,
     private readonly updateTaskDetailStepOneAdditionalServiceUseCase: UpdateTaskDetailStepOneAdditionalServiceUseCase,
   ) {}
 
-  async createTaskDetailStepOneAdditionalService(createDto: CreateTaskDetailStepOneAdditionalServiceDto): Promise<TaskDetailStepOneAdditionalServiceEntity> {
+  async createTaskDetailStepOneAdditionalService(
+    createDto: CreateTaskDetailStepOneAdditionalServiceDto,
+  ): Promise<TaskDetailStepOneAdditionalServiceEntity> {
     return this.createTaskDetailStepOneAdditionalServiceUseCase.execute(createDto)
   }
 
@@ -23,11 +25,16 @@ export class TaskDetailStepOneAdditionalServiceService implements ITaskDetailSte
     return this.getTaskDetailStepOneAdditionalServiceUseCase.executeById(id)
   }
 
-  async getTaskDetailStepOneAdditionalServiceByTaskDetailId(taskDetailStepOneId: string): Promise<TaskDetailStepOneAdditionalServiceEntity[]> {
+  async getTaskDetailStepOneAdditionalServiceByTaskDetailId(
+    taskDetailStepOneId: string,
+  ): Promise<TaskDetailStepOneAdditionalServiceEntity[]> {
     return this.getTaskDetailStepOneAdditionalServiceUseCase.executeByTaskDetailStepOneId(taskDetailStepOneId)
   }
 
-  async updateTaskDetailStepOneAdditionalService(id: string, updateDto: UpdateTaskDetailStepOneAdditionalServiceDto): Promise<void> {
+  async updateTaskDetailStepOneAdditionalService(
+    id: string,
+    updateDto: UpdateTaskDetailStepOneAdditionalServiceDto,
+  ): Promise<void> {
     return this.updateTaskDetailStepOneAdditionalServiceUseCase.execute(id, updateDto)
   }
 }

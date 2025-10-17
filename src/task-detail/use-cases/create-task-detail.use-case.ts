@@ -31,6 +31,5 @@ export class CreateTaskDetailUseCase {
       throw new BadRequestException('Car mileage cannot be negative')
     }
     return this.taskDetailRepository.createTaskDetail(createDto)
-
   }
 }

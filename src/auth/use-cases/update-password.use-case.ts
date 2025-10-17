@@ -15,7 +15,7 @@ export class UpdatePasswordUseCase {
   async execute(miraiId: string, oldPassword: string, newPassword: string): Promise<Users> {
     // 1. Find user
     const user = await this.userRepository.findByMiraiId(miraiId)
-    
+
     if (!user) {
       throw new UnauthorizedException('User not found')
     }

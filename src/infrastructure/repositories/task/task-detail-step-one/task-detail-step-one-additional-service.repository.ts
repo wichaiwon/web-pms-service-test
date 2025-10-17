@@ -13,7 +13,9 @@ export class TaskDetailStepOneAdditionalServiceRepository implements ITaskDetail
     private readonly repository: Repository<TaskDetailStepOneAdditionalServiceEntity>,
   ) {}
 
-  async createTaskDetailStepOneAdditionalService(createDto: CreateTaskDetailStepOneAdditionalServiceDto): Promise<TaskDetailStepOneAdditionalServiceEntity> {
+  async createTaskDetailStepOneAdditionalService(
+    createDto: CreateTaskDetailStepOneAdditionalServiceDto,
+  ): Promise<TaskDetailStepOneAdditionalServiceEntity> {
     const service = this.repository.create(createDto)
     return this.repository.save(service)
   }
@@ -26,15 +28,20 @@ export class TaskDetailStepOneAdditionalServiceRepository implements ITaskDetail
     return service
   }
 
-  async getTaskDetailStepOneAdditionalServiceByTaskDetailStepOneId(taskDetailStepOneId: string): Promise<TaskDetailStepOneAdditionalServiceEntity[]> {
+  async getTaskDetailStepOneAdditionalServiceByTaskDetailStepOneId(
+    taskDetailStepOneId: string,
+  ): Promise<TaskDetailStepOneAdditionalServiceEntity[]> {
     return this.repository.find({
       where: { task_detail_step_one_id: taskDetailStepOneId },
     })
   }
 
-  async updateTaskDetailStepOneAdditionalService(id: string, updateDto: UpdateTaskDetailStepOneAdditionalServiceDto): Promise<void> {
+  async updateTaskDetailStepOneAdditionalService(
+    id: string,
+    updateDto: UpdateTaskDetailStepOneAdditionalServiceDto,
+  ): Promise<void> {
     const result = await this.repository.update(id, updateDto)
-    
+
     if (result.affected === 0) {
       throw new Error(`TaskDetailStepOneAdditionalService with id ${id} not found`)
     }

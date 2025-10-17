@@ -19,7 +19,9 @@ export class TaskDetailStepOneAdditionalServiceController {
 
   @Get('task-detail-step-one/:taskDetailStepOneId')
   async findByTaskDetailStepOneId(@Param('taskDetailStepOneId') taskDetailStepOneId: string) {
-    return this.taskDetailStepOneAdditionalService.getTaskDetailStepOneAdditionalServiceByTaskDetailId(taskDetailStepOneId)
+    return this.taskDetailStepOneAdditionalService.getTaskDetailStepOneAdditionalServiceByTaskDetailId(
+      taskDetailStepOneId,
+    )
   }
 
   @Put(':id')

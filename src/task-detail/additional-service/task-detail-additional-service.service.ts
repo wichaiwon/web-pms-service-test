@@ -15,7 +15,9 @@ export class TaskDetailAdditionalServiceService implements ITaskDetailAdditional
     private readonly updateUseCase: UpdateTaskDetailAdditionalServiceUseCase,
   ) {}
 
-  async createTaskDetailAdditionalService(createDto: CreateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalServiceEntity> {
+  async createTaskDetailAdditionalService(
+    createDto: CreateTaskDetailAdditionalServiceDto,
+  ): Promise<TaskDetailAdditionalServiceEntity> {
     return this.createUseCase.execute(createDto)
   }
 
@@ -23,7 +25,9 @@ export class TaskDetailAdditionalServiceService implements ITaskDetailAdditional
     return this.getUseCase.execute(id)
   }
 
-  async getTaskDetailAdditionalServiceByTaskDetailId(taskDetailId: string): Promise<TaskDetailAdditionalServiceEntity[]> {
+  async getTaskDetailAdditionalServiceByTaskDetailId(
+    taskDetailId: string,
+  ): Promise<TaskDetailAdditionalServiceEntity[]> {
     return this.getUseCase.executeByTaskDetailId(taskDetailId)
   }
 

@@ -11,7 +11,7 @@ export class GetTaskUseCase {
 
   async execute(id: string): Promise<Tasks> {
     const task = await this.taskRepository.getTaskById(id)
-    
+
     if (!task) {
       throw new Error(`Task with id ${id} not found`)
     }

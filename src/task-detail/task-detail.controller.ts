@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Body,
-  Param,
-  UseGuards,
-  HttpStatus,
-  HttpCode
-} from '@nestjs/common'
+import { Controller, Get, Post, Put, Body, Param, UseGuards, HttpStatus, HttpCode } from '@nestjs/common'
 import { TaskDetailService } from './task-detail.service'
 import { CreateTaskDetailDto } from '../application/dto/tasks/task-detail/create-task-detail.dto'
 import { UpdateTaskDetailDto } from '../application/dto/tasks/task-detail/update-task-detail.dto'
@@ -27,13 +17,13 @@ export class TaskDetailController {
       return {
         success: true,
         message: 'Task detail created successfully',
-        data: taskDetail
+        data: taskDetail,
       }
     } catch (error) {
       return {
         success: false,
         message: error.message,
-        data: null
+        data: null,
       }
     }
   }
@@ -45,13 +35,13 @@ export class TaskDetailController {
       return {
         success: true,
         message: 'Task detail retrieved successfully',
-        data: taskDetail
+        data: taskDetail,
       }
     } catch (error) {
       return {
         success: false,
         message: error.message,
-        data: null
+        data: null,
       }
     }
   }
@@ -63,34 +53,31 @@ export class TaskDetailController {
       return {
         success: true,
         message: 'Task details retrieved successfully',
-        data: taskDetails
+        data: taskDetails,
       }
     } catch (error) {
       return {
         success: false,
         message: error.message,
-        data: []
+        data: [],
       }
     }
   }
 
   @Put(':id')
-  async updateTaskDetail(
-    @Param('id') id: string,
-    @Body() updateDto: UpdateTaskDetailDto
-  ) {
+  async updateTaskDetail(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailDto) {
     try {
       const taskDetail = await this.taskDetailService.updateTaskDetail(id, updateDto)
       return {
         success: true,
         message: 'Task detail updated successfully',
-        data: taskDetail
+        data: taskDetail,
       }
     } catch (error) {
       return {
         success: false,
         message: error.message,
-        data: null
+        data: null,
       }
     }
   }

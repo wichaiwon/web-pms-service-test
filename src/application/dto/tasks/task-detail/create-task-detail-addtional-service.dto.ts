@@ -15,13 +15,13 @@ export class CreateTaskDetailAdditionalServiceDto {
   additional_service: AdditionalService
 
   // Required only if additional_service is "เติมลมยาง"
-  @ValidateIf(o => o.additional_service === AdditionalService.TIRE_INFLATION)
+  @ValidateIf((o: CreateTaskDetailAdditionalServiceDto) => o.additional_service === AdditionalService.TIRE_INFLATION)
   @IsNotEmpty({ message: 'front_tire_pressure is required when additional_service is เติมลมยาง' })
   @IsNumber()
   front_tire_pressure?: number
 
   // Required only if additional_service is "เติมลมยาง"
-  @ValidateIf(o => o.additional_service === AdditionalService.TIRE_INFLATION)
+  @ValidateIf((o: CreateTaskDetailAdditionalServiceDto) => o.additional_service === AdditionalService.TIRE_INFLATION)
   @IsNotEmpty({ message: 'back_tire_pressure is required when additional_service is เติมลมยาง' })
   @IsNumber()
   back_tire_pressure?: number

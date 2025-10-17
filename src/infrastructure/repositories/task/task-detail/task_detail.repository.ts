@@ -10,13 +10,13 @@ import { Repository } from 'typeorm'
 export class TaskDetailRepository implements ITaskDetailRepository {
   constructor(
     @InjectRepository(TaskDetailEntity)
-    private readonly taskDetailRepository: Repository<TaskDetailEntity>
+    private readonly taskDetailRepository: Repository<TaskDetailEntity>,
   ) {}
 
   async createTaskDetail(taskDetail: CreateTaskDetailDto): Promise<TaskDetailEntity> {
     const created = this.taskDetailRepository.create({
       ...taskDetail,
-      success_flag: false
+      success_flag: false,
     })
     return this.taskDetailRepository.save(created)
   }
@@ -32,14 +32,14 @@ export class TaskDetailRepository implements ITaskDetailRepository {
   async getTaskDetailByTaskId(taskId: string): Promise<TaskDetailEntity[]> {
     return this.taskDetailRepository.find({
       where: { task_id: taskId },
-      order: { created_at: 'DESC' }
+      order: { created_at: 'DESC' },
     })
   }
 
   async updateTaskDetail(id: string, taskDetail: UpdateTaskDetailDto): Promise<void> {
     await this.taskDetailRepository.update(id, {
       ...taskDetail,
-      updated_at: new Date()
+      updated_at: new Date(),
     })
   }
 
@@ -50,14 +50,14 @@ export class TaskDetailRepository implements ITaskDetailRepository {
   async findByTaskId(taskId: string): Promise<TaskDetailEntity[]> {
     return this.taskDetailRepository.find({
       where: { task_id: taskId },
-      order: { created_at: 'DESC' }
+      order: { created_at: 'DESC' },
     })
   }
 
   async create(taskDetailData: Partial<TaskDetailEntity>): Promise<TaskDetailEntity> {
     const taskDetail = this.taskDetailRepository.create({
       ...taskDetailData,
-      success_flag: false
+      success_flag: false,
     })
     return this.taskDetailRepository.save(taskDetail)
   }
@@ -65,7 +65,7 @@ export class TaskDetailRepository implements ITaskDetailRepository {
   async update(id: string, taskDetailData: Partial<TaskDetailEntity>): Promise<TaskDetailEntity> {
     await this.taskDetailRepository.update(id, {
       ...taskDetailData,
-      updated_at: new Date()
+      updated_at: new Date(),
     })
     const updated = await this.findById(id)
     if (!updated) {

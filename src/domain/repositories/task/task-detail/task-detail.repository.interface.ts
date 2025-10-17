@@ -1,7 +1,6 @@
-import { CreateTaskDetailDto } from "src/application/dto/tasks/task-detail/create-task-detail.dto"
-import { UpdateTaskDetailDto } from "src/application/dto/tasks/task-detail/update-task-detail.dto"
-import { TaskDetailEntity } from "src/domain/entities/task/task-detail/task-detail.entity"
-
+import { CreateTaskDetailDto } from 'src/application/dto/tasks/task-detail/create-task-detail.dto'
+import { UpdateTaskDetailDto } from 'src/application/dto/tasks/task-detail/update-task-detail.dto'
+import { TaskDetailEntity } from 'src/domain/entities/task/task-detail/task-detail.entity'
 
 export interface ITaskDetailRepository {
   createTaskDetail(taskDetail: CreateTaskDetailDto): Promise<TaskDetailEntity>

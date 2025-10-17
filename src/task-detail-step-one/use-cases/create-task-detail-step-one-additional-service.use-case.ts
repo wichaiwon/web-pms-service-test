@@ -13,8 +13,12 @@ export class CreateTaskDetailStepOneAdditionalServiceUseCase {
     private readonly taskDetailStepOneRepository: ITaskDetailStepOneRepository,
   ) {}
 
-  async execute(createDto: CreateTaskDetailStepOneAdditionalServiceDto): Promise<TaskDetailStepOneAdditionalServiceEntity> {
-    const existingDetail = await this.taskDetailStepOneRepository.getTaskDetailStepOneById(createDto.task_detail_step_one_id)
+  async execute(
+    createDto: CreateTaskDetailStepOneAdditionalServiceDto,
+  ): Promise<TaskDetailStepOneAdditionalServiceEntity> {
+    const existingDetail = await this.taskDetailStepOneRepository.getTaskDetailStepOneById(
+      createDto.task_detail_step_one_id,
+    )
     if (!existingDetail) {
       throw new Error(`Task detail step one with id ${createDto.task_detail_step_one_id} not found`)
     }

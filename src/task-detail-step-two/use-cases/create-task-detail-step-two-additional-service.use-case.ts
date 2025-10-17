@@ -15,7 +15,9 @@ export class CreateTaskDetailStepTwoAdditionalServiceUseCase {
   async execute(
     createDto: CreateTaskDetailStepTwoAdditionalServiceDto,
   ): Promise<TaskDetailStepTwoAdditionalServiceEntity> {
-    const existingDetail = await this.taskDetailStepTwoRepository.getTaskDetailStepTwoById(createDto.task_detail_step_two_id)
+    const existingDetail = await this.taskDetailStepTwoRepository.getTaskDetailStepTwoById(
+      createDto.task_detail_step_two_id,
+    )
     if (!existingDetail) {
       throw new Error(`Task detail step two with id ${createDto.task_detail_step_two_id} not found`)
     }

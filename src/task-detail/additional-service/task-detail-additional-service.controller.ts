@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Body,
-  Param,
-  UseGuards,
-  HttpStatus,
-  HttpCode
-} from '@nestjs/common'
+import { Controller, Get, Post, Put, Body, Param, UseGuards, HttpStatus, HttpCode } from '@nestjs/common'
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard'
 import { TaskDetailAdditionalServiceService } from './task-detail-additional-service.service'
 import { CreateTaskDetailAdditionalServiceDto } from 'src/application/dto/tasks/task-detail/create-task-detail-addtional-service.dto'
@@ -17,9 +7,7 @@ import { UpdateTaskDetailAdditionalServiceDto } from 'src/application/dto/tasks/
 @Controller('task-detail-additional-service')
 @UseGuards(JwtAuthGuard)
 export class TaskDetailAdditionalServiceController {
-  constructor(
-    private readonly service: TaskDetailAdditionalServiceService
-  ) {}
+  constructor(private readonly service: TaskDetailAdditionalServiceService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
@@ -29,13 +17,13 @@ export class TaskDetailAdditionalServiceController {
       return {
         success: true,
         message: 'Task detail additional service created successfully',
-        data: result
+        data: result,
       }
     } catch (error) {
       return {
         success: false,
         message: error.message,
-        data: null
+        data: null,
       }
     }
   }
@@ -47,13 +35,13 @@ export class TaskDetailAdditionalServiceController {
       return {
         success: true,
         message: 'Additional service retrieved successfully',
-        data: result
+        data: result,
       }
     } catch (error) {
       return {
         success: false,
         message: error.message,
-        data: null
+        data: null,
       }
     }
   }
@@ -65,32 +53,29 @@ export class TaskDetailAdditionalServiceController {
       return {
         success: true,
         message: 'Additional services retrieved successfully',
-        data: result
+        data: result,
       }
     } catch (error) {
       return {
         success: false,
         message: error.message,
-        data: []
+        data: [],
       }
     }
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateDto: UpdateTaskDetailAdditionalServiceDto
-  ) {
+  async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailAdditionalServiceDto) {
     try {
       await this.service.updateTaskDetailAdditionalService(id, updateDto)
       return {
         success: true,
-        message: 'Additional service updated successfully'
+        message: 'Additional service updated successfully',
       }
     } catch (error) {
       return {
         success: false,
-        message: error.message
+        message: error.message,
       }
     }
   }

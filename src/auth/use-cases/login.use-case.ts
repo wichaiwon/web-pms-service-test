@@ -19,7 +19,7 @@ export class LoginUseCase {
   async execute(loginDto: LoginDto): Promise<LoginResult> {
     // 1. Find user by mirai_id
     const user = await this.userRepository.findByMiraiId(loginDto.mirai_id)
-    
+
     if (!user) {
       throw new UnauthorizedException('Invalid credentials')
     }

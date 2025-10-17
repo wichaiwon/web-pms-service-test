@@ -21,5 +21,4 @@ export class CreateTaskDetailStepOneDto {
   @IsNotEmpty()
   @IsUUID()
   created_by: string
-
 }

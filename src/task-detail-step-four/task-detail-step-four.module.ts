@@ -16,12 +16,12 @@ import { UpdateTaskDetailStepFourUseCase } from './use-cases/update-task-detail-
   providers: [
     TaskDetailStepFourService,
     {
-        provide: 'ITaskDetailStepFourRepository',
-        useClass: TaskDetailFourRepository,
+      provide: 'ITaskDetailStepFourRepository',
+      useClass: TaskDetailFourRepository,
     },
     {
-        provide: 'ITaskRepository',
-        useClass: TaskRepository,
+      provide: 'ITaskRepository',
+      useClass: TaskRepository,
     },
     CreateTaskDetailStepFourUseCase,
     GetTaskDetailStepFourUseCase,

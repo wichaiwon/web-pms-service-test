@@ -13,7 +13,9 @@ export class TaskDetailAdditionalServiceRepository implements ITaskDetailAdditio
     private readonly repository: Repository<TaskDetailAdditionalServiceEntity>,
   ) {}
 
-  async createTaskDetailAdditionalService(createDto: CreateTaskDetailAdditionalServiceDto): Promise<TaskDetailAdditionalServiceEntity> {
+  async createTaskDetailAdditionalService(
+    createDto: CreateTaskDetailAdditionalServiceDto,
+  ): Promise<TaskDetailAdditionalServiceEntity> {
     const service = this.repository.create(createDto)
     return this.repository.save(service)
   }
@@ -26,7 +28,9 @@ export class TaskDetailAdditionalServiceRepository implements ITaskDetailAdditio
     return result
   }
 
-  async getTaskDetailAdditionalServicesByTaskDetailId(taskDetailId: string): Promise<TaskDetailAdditionalServiceEntity[]> {
+  async getTaskDetailAdditionalServicesByTaskDetailId(
+    taskDetailId: string,
+  ): Promise<TaskDetailAdditionalServiceEntity[]> {
     return this.repository.find({
       where: { task_detail_id: taskDetailId },
     })
@@ -52,7 +56,10 @@ export class TaskDetailAdditionalServiceRepository implements ITaskDetailAdditio
     return this.repository.save(service)
   }
 
-  async update(id: string, serviceData: Partial<TaskDetailAdditionalServiceEntity>): Promise<TaskDetailAdditionalServiceEntity> {
+  async update(
+    id: string,
+    serviceData: Partial<TaskDetailAdditionalServiceEntity>,
+  ): Promise<TaskDetailAdditionalServiceEntity> {
     await this.repository.update(id, serviceData)
     const updated = await this.findById(id)
     if (!updated) {

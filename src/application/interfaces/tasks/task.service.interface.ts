@@ -1,6 +1,6 @@
-import { Tasks } from "src/domain/entities/task/task.entity"
-import { CreateTaskDto } from "src/application/dto/tasks/create-task.dto"
-import { UpdateTaskDto } from "src/application/dto/tasks/update-task.dto"
+import { Tasks } from 'src/domain/entities/task/task.entity'
+import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
+import { UpdateTaskDto } from 'src/application/dto/tasks/update-task.dto'
 
 export interface ITaskService {
   createTask(createTaskDto: CreateTaskDto): Promise<Tasks>

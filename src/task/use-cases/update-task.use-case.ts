@@ -20,7 +20,7 @@ export class UpdateTaskUseCase {
     if (existingTask.success_flag && updateTaskDto.success_flag === false) {
       throw new Error('Cannot revert completed task to incomplete')
     }
-    
+
     await this.taskRepository.updateTask(id, updateTaskDto)
   }
 }

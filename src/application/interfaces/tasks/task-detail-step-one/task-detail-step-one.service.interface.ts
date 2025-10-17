@@ -1,6 +1,6 @@
-import { CreateTaskDetailStepOneDto } from "src/application/dto/tasks/task-detail-step-one/create-task-detail-step-one.dto"
-import { UpdateTaskDetailStepOneDto } from "src/application/dto/tasks/task-detail-step-one/update-task-detail-step-one.dto"
-import { TaskDetailStepOneEntity } from "src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity"
+import { CreateTaskDetailStepOneDto } from 'src/application/dto/tasks/task-detail-step-one/create-task-detail-step-one.dto'
+import { UpdateTaskDetailStepOneDto } from 'src/application/dto/tasks/task-detail-step-one/update-task-detail-step-one.dto'
+import { TaskDetailStepOneEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity'
 
 export interface ITaskDetailStepOneService {
   createTaskDetailStepOne(createDto: CreateTaskDetailStepOneDto): Promise<TaskDetailStepOneEntity>

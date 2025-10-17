@@ -17,7 +17,7 @@ export class CreateTaskDetailStepThreeUseCase {
     if (!task) {
       throw new Error(`Task with id ${createDto.task_id} not found`)
     }
-    
+
     const existingDetails = await this.taskDetailStepThreeRepository.getTaskDetailStepThreeByTaskId(createDto.task_id)
     if (existingDetails.length > 0) {
       throw new Error(`Task detail step three already exists for task ${createDto.task_id}`)

@@ -1,12 +1,12 @@
 import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator'
-import { 
-  Cargo, 
-  SpareTire, 
-  TireCondition, 
-  TireDamage, 
-  TireDepth, 
-  TruckToolSet, 
-  WheelControlCover 
+import {
+  Cargo,
+  SpareTire,
+  TireCondition,
+  TireDamage,
+  TireDepth,
+  TruckToolSet,
+  WheelControlCover,
 } from 'src/shared/enum/task-detail-step-two'
 
 export class CreateTaskDetailStepTwoDto {

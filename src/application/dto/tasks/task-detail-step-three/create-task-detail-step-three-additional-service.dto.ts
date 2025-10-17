@@ -16,5 +16,4 @@ export class CreateTaskDetailStepThreeAdditionalServiceDto {
   @IsOptional()
   @IsString()
   comment?: string
-
 }

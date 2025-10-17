@@ -34,7 +34,7 @@ export class TaskDetailFourRepository implements ITaskDetailStepFourRepository {
       order: { created_at: 'DESC' },
     })
   }
-  
+
   async updateTaskDetailStepFour(id: string, updateDto: UpdateTaskDetailStepFourDto): Promise<void> {
     const result = await this.taskDetailStepFourRepository.update(id, {
       ...updateDto,

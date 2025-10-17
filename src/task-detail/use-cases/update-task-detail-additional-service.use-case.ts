@@ -20,12 +20,14 @@ export class UpdateTaskDetailAdditionalServiceUseCase {
     // Business Rule: ถ้าเปลี่ยนเป็น "เติมลมยาง" ต้องมี tire pressure
     const newService = updateDto.additional_service || existing.additional_service
     if (newService === AdditionalService.TIRE_INFLATION) {
-      const frontPressure = updateDto.front_tire_pressure !== undefined ? updateDto.front_tire_pressure : existing.front_tire_pressure
-      const backPressure = updateDto.back_tire_pressure !== undefined ? updateDto.back_tire_pressure : existing.back_tire_pressure
+      const frontPressure =
+        updateDto.front_tire_pressure !== undefined ? updateDto.front_tire_pressure : existing.front_tire_pressure
+      const backPressure =
+        updateDto.back_tire_pressure !== undefined ? updateDto.back_tire_pressure : existing.back_tire_pressure
 
       if (!frontPressure || !backPressure) {
         throw new BadRequestException(
-          'front_tire_pressure and back_tire_pressure are required when additional_service is เติมลมยาง'
+          'front_tire_pressure and back_tire_pressure are required when additional_service is เติมลมยาง',
         )
       }
 

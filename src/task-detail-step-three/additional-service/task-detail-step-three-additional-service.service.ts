@@ -22,7 +22,10 @@ export class TaskDetailStepThreeAdditionalServiceService implements ITaskDetailS
   async getTaskDetailStepThreeAdditionalServiceByTaskDetailId(taskDetailStepThreeId: string) {
     return this.getTaskDetailStepThreeAdditionalServiceUseCase.executeByTaskDetailStepThreeId(taskDetailStepThreeId)
   }
-  async updateTaskDetailStepThreeAdditionalService(id: string, updateDto: UpdateTaskDetailStepThreeAdditionalServiceDto) {
+  async updateTaskDetailStepThreeAdditionalService(
+    id: string,
+    updateDto: UpdateTaskDetailStepThreeAdditionalServiceDto,
+  ) {
     return this.updateTaskDetailStepThreeAdditionalServiceUseCase.execute(id, updateDto)
   }
 

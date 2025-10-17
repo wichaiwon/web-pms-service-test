@@ -1,14 +1,4 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Put, 
-  Body, 
-  Param, 
-  UseGuards,
-  HttpStatus,
-  HttpCode
-} from '@nestjs/common'
+import { Controller, Get, Post, Put, Body, Param, UseGuards, HttpStatus, HttpCode, HttpException } from '@nestjs/common'
 import { TaskService } from './task.service'
 import { CreateTaskDto } from '../application/dto/tasks/create-task.dto'
 import { UpdateTaskDto } from '../application/dto/tasks/update-task.dto'
@@ -27,14 +17,18 @@ export class TaskController {
       return {
         success: true,
         message: 'Task created successfully',
-        data: task
+        data: task,
       }
     } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: null
-      }
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: null,
+        },
+        HttpStatus.BAD_REQUEST,
+      )
     }
   }
 
@@ -45,14 +39,18 @@ export class TaskController {
       return {
         success: true,
         message: 'Tasks retrieved successfully',
-        data: tasks
+        data: tasks,
       }
     } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: []
-      }
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: [],
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      )
     }
   }
 
@@ -63,17 +61,20 @@ export class TaskController {
       return {
         success: true,
         message: 'Task retrieved successfully',
-        data: task
+        data: task,
       }
     } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: null
-      }
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: null,
+        },
+        HttpStatus.NOT_FOUND,
+      )
     }
   }
-
 
   @Get('responsible/:userId')
   async getTasksByResponsible(@Param('userId') userId: string) {
@@ -82,14 +83,18 @@ export class TaskController {
       return {
         success: true,
         message: 'Responsible tasks retrieved successfully',
-        data: tasks
+        data: tasks,
       }
     } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: []
-      }
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: [],
+        },
+        HttpStatus.BAD_REQUEST,
+      )
     }
   }
 
@@ -100,35 +105,40 @@ export class TaskController {
       return {
         success: true,
         message: 'Status tasks retrieved successfully',
-        data: tasks
+        data: tasks,
       }
     } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: []
-      }
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: [],
+        },
+        HttpStatus.BAD_REQUEST,
+      )
     }
   }
 
   @Put(':id')
-  async updateTask(
-    @Param('id') id: string, 
-    @Body() updateTaskDto: UpdateTaskDto
-  ) {
+  async updateTask(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     try {
       const task = await this.taskService.updateTask(id, updateTaskDto)
       return {
         success: true,
         message: 'Task updated successfully',
-        data: task
+        data: task,
       }
     } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: null
-      }
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: null,
+        },
+        HttpStatus.BAD_REQUEST,
+      )
     }
   }
 }

@@ -17,14 +17,8 @@ import { TaskDetailRepository } from 'src/infrastructure/repositories/task/task-
 import { TaskDetailAdditionalServiceRepository } from 'src/infrastructure/repositories/task/task-detail/task-detail-additional-service.repository'
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([TaskDetailEntity, TaskDetailAdditionalServiceEntity]),
-    TaskModule
-  ],
-  controllers: [
-    TaskDetailController,
-    TaskDetailAdditionalServiceController
-  ],
+  imports: [TypeOrmModule.forFeature([TaskDetailEntity, TaskDetailAdditionalServiceEntity]), TaskModule],
+  controllers: [TaskDetailController, TaskDetailAdditionalServiceController],
   providers: [
     TaskDetailService,
     TaskDetailAdditionalServiceService,

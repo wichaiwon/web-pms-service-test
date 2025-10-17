@@ -1,6 +1,5 @@
-
 export enum SignatureCustomer {
-    SIGNED = 'signed',
-    SIGN_LATER = 'sign_later',
-    ABSENT = 'absent',
+  SIGNED = 'signed',
+  SIGN_LATER = 'sign_later',
+  ABSENT = 'absent',
 }

@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Injectable } from '@nestjs/common'
+import { PassportStrategy } from '@nestjs/passport'
+import { ExtractJwt, Strategy } from 'passport-jwt'
 
 export interface JwtPayload {
-  sub: string;
-  mirai_id: string;
-  role: string;
+  sub: string
+  mirai_id: string
+  role: string
 }
 
 @Injectable()
@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET || 'your-super-secret-jwt-key-here',
-    });
+    })
   }
 
   async validate(payload: JwtPayload) {
@@ -23,6 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       userId: payload.sub,
       miraiId: payload.mirai_id,
       role: payload.role,
-    };
+    }
   }
 }

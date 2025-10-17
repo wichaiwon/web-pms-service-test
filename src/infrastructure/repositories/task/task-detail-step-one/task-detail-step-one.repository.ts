@@ -10,13 +10,13 @@ import { CreateTaskDetailStepOneDto } from 'src/application/dto/tasks/task-detai
 export class TaskDetailStepOneRepository implements ITaskDetailStepOneRepository {
   constructor(
     @InjectRepository(TaskDetailStepOneEntity)
-    private readonly taskDetailStepOneRepository: Repository<TaskDetailStepOneEntity>
+    private readonly taskDetailStepOneRepository: Repository<TaskDetailStepOneEntity>,
   ) {}
 
   async createTaskDetailStepOne(createDto: CreateTaskDetailStepOneDto): Promise<TaskDetailStepOneEntity> {
     const taskDetailStepOne = this.taskDetailStepOneRepository.create({
       ...createDto,
-      success_flag: false
+      success_flag: false,
     })
     return this.taskDetailStepOneRepository.save(taskDetailStepOne)
   }
@@ -32,16 +32,16 @@ export class TaskDetailStepOneRepository implements ITaskDetailStepOneRepository
   async getTaskDetailStepOneByTaskId(taskId: string): Promise<TaskDetailStepOneEntity[]> {
     return this.taskDetailStepOneRepository.find({
       where: { task_id: taskId },
-      order: { created_at: 'DESC' }
+      order: { created_at: 'DESC' },
     })
   }
 
   async updateTaskDetailStepOne(id: string, updateDto: UpdateTaskDetailStepOneDto): Promise<void> {
     const result = await this.taskDetailStepOneRepository.update(id, {
       ...updateDto,
-      updated_at: new Date()
+      updated_at: new Date(),
     })
-    
+
     if (result.affected === 0) {
       throw new Error(`TaskDetailStepOne with id ${id} not found`)
     }

@@ -16,7 +16,7 @@ export class RegisterUseCase {
   async execute(registerDto: RegisterDto): Promise<Users> {
     // 1. Check if user already exists
     const existingUser = await this.userRepository.findByMiraiId(registerDto.mirai_id)
-    
+
     if (existingUser) {
       throw new UnauthorizedException('User already exists')
     }

@@ -9,9 +9,7 @@ import { GetTaskUseCase } from './use-cases/get-task.use-case'
 import { UpdateTaskUseCase } from './use-cases/update-task.use-case'
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Tasks])
-  ],
+  imports: [TypeOrmModule.forFeature([Tasks])],
   controllers: [TaskController],
   providers: [
     TaskService,
@@ -23,9 +21,6 @@ import { UpdateTaskUseCase } from './use-cases/update-task.use-case'
       useClass: TaskRepository,
     },
   ],
-  exports: [
-    TaskService,
-    'ITaskRepository',
-  ],
+  exports: [TaskService, 'ITaskRepository'],
 })
 export class TaskModule {}

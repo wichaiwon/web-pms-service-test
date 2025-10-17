@@ -28,7 +28,9 @@ export class TaskDetailStepTwoAdditionalServiceRepository implements ITaskDetail
   async getTaskDetailStepTwoAdditionalServiceByTaskDetailStepTwoId(
     taskDetailStepTwoId: string,
   ): Promise<TaskDetailStepTwoAdditionalServiceEntity[]> {
-    return this.taskDetailStepTwoAdditionalServiceRepository.find({ where: { task_detail_step_two_id: taskDetailStepTwoId } })
+    return this.taskDetailStepTwoAdditionalServiceRepository.find({
+      where: { task_detail_step_two_id: taskDetailStepTwoId },
+    })
   }
   async updateTaskDetailStepTwoAdditionalService(
     id: string,

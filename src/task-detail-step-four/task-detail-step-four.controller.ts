@@ -26,10 +26,7 @@ export class TaskDetailStepFourController {
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateDto: UpdateTaskDetailStepFourDto,
-  ): Promise<{ message: string }> {
+  async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailStepFourDto): Promise<{ message: string }> {
     await this.taskDetailStepFourService.updateTaskDetailStepFour(id, updateDto)
     return { message: 'Task detail step four updated successfully' }
   }
