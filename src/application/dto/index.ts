@@ -10,18 +10,26 @@ export * from './tasks/task-response.dto'
 // Task Detail DTOs
 export * from './tasks/task-detail/create-task-detail.dto'
 export * from './tasks/task-detail/update-task-detail.dto'
+export * from './tasks/task-detail/create-task-detail-addtional-service.dto'
+export * from './tasks/task-detail/update-task-detail-additional-service.dto'
 
 // Task Detail Step One DTOs
 export * from './tasks/task-detail-step-one/create-task-detail-step-one.dto'
 export * from './tasks/task-detail-step-one/update-task-detail-step-one.dto'
+export * from './tasks/task-detail-step-one/create-task-detail-step-one-additional-service.dto'
+export * from './tasks/task-detail-step-one/update-task-detail-step-one-additional-service.dto'
 
 // Task Detail Step Two DTOs
 export * from './tasks/task-detail-step-two/create-task-detail-step-two.dto'
 export * from './tasks/task-detail-step-two/update-task-detail-step-two.dto'
+export * from './tasks/task-detail-step-two/create-task-detail-step-two-additional-service.dto'
+export * from './tasks/task-detail-step-two/update-task-detail-step-two-additional-service.dto'
 
 // Task Detail Step Three DTOs
 export * from './tasks/task-detail-step-three/create-task-detail-step-three.dto'
 export * from './tasks/task-detail-step-three/update-task-detail-step-three.dto'
+export * from './tasks/task-detail-step-three/create-task-detail-step-three-additional-service.dto'
+export * from './tasks/task-detail-step-three/update-task-detail-step-three-additional-service'
 
 // Task Detail Step Four DTOs
 export * from './tasks/task-detail-step-four/create-task-detail-step-four.dto'
