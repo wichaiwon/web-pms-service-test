@@ -1,141 +1,111 @@
-import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray, IsString } from 'class-validator'
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 import { Branch } from 'src/shared/enum/user'
 
-export class CreateTaskDto {
-  @ApiPropertyOptional({ 
-    description: 'Walk-in customer flag',
-    example: false,
-    type: Boolean 
+export class TaskResponseDto {
+  @ApiProperty({ 
+    description: 'Task unique identifier',
+    example: '123e4567-e89b-12d3-a456-426614174000' 
   })
-  @IsOptional()
-  @IsBoolean()
-  walk_in_flag?: boolean
+  id: string
+
+  @ApiProperty({ 
+    description: 'Walk-in customer flag',
+    example: false 
+  })
+  walk_in_flag: boolean
 
   @ApiProperty({ 
     description: 'Appointment running number',
     example: 'APT-2024-001' 
   })
-  @IsNotEmpty()
-  @IsString()
   appointment_running: string
 
   @ApiProperty({ 
     description: 'Vehicle registration number',
     example: 'กข 1234' 
   })
-  @IsNotEmpty()
-  @IsString()
-  vehicle_registration?: string
+  vehicle_registration: string
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Vehicle registration province',
     example: 'กรุงเทพมหานคร' 
   })
-  @IsOptional()
-  @IsString()
-  vehicle_registration_province?: string
+  vehicle_registration_province: string
 
   @ApiProperty({ 
     description: 'Customer first name',
     example: 'สมชาย' 
   })
-  @IsNotEmpty()
-  @IsString()
   customer_firstname: string
 
   @ApiProperty({ 
     description: 'Customer last name',
     example: 'ใจดี' 
   })
-  @IsNotEmpty()
-  @IsString()
   customer_lastname: string
 
   @ApiProperty({ 
     description: 'Customer contact number',
     example: '0812345678' 
   })
-  @IsNotEmpty()
-  @IsString()
   customer_contact: string
 
   @ApiProperty({ 
     description: 'Booking date',
     example: '2024-10-17' 
   })
-  @IsNotEmpty()
-  @IsString()
   date_booked: string
 
   @ApiProperty({ 
     description: 'Booking time',
     example: '09:00' 
   })
-  @IsNotEmpty()
-  @IsString()
   time_booked: string
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Array of responsible user UUIDs',
     example: ['123e4567-e89b-12d3-a456-426614174000'],
-    type: [String],
     isArray: true 
   })
-  @IsOptional()
-  @IsArray()
-  @IsUUID('4', { each: true })
-  responsible?: string[]
+  responsible: string[]
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Vehicle VIN number',
     example: '1HGBH41JXMN109186' 
   })
-  @IsOptional()
-  @IsString()
-  vin_number?: string
+  vin_number: string
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Vehicle engine number',
     example: 'ENG123456' 
   })
-  @IsOptional()
-  @IsString()
-  engine_number?: string
+  engine_number: string
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Vehicle chassis number',
     example: 'CHS123456' 
   })
-  @IsOptional()
-  @IsString()
-  chassis_number?: string
+  chassis_number: string
 
   @ApiProperty({ 
     description: 'Branch where the booking is made',
     enum: Branch,
     example: Branch.HEAD_OFFICE 
   })
-  @IsNotEmpty()
-  @IsEnum(Branch)
   branch_book: Branch
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Lift assignment',
     example: 'Lift A1' 
   })
-  @IsOptional()
-  @IsString()
-  lift?: string
+  lift: string
 
   @ApiProperty({ 
     description: 'Car type',
     enum: CarType,
     example: CarType.LCV 
   })
-  @IsNotEmpty()
-  @IsEnum(CarType)
   car_type: CarType
 
   @ApiProperty({ 
@@ -143,31 +113,53 @@ export class CreateTaskDto {
     enum: CarBrand,
     example: CarBrand.ISUZU 
   })
-  @IsNotEmpty()
-  @IsEnum(CarBrand)
   car_brand: CarBrand
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Repair order status',
     enum: StatusRepairOrder 
   })
-  @IsOptional()
-  @IsEnum(StatusRepairOrder)
-  status_repair_order?: StatusRepairOrder
+  status_repair_order: StatusRepairOrder
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Report status',
     enum: StatusReport 
   })
-  @IsOptional()
-  @IsEnum(StatusReport)
-  status_report?: StatusReport
+  status_report: StatusReport
+
+  @ApiProperty({ 
+    description: 'Success completion flag',
+    example: true 
+  })
+  success_flag: boolean
+
+  @ApiProperty({ 
+    description: 'Active status flag',
+    example: true 
+  })
+  is_active: boolean
 
   @ApiProperty({ 
     description: 'User ID who created this task',
     example: '123e4567-e89b-12d3-a456-426614174000' 
   })
-  @IsNotEmpty()
-  @IsUUID()
   created_by: string
+
+  @ApiProperty({ 
+    description: 'User ID who updated this task',
+    example: '123e4567-e89b-12d3-a456-426614174000' 
+  })
+  updated_by: string
+
+  @ApiProperty({ 
+    description: 'Creation timestamp',
+    example: '2024-10-17T09:00:00.000Z' 
+  })
+  created_at: string
+
+  @ApiProperty({ 
+    description: 'Update timestamp',
+    example: '2024-10-17T09:00:00.000Z' 
+  })
+  updated_at: string
 }

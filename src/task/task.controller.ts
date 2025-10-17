@@ -1,9 +1,13 @@
 import { Controller, Get, Post, Put, Body, Param, UseGuards, HttpStatus, HttpCode, HttpException } from '@nestjs/common'
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth, ApiBody } from '@nestjs/swagger'
 import { TaskService } from './task.service'
 import { CreateTaskDto } from '../application/dto/tasks/create-task.dto'
 import { UpdateTaskDto } from '../application/dto/tasks/update-task.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { SuccessResponseDto, ErrorResponseDto } from '../application/dto/common/response.dto'
 
+@ApiTags('Tasks')
+@ApiBearerAuth()
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)
 export class TaskController {
@@ -11,6 +15,23 @@ export class TaskController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Create a new task' })
+  @ApiBody({ type: CreateTaskDto })
+  @ApiResponse({ 
+    status: 201, 
+    description: 'Task created successfully',
+    type: SuccessResponseDto 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Bad request - Invalid input data',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 401, 
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto 
+  })
   async createTask(@Body() createTaskDto: CreateTaskDto) {
     try {
       const task = await this.taskService.createTask(createTaskDto)
@@ -33,6 +54,22 @@ export class TaskController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all tasks' })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Tasks retrieved successfully',
+    type: SuccessResponseDto 
+  })
+  @ApiResponse({ 
+    status: 401, 
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 500, 
+    description: 'Internal server error',
+    type: ErrorResponseDto 
+  })
   async getAllTasks() {
     try {
       const tasks = await this.taskService.getAllTasks()
@@ -55,6 +92,27 @@ export class TaskController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get task by ID' })
+  @ApiParam({ 
+    name: 'id', 
+    description: 'Task UUID',
+    example: '123e4567-e89b-12d3-a456-426614174000' 
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Task retrieved successfully',
+    type: SuccessResponseDto 
+  })
+  @ApiResponse({ 
+    status: 401, 
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 404, 
+    description: 'Task not found',
+    type: ErrorResponseDto 
+  })
   async getTaskById(@Param('id') id: string) {
     try {
       const task = await this.taskService.getTaskById(id)
@@ -77,6 +135,27 @@ export class TaskController {
   }
 
   @Get('responsible/:userId')
+  @ApiOperation({ summary: 'Get tasks by responsible user' })
+  @ApiParam({ 
+    name: 'userId', 
+    description: 'User UUID',
+    example: '123e4567-e89b-12d3-a456-426614174000' 
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Responsible tasks retrieved successfully',
+    type: SuccessResponseDto 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Bad request - Invalid user ID',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 401, 
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto 
+  })
   async getTasksByResponsible(@Param('userId') userId: string) {
     try {
       const tasks = await this.taskService.getTasksByResponsible(userId)
@@ -99,6 +178,27 @@ export class TaskController {
   }
 
   @Get('status/:status')
+  @ApiOperation({ summary: 'Get tasks by status' })
+  @ApiParam({ 
+    name: 'status', 
+    description: 'Task status',
+    example: 'active' 
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Status tasks retrieved successfully',
+    type: SuccessResponseDto 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Bad request - Invalid status',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 401, 
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto 
+  })
   async getTasksByStatus(@Param('status') status: string) {
     try {
       const tasks = await this.taskService.getTasksByStatus(status)
@@ -121,6 +221,33 @@ export class TaskController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update task by ID' })
+  @ApiParam({ 
+    name: 'id', 
+    description: 'Task UUID',
+    example: '123e4567-e89b-12d3-a456-426614174000' 
+  })
+  @ApiBody({ type: UpdateTaskDto })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Task updated successfully',
+    type: SuccessResponseDto 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Bad request - Invalid input data',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 401, 
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 404, 
+    description: 'Task not found',
+    type: ErrorResponseDto 
+  })
   async updateTask(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     try {
       const task = await this.taskService.updateTask(id, updateTaskDto)

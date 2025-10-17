@@ -1,8 +1,9 @@
 import { Controller, Post, Body, UseGuards, Request, Get, Patch } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger'
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nestjs/swagger'
 import { AuthService } from './auth.service'
 import { RegisterDto } from '../application/dto/users/register.dto'
 import { LoginDto } from 'src/application/dto/users/login.dto'
+import { ChangePasswordDto } from '../application/dto/users/change-password.dto'
 import { LocalAuthGuard } from './guards/local-auth.guard'
 import { JwtAuthGuard } from './guards/jwt-auth.guard'
 
@@ -38,13 +39,15 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'Change user password' })
+  @ApiBody({ type: ChangePasswordDto })
   @ApiResponse({ status: 200, description: 'Password changed successfully' })
   @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 401, description: 'Unauthorized - Invalid current password or JWT token' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Patch('change-password')
-  async changePassword(@Request() req, @Body() body: { oldPassword: string; newPassword: string }) {
+  async changePassword(@Request() req, @Body() changePasswordDto: ChangePasswordDto) {
     const miraiId = req.user.mirai_id
-    return this.authService.updatePassword(miraiId, body.oldPassword, body.newPassword)
+    return this.authService.updatePassword(miraiId, changePasswordDto.oldPassword, changePasswordDto.newPassword)
   }
 }
