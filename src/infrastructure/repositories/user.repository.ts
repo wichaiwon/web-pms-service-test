@@ -19,9 +19,16 @@ export class UserRepository implements IUserRepository {
     return this.userRepository.findOne({ where: { id } })
   }
 
-  async create(userData: Partial<Users>): Promise<Users> {
-    const user = this.userRepository.create(userData)
-    return this.userRepository.save(user)
+  async create(userData: Partial<Users> | Partial<Users>[]): Promise<Users | Users[]> {
+    if (Array.isArray(userData)) {
+      // Bulk insert
+      const users = this.userRepository.create(userData)
+      return this.userRepository.save(users)
+    } else {
+      // Single insert
+      const user = this.userRepository.create(userData)
+      return this.userRepository.save(user)
+    }
   }
 
   async save(user: Users): Promise<Users> {

@@ -27,12 +27,12 @@ export class RegisterDto {
   @ApiProperty({ example: 'วิชัย' })
   @IsNotEmpty()
   @IsString()
-  name: string
+  firstname: string
 
   @ApiProperty({ example: 'วงค์ฟู' })
   @IsNotEmpty()
   @IsString()
-  surname: string
+  lastname: string
 
   @ApiProperty({ example: '123456' })
   @IsOptional()

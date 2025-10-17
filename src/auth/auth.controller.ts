@@ -20,11 +20,11 @@ export class AuthController {
     return this.authService.login(loginDto)
   }
 
-  @ApiOperation({ summary: 'User registration' })
-  @ApiResponse({ status: 201, description: 'User created successfully' })
+  @ApiOperation({ summary: 'User registration (single or bulk)' })
+  @ApiResponse({ status: 201, description: 'User(s) created successfully' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @Post('register')
-  async register(@Body() registerDto: RegisterDto) {
+  async register(@Body() registerDto: RegisterDto | RegisterDto[]) {
     return this.authService.register(registerDto)
   }
 

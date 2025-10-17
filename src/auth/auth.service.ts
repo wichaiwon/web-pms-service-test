@@ -28,7 +28,7 @@ export class AuthService {
     return this.loginUseCase.execute(loginDto)
   }
 
-  async register(registerDto: RegisterDto): Promise<Users> {
+  async register(registerDto: RegisterDto | RegisterDto[]): Promise<Users | Users[]> {
     return this.registerUseCase.execute(registerDto)
   }
 

@@ -47,8 +47,8 @@ export class LoginUseCase {
       access_token: this.jwtService.sign(payload),
       user: {
         id: user.id,
-        name: user.name,
-        surname: user.surname,
+        name: user.firstname,
+        surname: user.lastname,
         mirai_id: user.mirai_id,
         role: user.role,
         branch: user.branch,

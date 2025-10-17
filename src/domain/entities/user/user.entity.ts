@@ -13,10 +13,10 @@ export class Users {
   email: string
 
   @Column({ nullable: false })
-  name: string
+  firstname: string
 
   @Column({ nullable: false })
-  surname: string
+  lastname: string
 
   @Column({
     type: 'enum',
@@ -47,11 +47,11 @@ export class Users {
   @Column({ nullable: false })
   created_by: string
 
-  @Column({ nullable: true })
-  updated_by: string
-
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date
+
+  @Column({ nullable: true })
+  updated_by: string
 
   @Column({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date

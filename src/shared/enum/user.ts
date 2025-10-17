@@ -7,7 +7,7 @@ export enum UserRole {
 
 export enum Branch {
   HEAD_OFFICE = 'สำนักงานใหญ่',
-  SOIDAO = 'สอยดาสว',
-  NAYAIAM = 'นายายอาม',
-  KHLUNG = 'ขลุง',
+  SOIDAO = 'สาขาสอยดาว',
+  NAYAIAM = 'สาขานายายอาม',
+  KHLUNG = 'สาขาขลุง',
 }
