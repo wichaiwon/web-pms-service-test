@@ -134,18 +134,18 @@ export class CreateTaskDto {
     enum: CarType,
     example: CarType.LCV 
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(CarType)
-  car_type: CarType
+  car_type?: CarType
 
   @ApiProperty({ 
     description: 'Car brand',
     enum: CarBrand,
     example: CarBrand.ISUZU 
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(CarBrand)
-  car_brand: CarBrand
+  car_brand?: CarBrand
 
   @ApiPropertyOptional({ 
     description: 'Repair order status',

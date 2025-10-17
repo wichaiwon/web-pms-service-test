@@ -55,10 +55,10 @@ export class Tasks {
   @Column({ type: 'boolean', default: false })
   success_flag: boolean
 
-  @Column({ type: 'enum', enum: CarType, nullable: false })
+  @Column({ type: 'enum', enum: CarType, nullable: true })
   car_type: CarType
 
-  @Column({ type: 'enum', enum: CarBrand, nullable: false })
+  @Column({ type: 'enum', enum: CarBrand, nullable: true })
   car_brand: CarBrand
 
   @Column({ type: 'enum', enum: StatusRepairOrder, default: StatusRepairOrder.NOT_OPENED })
@@ -76,7 +76,7 @@ export class Tasks {
   @Column({ type: 'uuid', nullable: false })
   created_by: string
 
-  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true })
+  @Column({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

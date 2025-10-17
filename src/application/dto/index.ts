@@ -5,7 +5,6 @@ export * from './common/response.dto'
 // Task DTOs
 export * from './tasks/create-task.dto'
 export * from './tasks/update-task.dto'
-export * from './tasks/task-response.dto'
 
 // Task Detail DTOs
 export * from './tasks/task-detail/create-task-detail.dto'

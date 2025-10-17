@@ -9,4 +9,5 @@ export interface ITaskRepository {
   createTask(createDto: CreateTaskDto): Promise<Tasks>
   updateTask(id: string, updateDto: UpdateTaskDto): Promise<void>
   getTaskByStatus(status: string): Promise<Tasks[]>
+  findByAppointmentRunning(appointmentRunning: string): Promise<Tasks | null>
 }

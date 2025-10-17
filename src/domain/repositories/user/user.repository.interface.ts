@@ -7,4 +7,5 @@ export interface IUserRepository {
   save(user: Users): Promise<Users>
   findAll(): Promise<Users[]>
   update(id: string, userData: Partial<Users>): Promise<Users>
+  findByFirstnameAndLastname(firstname: string, lastname: string): Promise<Users | null>
 }

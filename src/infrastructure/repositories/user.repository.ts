@@ -47,4 +47,13 @@ export class UserRepository implements IUserRepository {
     }
     return updatedUser
   }
+
+  async findByFirstnameAndLastname(firstname: string, lastname: string): Promise<Users | null> {
+    return this.userRepository.findOne({
+      where: {
+        firstname,
+        lastname,
+      },
+    })
+  }
 }
