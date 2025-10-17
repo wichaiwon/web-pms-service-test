@@ -1,5 +1,6 @@
 import { CarBrand, CarType, StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Branch } from 'src/shared/enum/user'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity('tasks')
 export class Tasks {
@@ -9,11 +10,32 @@ export class Tasks {
   @Column({ type: 'boolean', default: false })
   walk_in_flag: boolean
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  appointment_running: string
+
+  @Column({ type: 'varchar', nullable: false })
   vehicle_registration: string
 
   @Column({ type: 'varchar', nullable: true })
   vehicle_registration_province: string
+
+  @Column({ type: 'varchar', nullable: false })
+  customer_firstname: string
+
+  @Column({ type: 'varchar', nullable: false })
+  customer_lastname: string
+
+  @Column({ type: 'varchar', nullable: false })
+  customer_contact: string
+
+  @Column({ type: 'varchar', nullable: false })
+  date_booked: string
+
+  @Column({ type: 'varchar', nullable: false })
+  time_booked: string
+
+  @Column({ type: 'uuid', array: true, nullable: true, default: [] })
+  responsible: string[]
 
   @Column({ type: 'varchar', nullable: true })
   vin_number: string
@@ -24,17 +46,11 @@ export class Tasks {
   @Column({ type: 'varchar', nullable: true })
   chassis_number: string
 
-  @Column({ type: 'varchar', nullable: false })
-  customer_name: string
+  @Column({ type: 'enum', enum: Branch, nullable: false })
+  branch_book: Branch
 
-  @Column({ type: 'varchar', nullable: false })
-  customer_surname: string
-
-  @Column({ type: 'varchar', nullable: false })
-  customer_contact: string
-
-  @Column({ type: 'uuid', array: true, nullable: true })
-  responsible: string[]
+  @Column({ type: 'text', nullable: true })
+  lift: string
 
   @Column({ type: 'boolean', default: false })
   success_flag: boolean
@@ -60,7 +76,7 @@ export class Tasks {
   @Column({ type: 'uuid', nullable: false })
   created_by: string
 
-  @Column({ type: 'timestamp with time zone', nullable: true })
+  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

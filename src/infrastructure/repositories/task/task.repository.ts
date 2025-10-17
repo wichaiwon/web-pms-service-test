@@ -4,6 +4,7 @@ import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
 import { UpdateTaskDto } from 'src/application/dto/tasks/update-task.dto'
 import { Tasks } from 'src/domain/entities/task/task.entity'
 import { ITaskRepository } from 'src/domain/repositories/task/task.repository.interface'
+import { StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 import { Repository } from 'typeorm'
 
 @Injectable()
@@ -26,7 +27,6 @@ export class TaskRepository implements ITaskRepository {
       order: { created_at: 'DESC' },
     })
   }
-
 
   async getTaskByResponsible(userId: string): Promise<Tasks[]> {
     return this.taskRepository
@@ -56,7 +56,7 @@ export class TaskRepository implements ITaskRepository {
 
   async getTaskByStatus(status: string): Promise<Tasks[]> {
     return this.taskRepository.find({
-      where: [{ status_repair_order: status as any }, { status_report: status as any }],
+      where: [{ status_repair_order: status as StatusRepairOrder }, { status_report: status as StatusReport }],
       order: { created_at: 'DESC' },
     })
   }

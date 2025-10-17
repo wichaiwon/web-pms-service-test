@@ -7,25 +7,33 @@ export class UpdateTaskDto {
   vehicle_registration?: string
 
   @IsOptional()
+  @IsString()
+  vehicle_registration_province?: string
+
+  @IsOptional()
   @IsBoolean()
   success_flag?: boolean
-  
-  @IsNotEmpty()
-  @IsString()
-  vin_number: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  engine_number: string
+  vin_number?: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  chassis_number: string
+  engine_number?: string
+
+  @IsOptional()
+  @IsString()
+  chassis_number?: string
 
   @IsOptional()
   @IsArray()
-  @IsUUID()
+  @IsUUID('4', { each: true })
   responsible?: string[]
+
+  @IsOptional()
+  @IsString()
+  lift?: string
 
   @IsOptional()
   @IsEnum(StatusRepairOrder)

@@ -15,7 +15,7 @@ export class RegisterDto {
   mirai_id: string
 
   @ApiProperty({ example: 'wichai.wongfu.pkg@gmail.com' })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   email: string
 
@@ -34,7 +34,7 @@ export class RegisterDto {
   @IsString()
   surname: string
 
-  @ApiProperty({example: '123456'})
+  @ApiProperty({ example: '123456' })
   @IsOptional()
   @IsString()
   pin_code?: string
