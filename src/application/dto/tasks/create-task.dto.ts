@@ -119,7 +119,7 @@ export class CreateTaskDto {
   })
   @IsNotEmpty()
   @IsEnum(Branch)
-  branch_book: Branch
+  branch_booked: Branch
 
   @ApiPropertyOptional({ 
     description: 'Lift assignment',

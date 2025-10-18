@@ -47,7 +47,7 @@ export class Tasks {
   chassis_number: string
 
   @Column({ type: 'enum', enum: Branch, nullable: false })
-  branch_book: Branch
+  branch_booked: Branch
 
   @Column({ type: 'text', nullable: true })
   lift: string
@@ -76,7 +76,7 @@ export class Tasks {
   @Column({ type: 'uuid', nullable: false })
   created_by: string
 
-  @Column({ type: 'timestamp with time zone', nullable: true })
+  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

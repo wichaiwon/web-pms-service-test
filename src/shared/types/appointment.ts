@@ -1,3 +1,5 @@
+import { Branch } from "../enum/user"
+
 export interface AppointmentResponseDto {
   appointment_running: string
   vehicle_registration: string
@@ -7,7 +9,7 @@ export interface AppointmentResponseDto {
   customer_contact: string
   date_booked: string
   time_booked: string
-  branch_booked: string
+  branch_booked: Branch
   lift: string
   responsible: string
 }
@@ -26,7 +28,7 @@ export interface MappedTaskDto {
   vin_number?: string
   engine_number?: string
   chassis_number?: string
-  branch_booked: string
+  branch_booked: Branch
   lift?: string
   car_type?: string
   car_brand?: string
