@@ -4,6 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppointmentSyncScheduler } from './schedulers/appointment-sync.scheduler';
 import { SyncAppointmentsUseCase } from './use-cases/appointment.use-case';
+import { AppointmentController } from './appointment.controller';
 import { AppointmentRepository } from '../infrastructure/repositories/external/appointment.repository';
 import { UserRepository } from '../infrastructure/repositories/user.repository';
 import { TaskRepository } from '../infrastructure/repositories/task/task.repository';
@@ -16,6 +17,7 @@ import { Tasks } from '../domain/entities/task/task.entity';
     ScheduleModule.forRoot(),
     TypeOrmModule.forFeature([Users, Tasks]),
   ],
+  controllers: [AppointmentController],
   providers: [
     AppointmentSyncScheduler,
     SyncAppointmentsUseCase,

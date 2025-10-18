@@ -1,5 +1,5 @@
 import { SignatureCustomer } from 'src/shared/enum/task-detail-step-four'
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Tasks } from '../task.entity'
 
 @Entity('task_detail_step_four')
@@ -23,13 +23,13 @@ export class TaskDetailStepFourEntity {
   @Column({ type: 'boolean', default: false })
   success_flag: boolean
 
-  @Column({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({ type: 'timestamp with time zone', nullable: false })
   created_at: Date
 
   @Column({ type: 'uuid', nullable: true })
   created_by: string
 
-  @Column({ type: 'timestamp with time zone', nullable: true, onUpdate: 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

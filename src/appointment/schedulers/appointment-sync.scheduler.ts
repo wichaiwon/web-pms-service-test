@@ -8,7 +8,7 @@ export class AppointmentSyncScheduler {
 
   constructor(private readonly syncAppointmentsUseCase: SyncAppointmentsUseCase) {}
 
-  @Cron('*/2 * * * *') // ทุก 2 นาที
+  @Cron('*/30 * * * *')
   async syncAppointments() {
     this.logger.log('Starting appointment sync job...');
     

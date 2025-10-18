@@ -1,5 +1,5 @@
 import { FuelLevel } from 'src/shared/enum/task-detail'
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Tasks } from '../task.entity'
 
 @Entity('task_detail')
@@ -32,7 +32,7 @@ export class TaskDetailEntity {
   @Column({ type: 'uuid', nullable: true })
   created_by: string
 
-  @Column({ type: 'timestamp with time zone', nullable: true })
+  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

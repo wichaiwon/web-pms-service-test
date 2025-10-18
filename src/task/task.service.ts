@@ -6,6 +6,7 @@ import { ITaskService } from '../application/interfaces/tasks/task.service.inter
 import { CreateTaskUseCase } from './use-cases/create-task.use-case'
 import { GetTaskUseCase } from './use-cases/get-task.use-case'
 import { UpdateTaskUseCase } from './use-cases/update-task.use-case'
+import { Branch } from '../shared/enum/user'
 
 @Injectable()
 export class TaskService implements ITaskService {
@@ -37,5 +38,13 @@ export class TaskService implements ITaskService {
 
   async getTasksByStatus(status: string): Promise<Tasks[]> {
     return this.getTaskUseCase.executeByStatus(status)
+  }
+
+  async getTasksByUserBranch(userId: string): Promise<Tasks[]> {
+    return this.getTaskUseCase.executeByUserBranch(userId)
+  }
+
+  async getTasksByBranch(branch: Branch): Promise<Tasks[]> {
+    return this.getTaskUseCase.executeByBranch(branch)
   }
 }

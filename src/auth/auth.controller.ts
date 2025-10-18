@@ -31,7 +31,7 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Get user profile' })
   @ApiResponse({ status: 200, description: 'Profile retrieved successfully' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
@@ -43,7 +43,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Password changed successfully' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 401, description: 'Unauthorized - Invalid current password or JWT token' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Patch('change-password')
   async changePassword(@Request() req, @Body() changePasswordDto: ChangePasswordDto) {

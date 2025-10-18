@@ -5,9 +5,10 @@ import { CreateTaskDto } from '../application/dto/tasks/create-task.dto'
 import { UpdateTaskDto } from '../application/dto/tasks/update-task.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { SuccessResponseDto, ErrorResponseDto } from '../application/dto/common/response.dto'
+import { Branch } from '../shared/enum/user'
 
 @ApiTags('Tasks')
-@ApiBearerAuth()
+@ApiBearerAuth('Bearer')
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)
 export class TaskController {
@@ -205,6 +206,99 @@ export class TaskController {
       return {
         success: true,
         message: 'Status tasks retrieved successfully',
+        data: tasks,
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: [],
+        },
+        HttpStatus.BAD_REQUEST,
+      )
+    }
+  }
+
+  @Get('user-branch/:userId')
+  @ApiOperation({ summary: 'Get tasks by user branch' })
+  @ApiParam({ 
+    name: 'userId', 
+    description: 'User UUID to get their branch tasks',
+    example: '123e4567-e89b-12d3-a456-426614174000' 
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'User branch tasks retrieved successfully',
+    type: SuccessResponseDto 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Bad request - Invalid user ID',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 401, 
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 404, 
+    description: 'User not found',
+    type: ErrorResponseDto 
+  })
+  async getTasksByUserBranch(@Param('userId') userId: string) {
+    try {
+      const tasks = await this.taskService.getTasksByUserBranch(userId)
+      return {
+        success: true,
+        message: 'User branch tasks retrieved successfully',
+        data: tasks,
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      const status = message.includes('not found') ? HttpStatus.NOT_FOUND : HttpStatus.BAD_REQUEST
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: [],
+        },
+        status,
+      )
+    }
+  }
+
+  @Get('branch/:branch')
+  @ApiOperation({ summary: 'Get tasks by branch' })
+  @ApiParam({ 
+    name: 'branch', 
+    description: 'Branch name',
+    example: 'สำนักงานใหญ่',
+    enum: Branch
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Branch tasks retrieved successfully',
+    type: SuccessResponseDto 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Bad request - Invalid branch',
+    type: ErrorResponseDto 
+  })
+  @ApiResponse({ 
+    status: 401, 
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto 
+  })
+  async getTasksByBranch(@Param('branch') branch: Branch) {
+    try {
+      const tasks = await this.taskService.getTasksByBranch(branch)
+      return {
+        success: true,
+        message: 'Branch tasks retrieved successfully',
         data: tasks,
       }
     } catch (error) {

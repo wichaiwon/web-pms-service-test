@@ -62,28 +62,41 @@ export class SyncAppointmentsUseCase {
       const existingTask = await this.taskRepository.findByAppointmentRunning(taskData.appointment_running);
       
       if (existingTask) {
-        // Update existing task - merge responsible array
+        // Check if data has actually changed
         const currentResponsible = existingTask.responsible || [];
         const newResponsible = taskData.responsible || [];
         const updatedResponsible = [...new Set([...currentResponsible, ...newResponsible])];
         
-        const updateDto: UpdateTaskDto = {
-          vehicle_registration: taskData.vehicle_registration,
-          vehicle_registration_province: taskData.vehicle_registration_province,
-          vin_number: taskData.vin_number,
-          engine_number: taskData.engine_number,
-          chassis_number: taskData.chassis_number,
-          responsible: updatedResponsible,
-          lift: taskData.lift,
-          status_repair_order: taskData.status_repair_order,
-          status_report: taskData.status_report,
-          updated_by: taskData.created_by,
-        };
+        // Compare data to see if update is needed
+        const hasChanges = 
+          existingTask.vehicle_registration !== taskData.vehicle_registration ||
+          existingTask.vehicle_registration_province !== taskData.vehicle_registration_province ||
+          existingTask.lift !== taskData.lift ||
+          JSON.stringify(currentResponsible.sort()) !== JSON.stringify(updatedResponsible.sort());
         
-        await this.taskRepository.updateTask(existingTask.id, updateDto);
+        if (hasChanges) {
+          const updateDto: UpdateTaskDto = {
+            vehicle_registration: taskData.vehicle_registration,
+            vehicle_registration_province: taskData.vehicle_registration_province,
+            vin_number: taskData.vin_number,
+            engine_number: taskData.engine_number,
+            chassis_number: taskData.chassis_number,
+            responsible: updatedResponsible,
+            lift: taskData.lift,
+            status_repair_order: taskData.status_repair_order,
+            status_report: taskData.status_report,
+            updated_by: taskData.created_by,
+          };
+          
+          await this.taskRepository.updateTask(existingTask.id, updateDto);
+          console.log(`Task ${taskData.appointment_running} updated - changes detected`);
+        } else {
+          console.log(`Task ${taskData.appointment_running} skipped - no changes`);
+        }
       } else {
         // Create new task
         await this.taskRepository.createTask(taskData);
+        console.log(`Task ${taskData.appointment_running} created`);
       }
     } catch (error) {
       console.error('Error creating/updating task:', error);

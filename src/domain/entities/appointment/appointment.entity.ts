@@ -1,6 +1,5 @@
 import { AppointmentResponseDto } from 'src/shared/types/appointment'
 import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
-import { CarBrand, CarType } from 'src/shared/enum/task'
 import { Branch } from 'src/shared/enum/user'
 
 export class AppointmentEntity implements AppointmentResponseDto {
@@ -12,7 +11,7 @@ export class AppointmentEntity implements AppointmentResponseDto {
   customer_contact: string
   date_booked: string
   time_booked: string
-  branch_booked: string
+  branch_booked: Branch
   lift: string
   responsible: string
   constructor(data: AppointmentResponseDto) {
@@ -25,6 +24,10 @@ export class AppointmentEntity implements AppointmentResponseDto {
     return { firstname, lastname }
   }
   toTaskData(userId: string): CreateTaskDto {
+    if (!this.branch_booked) {
+      throw new Error(`branch_booked is required for appointment ${this.appointment_running}`)
+    }
+    
     return {
       walk_in_flag: false,
       appointment_running: this.appointment_running,
@@ -36,20 +39,10 @@ export class AppointmentEntity implements AppointmentResponseDto {
       date_booked: this.date_booked,
       time_booked: this.time_booked,
       responsible: [userId],
-      branch_book: this.mapBranchName(this.branch_booked),
+      branch_booked: this.branch_booked,
       lift: this.lift,
       created_by: userId,
     }
   }
 
-  private mapBranchName(branchName: string): Branch {
-    const branchMapping: Record<string, Branch> = {
-      'สำนักงานใหญ่': Branch.HEAD_OFFICE,
-      'สาขาสอยดาว': Branch.SOIDAO,
-      'สาขานายายอาม': Branch.NAYAIAM,
-      'สาขาขลุง': Branch.KHLUNG,
-    }
-    
-    return branchMapping[branchName] || Branch.HEAD_OFFICE
-  }
 }

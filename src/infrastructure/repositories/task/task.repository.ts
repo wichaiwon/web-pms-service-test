@@ -5,6 +5,7 @@ import { UpdateTaskDto } from 'src/application/dto/tasks/update-task.dto'
 import { Tasks } from 'src/domain/entities/task/task.entity'
 import { ITaskRepository } from 'src/domain/repositories/task/task.repository.interface'
 import { StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
+import { Branch } from 'src/shared/enum/user'
 import { Repository } from 'typeorm'
 
 @Injectable()
@@ -34,6 +35,13 @@ export class TaskRepository implements ITaskRepository {
       .where(':userId = ANY(task.responsible)', { userId })
       .orderBy('task.created_at', 'DESC')
       .getMany()
+  }
+
+  async getTasksByBranch(branch: Branch): Promise<Tasks[]> {
+    return this.taskRepository.find({
+      where: { branch_booked: branch },
+      order: { created_at: 'DESC' },
+    })
   }
 
   async createTask(createDto: CreateTaskDto): Promise<Tasks> {

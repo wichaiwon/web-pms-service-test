@@ -70,7 +70,7 @@ async function bootstrap() {
         description: 'Enter JWT token',
         in: 'header'
       },
-      'JWT-auth'
+      'Bearer'
     )
     .addTag('Authentication', 'User authentication and authorization')
     .addTag('Tasks', 'Task management operations')

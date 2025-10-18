@@ -7,7 +7,7 @@ import {
   TruckToolSet,
   WheelControlCover,
 } from 'src/shared/enum/task-detail-step-two'
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Tasks } from '../task.entity'
 
 @Entity('task_detail_step_two')
@@ -101,7 +101,7 @@ export class TaskDetailStepTwoEntity {
   @Column({ type: 'uuid', nullable: true })
   created_by: string
 
-  @Column({ type: 'timestamp with time zone', nullable: true, onUpdate: 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true})
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

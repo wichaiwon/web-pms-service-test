@@ -1,9 +1,14 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger'
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { CreateTaskDetailStepOneAdditionalServiceDto } from 'src/application/dto/tasks/task-detail-step-one/create-task-detail-step-one-additional-service.dto'
 import { UpdateTaskDetailStepOneAdditionalServiceDto } from 'src/application/dto/tasks/task-detail-step-one/update-task-detail-step-one-additional-service.dto'
 import { TaskDetailStepOneAdditionalServiceService } from './task-detail-step-one-additional-service.service'
 
+@ApiTags('Task Detail Step One Additional Services')
+@ApiBearerAuth('Bearer')
 @Controller('task-detail-step-one-additional-service')
+@UseGuards(JwtAuthGuard)
 export class TaskDetailStepOneAdditionalServiceController {
   constructor(private readonly taskDetailStepOneAdditionalService: TaskDetailStepOneAdditionalServiceService) {}
 
