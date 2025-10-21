@@ -9,6 +9,9 @@ export class Tasks {
 
   @Column({ type: 'boolean', default: false })
   walk_in_flag: boolean
+  
+  @Column({ type: 'boolean', default: false })
+  in_process_flag: boolean
 
   @Column({ type: 'varchar', nullable: false, unique: true })
   appointment_running: string

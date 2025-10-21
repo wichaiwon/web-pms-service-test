@@ -16,10 +16,6 @@ export class UpdateTaskUseCase {
       throw new Error(`Task with id ${id} not found`)
     }
 
-    // Business validation
-    if (existingTask.success_flag && updateTaskDto.success_flag === false) {
-      throw new Error('Cannot revert completed task to incomplete')
-    }
 
     await this.taskRepository.updateTask(id, updateTaskDto)
   }

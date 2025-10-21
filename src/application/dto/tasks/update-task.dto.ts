@@ -3,102 +3,78 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 
 export class UpdateTaskDto {
-  @ApiPropertyOptional({ 
+
+  @ApiPropertyOptional({
     description: 'Vehicle registration number',
-    example: 'กข 1234' 
+    example: 'กข 1234',
   })
   @IsOptional()
   @IsString()
   vehicle_registration?: string
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Vehicle registration province',
-    example: 'กรุงเทพมหานคร' 
+    example: 'กรุงเทพมหานคร',
   })
   @IsOptional()
   @IsString()
   vehicle_registration_province?: string
 
-  @ApiPropertyOptional({ 
-    description: 'Success completion flag',
-    example: true,
-    type: Boolean 
-  })
-  @IsOptional()
-  @IsBoolean()
-  success_flag?: boolean
-
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Vehicle VIN number',
-    example: '1HGBH41JXMN109186' 
+    example: '1HGBH41JXMN109186',
   })
   @IsOptional()
   @IsString()
   vin_number?: string
 
-  @ApiPropertyOptional({ 
-    description: 'Vehicle engine number',
-    example: 'ENG123456' 
-  })
-  @IsOptional()
-  @IsString()
-  engine_number?: string
-
-  @ApiPropertyOptional({ 
-    description: 'Vehicle chassis number',
-    example: 'CHS123456' 
-  })
-  @IsOptional()
-  @IsString()
-  chassis_number?: string
-
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Array of responsible user UUIDs',
     example: ['123e4567-e89b-12d3-a456-426614174000'],
     type: [String],
-    isArray: true 
+    isArray: true,
   })
   @IsOptional()
   @IsArray()
   @IsUUID('4', { each: true })
   responsible?: string[]
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Lift assignment',
-    example: 'Lift A1' 
+    example: 'Lift A1',
   })
   @IsOptional()
   @IsString()
   lift?: string
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Repair order status',
-    enum: StatusRepairOrder 
+    enum: StatusRepairOrder,
   })
   @IsOptional()
   @IsEnum(StatusRepairOrder)
   status_repair_order?: StatusRepairOrder
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Report status',
-    enum: StatusReport 
+    enum: StatusReport,
   })
   @IsOptional()
   @IsEnum(StatusReport)
   status_report?: StatusReport
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Active status flag',
     example: true,
-    type: Boolean 
+    type: Boolean,
   })
   @IsOptional()
   @IsBoolean()
   is_active?: boolean
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'User ID who updated this task',
-    example: '123e4567-e89b-12d3-a456-426614174000' 
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
   @IsNotEmpty()
   @IsUUID()

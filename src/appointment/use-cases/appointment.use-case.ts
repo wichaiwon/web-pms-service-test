@@ -79,8 +79,6 @@ export class SyncAppointmentsUseCase {
             vehicle_registration: taskData.vehicle_registration,
             vehicle_registration_province: taskData.vehicle_registration_province,
             vin_number: taskData.vin_number,
-            engine_number: taskData.engine_number,
-            chassis_number: taskData.chassis_number,
             responsible: updatedResponsible,
             lift: taskData.lift,
             status_repair_order: taskData.status_repair_order,

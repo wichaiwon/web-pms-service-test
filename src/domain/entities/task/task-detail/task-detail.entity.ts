@@ -26,7 +26,7 @@ export class TaskDetailEntity {
   @Column({ type: 'boolean', default: false })
   success_flag: boolean
 
-  @CreateDateColumn({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({ type: 'timestamp with time zone', nullable: false })
   created_at: Date
 
   @Column({ type: 'uuid', nullable: true })

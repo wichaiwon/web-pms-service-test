@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
+import { PatchTaskEngineChassisDto } from 'src/application/dto/tasks/patch-task-engine-chassis'
+import { PatchTaskInProcessFlagDto } from 'src/application/dto/tasks/patch-task-in-process-flag'
+import { PatchTaskSuccessFlagDto } from 'src/application/dto/tasks/patch-task-success-flag'
 import { UpdateTaskDto } from 'src/application/dto/tasks/update-task.dto'
 import { Tasks } from 'src/domain/entities/task/task.entity'
 import { ITaskRepository } from 'src/domain/repositories/task/task.repository.interface'
@@ -72,5 +75,29 @@ export class TaskRepository implements ITaskRepository {
     return this.taskRepository.findOne({
       where: { appointment_running: appointmentRunning },
     })
+  }
+  async patchTaskSuccessFlag(id: string, patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto): Promise<void> {
+    const result = await this.taskRepository.update(id, {
+      ...patchTaskSuccessFlagDto,
+    })
+    if (result.affected === 0) {
+      throw new Error(`Task with id ${id} not found`)
+    }
+  }
+  async patchTaskInProcessFlag(id: string, patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto): Promise<void> {
+    const result = await this.taskRepository.update(id, {
+      ...patchTaskInProcessFlagDto,
+    })
+    if (result.affected === 0) {
+      throw new Error(`Task with id ${id} not found`)
+    }
+  }
+  async patchTaskEngineChassis(id: string, patchTaskEngineChassisDto: PatchTaskEngineChassisDto): Promise<void> {
+    const result = await this.taskRepository.update(id, {
+      ...patchTaskEngineChassisDto,
+    })
+    if (result.affected === 0) {
+      throw new Error(`Task with id ${id} not found`)
+    }
   }
 }

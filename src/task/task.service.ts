@@ -7,6 +7,9 @@ import { CreateTaskUseCase } from './use-cases/create-task.use-case'
 import { GetTaskUseCase } from './use-cases/get-task.use-case'
 import { UpdateTaskUseCase } from './use-cases/update-task.use-case'
 import { Branch } from '../shared/enum/user'
+import { PatchTaskSuccessFlagDto } from 'src/application/dto/tasks/patch-task-success-flag'
+import { PatchTaskInProcessFlagDto } from 'src/application/dto/tasks/patch-task-in-process-flag'
+import { PatchTaskEngineChassisDto } from 'src/application/dto/tasks/patch-task-engine-chassis'
 
 @Injectable()
 export class TaskService implements ITaskService {
@@ -46,5 +49,25 @@ export class TaskService implements ITaskService {
 
   async getTasksByBranch(branch: Branch): Promise<Tasks[]> {
     return this.getTaskUseCase.executeByBranch(branch)
+  }
+  async patchTaskSuccessFlag(
+    id: string,
+    patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto,
+  ): Promise<void> {
+    return this.updateTaskUseCase.execute(id, patchTaskSuccessFlagDto)
+  }
+
+  async patchTaskInProcessFlag(
+    id: string,
+    patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto,
+  ): Promise<void> {
+    return this.updateTaskUseCase.execute(id, patchTaskInProcessFlagDto)
+  }
+
+  async patchTaskEngineChassis(
+    id: string,
+    patchTaskEngineChassisDto: PatchTaskEngineChassisDto,
+  ): Promise<void> {
+    return this.updateTaskUseCase.execute(id, patchTaskEngineChassisDto)
   }
 }

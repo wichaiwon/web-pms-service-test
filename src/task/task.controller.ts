@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Put, Body, Param, UseGuards, HttpStatus, HttpCode, HttpException } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Body,
+  Param,
+  UseGuards,
+  HttpStatus,
+  HttpCode,
+  HttpException,
+  Patch,
+} from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth, ApiBody } from '@nestjs/swagger'
 import { TaskService } from './task.service'
 import { CreateTaskDto } from '../application/dto/tasks/create-task.dto'
@@ -6,6 +18,9 @@ import { UpdateTaskDto } from '../application/dto/tasks/update-task.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { SuccessResponseDto, ErrorResponseDto } from '../application/dto/common/response.dto'
 import { Branch } from '../shared/enum/user'
+import { PatchTaskEngineChassisDto } from 'src/application/dto/tasks/patch-task-engine-chassis'
+import { PatchTaskSuccessFlagDto } from 'src/application/dto/tasks/patch-task-success-flag'
+import { PatchTaskInProcessFlagDto } from 'src/application/dto/tasks/patch-task-in-process-flag'
 
 @ApiTags('Tasks')
 @ApiBearerAuth('Bearer')
@@ -18,20 +33,20 @@ export class TaskController {
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create a new task' })
   @ApiBody({ type: CreateTaskDto })
-  @ApiResponse({ 
-    status: 201, 
+  @ApiResponse({
+    status: 201,
     description: 'Task created successfully',
-    type: SuccessResponseDto 
+    type: SuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 400, 
+  @ApiResponse({
+    status: 400,
     description: 'Bad request - Invalid input data',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 401, 
+  @ApiResponse({
+    status: 401,
     description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
   async createTask(@Body() createTaskDto: CreateTaskDto) {
     try {
@@ -56,20 +71,20 @@ export class TaskController {
 
   @Get()
   @ApiOperation({ summary: 'Get all tasks' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Tasks retrieved successfully',
-    type: SuccessResponseDto 
+    type: SuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 401, 
+  @ApiResponse({
+    status: 401,
     description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 500, 
+  @ApiResponse({
+    status: 500,
     description: 'Internal server error',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
   async getAllTasks() {
     try {
@@ -94,25 +109,25 @@ export class TaskController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get task by ID' })
-  @ApiParam({ 
-    name: 'id', 
+  @ApiParam({
+    name: 'id',
     description: 'Task UUID',
-    example: '123e4567-e89b-12d3-a456-426614174000' 
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Task retrieved successfully',
-    type: SuccessResponseDto 
+    type: SuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 401, 
+  @ApiResponse({
+    status: 401,
     description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 404, 
+  @ApiResponse({
+    status: 404,
     description: 'Task not found',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
   async getTaskById(@Param('id') id: string) {
     try {
@@ -137,25 +152,25 @@ export class TaskController {
 
   @Get('responsible/:userId')
   @ApiOperation({ summary: 'Get tasks by responsible user' })
-  @ApiParam({ 
-    name: 'userId', 
+  @ApiParam({
+    name: 'userId',
     description: 'User UUID',
-    example: '123e4567-e89b-12d3-a456-426614174000' 
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Responsible tasks retrieved successfully',
-    type: SuccessResponseDto 
+    type: SuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 400, 
+  @ApiResponse({
+    status: 400,
     description: 'Bad request - Invalid user ID',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 401, 
+  @ApiResponse({
+    status: 401,
     description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
   async getTasksByResponsible(@Param('userId') userId: string) {
     try {
@@ -180,25 +195,25 @@ export class TaskController {
 
   @Get('status/:status')
   @ApiOperation({ summary: 'Get tasks by status' })
-  @ApiParam({ 
-    name: 'status', 
+  @ApiParam({
+    name: 'status',
     description: 'Task status',
-    example: 'active' 
+    example: 'active',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Status tasks retrieved successfully',
-    type: SuccessResponseDto 
+    type: SuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 400, 
+  @ApiResponse({
+    status: 400,
     description: 'Bad request - Invalid status',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 401, 
+  @ApiResponse({
+    status: 401,
     description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
   async getTasksByStatus(@Param('status') status: string) {
     try {
@@ -223,30 +238,30 @@ export class TaskController {
 
   @Get('user-branch/:userId')
   @ApiOperation({ summary: 'Get tasks by user branch' })
-  @ApiParam({ 
-    name: 'userId', 
+  @ApiParam({
+    name: 'userId',
     description: 'User UUID to get their branch tasks',
-    example: '123e4567-e89b-12d3-a456-426614174000' 
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'User branch tasks retrieved successfully',
-    type: SuccessResponseDto 
+    type: SuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 400, 
+  @ApiResponse({
+    status: 400,
     description: 'Bad request - Invalid user ID',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 401, 
+  @ApiResponse({
+    status: 401,
     description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 404, 
+  @ApiResponse({
+    status: 404,
     description: 'User not found',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
   async getTasksByUserBranch(@Param('userId') userId: string) {
     try {
@@ -272,26 +287,26 @@ export class TaskController {
 
   @Get('branch/:branch')
   @ApiOperation({ summary: 'Get tasks by branch' })
-  @ApiParam({ 
-    name: 'branch', 
+  @ApiParam({
+    name: 'branch',
     description: 'Branch name',
     example: 'สำนักงานใหญ่',
-    enum: Branch
+    enum: Branch,
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Branch tasks retrieved successfully',
-    type: SuccessResponseDto 
+    type: SuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 400, 
+  @ApiResponse({
+    status: 400,
     description: 'Bad request - Invalid branch',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 401, 
+  @ApiResponse({
+    status: 401,
     description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
   async getTasksByBranch(@Param('branch') branch: Branch) {
     try {
@@ -316,31 +331,31 @@ export class TaskController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Update task by ID' })
-  @ApiParam({ 
-    name: 'id', 
+  @ApiParam({
+    name: 'id',
     description: 'Task UUID',
-    example: '123e4567-e89b-12d3-a456-426614174000' 
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
   @ApiBody({ type: UpdateTaskDto })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Task updated successfully',
-    type: SuccessResponseDto 
+    type: SuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 400, 
+  @ApiResponse({
+    status: 400,
     description: 'Bad request - Invalid input data',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 401, 
+  @ApiResponse({
+    status: 401,
     description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 404, 
+  @ApiResponse({
+    status: 404,
     description: 'Task not found',
-    type: ErrorResponseDto 
+    type: ErrorResponseDto,
   })
   async updateTask(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     try {
@@ -349,6 +364,147 @@ export class TaskController {
         success: true,
         message: 'Task updated successfully',
         data: task,
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: null,
+        },
+        HttpStatus.BAD_REQUEST,
+      )
+    }
+  }
+  @Patch('engine-chassis/:id')
+  @ApiOperation({ summary: 'Patch task engine chassis by ID' })
+  @ApiParam({
+    name: 'id',
+    description: 'Task UUID',
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
+  @ApiBody({ type: PatchTaskEngineChassisDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Task engine chassis patched successfully',
+    type: SuccessResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request - Invalid input data',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Task not found',
+    type: ErrorResponseDto,
+  })
+  async patchTaskEngineChassis(@Param('id') id: string, @Body() patchTaskEngineChassisDto: PatchTaskEngineChassisDto) {
+    try {
+      await this.taskService.patchTaskEngineChassis(id, patchTaskEngineChassisDto)
+      return {
+        success: true,
+        message: 'Task engine chassis patched successfully',
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: null,
+        },
+        HttpStatus.BAD_REQUEST,
+      )
+    }
+  }
+  @Patch('success-flag/:id')
+  @ApiOperation({ summary: 'Patch task success flag by ID' })
+  @ApiParam({
+    name: 'id',
+    description: 'Task UUID',
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
+  @ApiBody({ type: PatchTaskSuccessFlagDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Task success flag patched successfully',
+    type: SuccessResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request - Invalid input data',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Task not found',
+    type: ErrorResponseDto,
+  })
+  async patchTaskSuccessFlag(@Param('id') id: string, @Body() patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto) {
+    try {
+      await this.taskService.patchTaskSuccessFlag(id, patchTaskSuccessFlagDto)
+      return {
+        success: true,
+        message: 'Task success flag patched successfully',
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: null,
+        },
+        HttpStatus.BAD_REQUEST,
+      )
+    }
+  }
+  @Patch('in-process-flag/:id')
+  @ApiOperation({ summary: 'Patch task in-process flag by ID' })
+  @ApiParam({
+    name: 'id',
+    description: 'Task UUID',
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
+  @ApiBody({ type: PatchTaskSuccessFlagDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Task in-process flag patched successfully',
+    type: SuccessResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request - Invalid input data',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Task not found',
+    type: ErrorResponseDto,
+  })
+  async patchTaskInProcessFlag(@Param('id') id: string, @Body() patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto) {
+    try {
+      await this.taskService.patchTaskInProcessFlag(id, patchTaskInProcessFlagDto)
+      return {
+        success: true,
+        message: 'Task in-process flag patched successfully',
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error occurred'
