@@ -31,7 +31,7 @@ export class TaskDetailStepOneRepository implements ITaskDetailStepOneRepository
 
   async getTaskDetailStepOneByTaskId(taskId: string): Promise<TaskDetailStepOneEntity[]> {
     return this.taskDetailStepOneRepository.find({
-      where: { task_id: taskId },
+      where: { task_id: taskId, is_active: true },
       order: { created_at: 'DESC' },
     })
   }

@@ -61,11 +61,13 @@ export class GetTaskUseCase {
       throw new Error(`User with id ${userId} not found`)
     }
 
+    // Get tasks by branch (already filtered by today's date in repository)
     const tasks = await this.taskRepository.getTasksByBranch(user.branch)
     return this.sortTasksByDateTime(tasks)
   }
 
   async executeByBranch(branch: Branch): Promise<Tasks[]> {
+    // Get tasks by branch (already filtered by today's date in repository)
     const tasks = await this.taskRepository.getTasksByBranch(branch)
     return this.sortTasksByDateTime(tasks)
   }

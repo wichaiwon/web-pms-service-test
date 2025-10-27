@@ -237,7 +237,7 @@ export class TaskController {
   }
 
   @Get('user-branch/:userId')
-  @ApiOperation({ summary: 'Get tasks by user branch' })
+  @ApiOperation({ summary: 'Get tasks by user branch (today only)' })
   @ApiParam({
     name: 'userId',
     description: 'User UUID to get their branch tasks',
@@ -245,7 +245,7 @@ export class TaskController {
   })
   @ApiResponse({
     status: 200,
-    description: 'User branch tasks retrieved successfully',
+    description: 'User branch tasks retrieved successfully (filtered by today\'s date)',
     type: SuccessResponseDto,
   })
   @ApiResponse({
@@ -286,7 +286,7 @@ export class TaskController {
   }
 
   @Get('branch/:branch')
-  @ApiOperation({ summary: 'Get tasks by branch' })
+  @ApiOperation({ summary: 'Get tasks by branch (today only)' })
   @ApiParam({
     name: 'branch',
     description: 'Branch name',
@@ -295,7 +295,7 @@ export class TaskController {
   })
   @ApiResponse({
     status: 200,
-    description: 'Branch tasks retrieved successfully',
+    description: 'Branch tasks retrieved successfully (filtered by today\'s date)',
     type: SuccessResponseDto,
   })
   @ApiResponse({

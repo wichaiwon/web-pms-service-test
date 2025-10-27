@@ -11,6 +11,7 @@ import { TaskDetailStepTwoModule } from './task-detail-step-two/task-detail-step
 import { TaskDetailStepThreeModule } from './task-detail-step-three/task-detail-step-three.module'
 import { TaskDetailStepFourModule } from './task-detail-step-four/task-detail-step-four.module'
 import { AppointmentModule } from './appointment/appointment.module'
+import { UploadImageModule } from './upload-image/upload-image.module'
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { AppointmentModule } from './appointment/appointment.module'
     TaskDetailStepThreeModule,
     TaskDetailStepFourModule,
     AppointmentModule,
+    UploadImageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

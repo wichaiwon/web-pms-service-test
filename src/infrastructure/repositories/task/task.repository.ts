@@ -41,10 +41,16 @@ export class TaskRepository implements ITaskRepository {
   }
 
   async getTasksByBranch(branch: Branch): Promise<Tasks[]> {
-    return this.taskRepository.find({
-      where: { branch_booked: branch },
-      order: { created_at: 'DESC' },
-    })
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date()
+    const todayString = today.toISOString().split('T')[0]
+
+    return this.taskRepository
+      .createQueryBuilder('task')
+      .where('task.branch_booked = :branch', { branch })
+      .andWhere('task.date_booked = :today', { today: todayString })
+      .orderBy('task.created_at', 'DESC')
+      .getMany()
   }
 
   async createTask(createDto: CreateTaskDto): Promise<Tasks> {

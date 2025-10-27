@@ -31,7 +31,7 @@ export class TaskDetailRepository implements ITaskDetailRepository {
 
   async getTaskDetailByTaskId(taskId: string): Promise<TaskDetailEntity[]> {
     return this.taskDetailRepository.find({
-      where: { task_id: taskId },
+      where: { task_id: taskId , is_active: true},
       order: { created_at: 'DESC' },
     })
   }

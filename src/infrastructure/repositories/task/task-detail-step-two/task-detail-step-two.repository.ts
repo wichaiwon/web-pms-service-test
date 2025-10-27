@@ -27,7 +27,9 @@ export class TaskDetailStepTwoRepository implements ITaskDetailStepTwoRepository
   }
 
   async getTaskDetailStepTwoByTaskId(taskId: string): Promise<TaskDetailStepTwoEntity[]> {
-    return this.taskDetailStepTwoRepository.find({ where: { task_id: taskId }, order: { created_at: 'DESC' } })
+    return this.taskDetailStepTwoRepository.find({
+      where: { task_id: taskId, is_active: true },
+      order: { created_at: 'DESC' },})
   }
 
   async updateTaskDetailStepTwo(id: string, updateDto: UpdateTaskDetailStepTwoDto): Promise<void> {

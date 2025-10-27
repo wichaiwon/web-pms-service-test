@@ -26,6 +26,9 @@ export class TaskDetailEntity {
   @Column({ type: 'boolean', default: false })
   success_flag: boolean
 
+  @Column({ type: 'boolean', default: true })
+  is_active: boolean
+
   @CreateDateColumn({ type: 'timestamp with time zone', nullable: false })
   created_at: Date
 
