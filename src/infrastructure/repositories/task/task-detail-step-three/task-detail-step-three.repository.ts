@@ -32,7 +32,6 @@ export class TaskDetailStepThreeRepository implements ITaskDetailStepThreeReposi
   async updateTaskDetailStepThree(id: string, updateDto: UpdateTaskDetailStepThreeDto): Promise<void> {
     const result = await this.taskDetailStepThreeRepository.update(id, {
       ...updateDto,
-      updated_at: new Date(),
     })
     if (result.affected === 0) {
       throw new Error('TaskDetailStepThree not found or no changes made')

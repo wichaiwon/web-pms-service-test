@@ -35,7 +35,6 @@ export class TaskDetailStepTwoRepository implements ITaskDetailStepTwoRepository
   async updateTaskDetailStepTwo(id: string, updateDto: UpdateTaskDetailStepTwoDto): Promise<void> {
     const result = await this.taskDetailStepTwoRepository.update(id, {
       ...updateDto,
-      updated_at: new Date(),
     })
     if (result.affected === 0) {
       throw new Error('TaskDetailStepTwo not found or no changes made')

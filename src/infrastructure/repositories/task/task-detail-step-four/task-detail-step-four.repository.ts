@@ -38,7 +38,6 @@ export class TaskDetailFourRepository implements ITaskDetailStepFourRepository {
   async updateTaskDetailStepFour(id: string, updateDto: UpdateTaskDetailStepFourDto): Promise<void> {
     const result = await this.taskDetailStepFourRepository.update(id, {
       ...updateDto,
-      updated_at: new Date(),
     })
     if (result.affected === 0) {
       throw new Error(`TaskDetailStepFour with id ${id} not found`)

@@ -22,20 +22,25 @@ export class CreateTaskDetailAdditionalServiceUseCase {
     }
 
     // Business Rule: ถ้าเลือก "เติมลมยาง" ต้องมี tire pressure
-    if (createDto.additional_service === AdditionalService.TIRE_INFLATION) {
-      if (!createDto.front_tire_pressure || !createDto.back_tire_pressure) {
-        throw new BadRequestException(
-          'front_tire_pressure and back_tire_pressure are required when additional_service is เติมลมยาง',
-        )
+    const requiresTireInflation = (o: CreateTaskDetailAdditionalServiceDto) =>
+      Array.isArray(o.additional_service)
+      ? o.additional_service.includes(AdditionalService.TIRE_INFLATION)
+      : o.additional_service === AdditionalService.TIRE_INFLATION
+
+    if (requiresTireInflation(createDto)) {
+      if (createDto.front_tire_pressure == null || createDto.back_tire_pressure == null) {
+      throw new BadRequestException(
+        'front_tire_pressure and back_tire_pressure are required when additional_service is เติมลมยาง',
+      )
       }
 
       // Validate pressure range
       if (createDto.front_tire_pressure < 0 || createDto.front_tire_pressure > 100) {
-        throw new BadRequestException('front_tire_pressure must be between 0-100 PSI')
+      throw new BadRequestException('front_tire_pressure must be between 0-100 PSI')
       }
 
       if (createDto.back_tire_pressure < 0 || createDto.back_tire_pressure > 100) {
-        throw new BadRequestException('back_tire_pressure must be between 0-100 PSI')
+      throw new BadRequestException('back_tire_pressure must be between 0-100 PSI')
       }
     }
     return this.repository.createTaskDetailAdditionalService(createDto)

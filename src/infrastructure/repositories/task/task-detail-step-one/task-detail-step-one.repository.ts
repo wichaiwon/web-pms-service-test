@@ -39,7 +39,6 @@ export class TaskDetailStepOneRepository implements ITaskDetailStepOneRepository
   async updateTaskDetailStepOne(id: string, updateDto: UpdateTaskDetailStepOneDto): Promise<void> {
     const result = await this.taskDetailStepOneRepository.update(id, {
       ...updateDto,
-      updated_at: new Date(),
     })
 
     if (result.affected === 0) {

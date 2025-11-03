@@ -18,8 +18,8 @@ export class UpdateTaskDetailAdditionalServiceDto {
     example: AdditionalService.TIRE_INFLATION 
   })
   @IsOptional()
-  @IsEnum(AdditionalService)
-  additional_service?: AdditionalService
+  @IsEnum(AdditionalService, { each: true })
+  additional_service?: AdditionalService[]
 
   @ApiPropertyOptional({ 
     description: 'Front tire pressure',

@@ -13,8 +13,8 @@ export class TaskDetailAdditionalServiceEntity {
   @Column({ type: 'enum', enum: TirePressure, nullable: false })
   tire_pressure: TirePressure
 
-  @Column({ type: 'enum', enum: AdditionalService, nullable: true })
-  additional_service: AdditionalService
+  @Column({ type: 'enum', enum: AdditionalService, array: true, nullable: true })
+  additional_service: AdditionalService[]
 
   @Column({ type: 'integer', nullable: true })
   front_tire_pressure: number

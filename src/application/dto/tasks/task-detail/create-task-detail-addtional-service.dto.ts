@@ -26,8 +26,8 @@ export class CreateTaskDetailAdditionalServiceDto {
     example: AdditionalService.TIRE_INFLATION 
   })
   @IsNotEmpty()
-  @IsEnum(AdditionalService)
-  additional_service: AdditionalService
+  @IsEnum(AdditionalService, { each: true })
+  additional_service: AdditionalService[]
 
   @ApiPropertyOptional({ 
     description: 'Front tire pressure (required only when additional_service is TIRE_INFLATION)',
@@ -35,7 +35,7 @@ export class CreateTaskDetailAdditionalServiceDto {
     type: Number 
   })
   // Required only if additional_service is "เติมลมยาง"
-  @ValidateIf((o: CreateTaskDetailAdditionalServiceDto) => o.additional_service === AdditionalService.TIRE_INFLATION)
+  @ValidateIf((o: CreateTaskDetailAdditionalServiceDto) => Array.isArray(o.additional_service) && o.additional_service.includes(AdditionalService.TIRE_INFLATION))
   @IsNotEmpty({ message: 'front_tire_pressure is required when additional_service is เติมลมยาง' })
   @IsNumber()
   front_tire_pressure?: number
@@ -46,7 +46,7 @@ export class CreateTaskDetailAdditionalServiceDto {
     type: Number 
   })
   // Required only if additional_service is "เติมลมยาง"
-  @ValidateIf((o: CreateTaskDetailAdditionalServiceDto) => o.additional_service === AdditionalService.TIRE_INFLATION)
+  @ValidateIf((o: CreateTaskDetailAdditionalServiceDto) => Array.isArray(o.additional_service) && o.additional_service.includes(AdditionalService.TIRE_INFLATION))
   @IsNotEmpty({ message: 'back_tire_pressure is required when additional_service is เติมลมยาง' })
   @IsNumber()
   back_tire_pressure?: number

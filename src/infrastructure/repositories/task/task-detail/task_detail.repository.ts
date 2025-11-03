@@ -16,7 +16,6 @@ export class TaskDetailRepository implements ITaskDetailRepository {
   async createTaskDetail(taskDetail: CreateTaskDetailDto): Promise<TaskDetailEntity> {
     const created = this.taskDetailRepository.create({
       ...taskDetail,
-      success_flag: false,
     })
     return this.taskDetailRepository.save(created)
   }
@@ -39,7 +38,6 @@ export class TaskDetailRepository implements ITaskDetailRepository {
   async updateTaskDetail(id: string, taskDetail: UpdateTaskDetailDto): Promise<void> {
     await this.taskDetailRepository.update(id, {
       ...taskDetail,
-      updated_at: new Date(),
     })
   }
 
@@ -52,25 +50,5 @@ export class TaskDetailRepository implements ITaskDetailRepository {
       where: { task_id: taskId },
       order: { created_at: 'DESC' },
     })
-  }
-
-  async create(taskDetailData: Partial<TaskDetailEntity>): Promise<TaskDetailEntity> {
-    const taskDetail = this.taskDetailRepository.create({
-      ...taskDetailData,
-      success_flag: false,
-    })
-    return this.taskDetailRepository.save(taskDetail)
-  }
-
-  async update(id: string, taskDetailData: Partial<TaskDetailEntity>): Promise<TaskDetailEntity> {
-    await this.taskDetailRepository.update(id, {
-      ...taskDetailData,
-      updated_at: new Date(),
-    })
-    const updated = await this.findById(id)
-    if (!updated) {
-      throw new Error(`TaskDetail with id ${id} not found`)
-    }
-    return updated
   }
 }
