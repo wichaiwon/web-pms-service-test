@@ -2,7 +2,7 @@
 /dist
 /node_modules
 /build
-
+package-lock.json
 # Logs
 logs
 *.log
@@ -14,7 +14,9 @@ lerna-debug.log*
 
 # OS
 .DS_Store
-
+# docker
+.dockerignore
+dockerfile*
 # Tests
 /coverage
 /.nyc_output

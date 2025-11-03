@@ -7,6 +7,9 @@ export interface AppointmentResponseDto {
   customer_firstname: string
   customer_lastname: string
   customer_contact: string
+  engine_number: string
+  vin_number: string
+  chassis_number: string
   date_booked: string
   time_booked: string
   branch_booked: Branch

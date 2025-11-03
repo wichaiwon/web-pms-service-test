@@ -20,7 +20,7 @@ import { JwtTokenService } from '../infrastructure/services/jwt-token.service'
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'your-super-secret-jwt-key-here',
-      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1d' },
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1d' as any },
     }),
   ],
   controllers: [AuthController],
