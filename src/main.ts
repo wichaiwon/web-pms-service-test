@@ -1,33 +1,90 @@
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from './app.module';
+import { NestFactory } from '@nestjs/core'
+import { ValidationPipe } from '@nestjs/common'
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+import { AppModule } from './app.module'
+import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule)
+
+  // Enable CORS
+  app.enableCors({
+    origin: true, // Allow all origins in development
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  })
 
   // Enable validation pipes globally
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,
-    whitelist: true,
-    forbidNonWhitelisted: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  )
+
+  // Enable global exception filter
+  app.useGlobalFilters(new GlobalExceptionFilter())
 
   // Swagger configuration
   const config = new DocumentBuilder()
     .setTitle('Web PMS API')
-    .setDescription('The Web PMS Service API documentation')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
-  
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+    .setDescription(`
+      ## Web PMS (Property Management System) Service API
 
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-  
-  console.log(`Application is running on: http://localhost:${port}`);
-  console.log(`Swagger docs available at: http://localhost:${port}/api`);
+      This API provides comprehensive endpoints for managing property maintenance tasks, 
+      including vehicle service appointments, task management, and detailed inspection processes.
+
+      ### Features:
+      - **Authentication**: JWT-based authentication with role-based access
+      - **Task Management**: Create, update, and track maintenance tasks
+      - **Multi-step Inspections**: Detailed 4-step vehicle inspection process
+      - **User Management**: Support for mechanics, admins, and service advisors
+      - **Branch Operations**: Multi-branch support for different service locations
+
+      ### Authentication:
+      Most endpoints require JWT authentication. Use the login endpoint to obtain a token,
+      then include it in the Authorization header as: \`Bearer <your-token>\`
+
+      ### Response Format:
+      All responses follow a consistent format:
+      \`\`\`json
+      {
+        "success": true|false,
+        "message": "Description of the operation result",
+        "data": "Response data or null"
+      }
+      \`\`\`
+    `)
+    .setVersion('1.0.0')
+    .setContact('API Support', 'https://example.com/support', 'support@example.com')
+    .setLicense('MIT', 'https://opensource.org/licenses/MIT')
+    .addServer('http://localhost:8080', 'Development Server')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header'
+      },
+      'Bearer'
+    )
+    .addTag('Authentication', 'User authentication and authorization')
+    .addTag('Tasks', 'Task management operations')
+    .addTag('Task Details', 'Detailed task information and steps')
+    .addTag('Users', 'User management operations')
+    .build()
+
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('api', app, document)
+
+  const port = 8080
+  await app.listen(port)
+
+  console.log(`Application is running on: http://localhost:${port}`)
+  console.log(`Swagger docs available at: http://localhost:${port}/api`)
 }
-bootstrap();
+bootstrap()

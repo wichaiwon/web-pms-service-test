@@ -1,74 +1,38 @@
-import { Injectable, UnauthorizedException, Inject } from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
-import * as bcrypt from 'bcryptjs'
+import { Injectable, Inject } from '@nestjs/common'
 import { Users } from '../domain/entities/user/user.entity'
-import type { IUserRepository } from '../domain/repositories/user.repository.interface'
-import { LoginDto } from './dto/login.dto'
-import { RegisterDto } from './dto/register.dto'
+import { LoginDto } from '../application/dto/users/login.dto'
+import { RegisterDto } from '../application/dto/users/register.dto'
+import { LoginUseCase } from './use-cases/login.use-case'
+import { RegisterUseCase } from './use-cases/register.use-case'
+import { UpdatePasswordUseCase } from './use-cases/update-password.use-case'
+import { LoginResult } from 'src/shared/types/login'
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject('IUserRepository')
-    private readonly userRepository: IUserRepository,
-    private readonly jwtService: JwtService,
+    private readonly loginUseCase: LoginUseCase,
+    private readonly registerUseCase: RegisterUseCase,
+    private readonly updatePasswordUseCase: UpdatePasswordUseCase,
   ) {}
 
-  // ...existing code...
   async validateUser(mirai_id: string, password: string): Promise<any> {
-    const user = await this.userRepository.findByMiraiId(mirai_id)
-
-    if (user && user.is_active && (await bcrypt.compare(password, user.password))) {
-      const { password, ...result } = user
-      return result
-    }
-    return null
-  }
-
-  async login(loginDto: LoginDto) {
-    const user = await this.validateUser(loginDto.mirai_id, loginDto.password)
-
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials')
-    }
-
-    const payload = {
-      sub: user.id,
-      mirai_id: user.mirai_id,
-      role: user.role,
-    }
-
-    return {
-      access_token: this.jwtService.sign(payload),
-      user: {
-        id: user.id,
-        name: user.name,
-        surname: user.surname,
-        mirai_id: user.mirai_id,
-        role: user.role,
-        branch: user.branch,
-      },
+    try {
+      const result = await this.loginUseCase.execute({ mirai_id, password })
+      return result.user
+    } catch (error) {
+      return null
     }
   }
 
-  async register(registerDto: RegisterDto): Promise<Users> {
-    const existingUser = await this.userRepository.findByMiraiId(registerDto.mirai_id)
+  async login(loginDto: LoginDto): Promise<LoginResult> {
+    return this.loginUseCase.execute(loginDto)
+  }
 
-    if (existingUser) {
-      throw new UnauthorizedException('User already exists')
-    }
+  async register(registerDto: RegisterDto | RegisterDto[]): Promise<Users | Users[]> {
+    return this.registerUseCase.execute(registerDto)
+  }
 
-    const hashedPassword = await bcrypt.hash(registerDto.password, 10)
-
-    const userData = {
-      ...registerDto,
-      password: hashedPassword,
-      is_active: true,
-      pin_code: registerDto.pin_code,
-      created_by: 'system',
-      password_updated_at: new Date(),
-    }
-
-    return this.userRepository.create(userData)
+  async updatePassword(miraiId: string, oldPassword: string, newPassword: string): Promise<Users> {
+    return this.updatePasswordUseCase.execute(miraiId, oldPassword, newPassword)
   }
 }

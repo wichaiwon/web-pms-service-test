@@ -1,0 +1,36 @@
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger'
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
+import { CreateTaskDetailStepOneAdditionalServiceDto } from 'src/application/dto/tasks/task-detail-step-one/create-task-detail-step-one-additional-service.dto'
+import { UpdateTaskDetailStepOneAdditionalServiceDto } from 'src/application/dto/tasks/task-detail-step-one/update-task-detail-step-one-additional-service.dto'
+import { TaskDetailStepOneAdditionalServiceService } from './task-detail-step-one-additional-service.service'
+
+@ApiTags('Task Detail Step One Additional Services')
+@ApiBearerAuth('Bearer')
+@Controller('task-detail-step-one-additional-service')
+@UseGuards(JwtAuthGuard)
+export class TaskDetailStepOneAdditionalServiceController {
+  constructor(private readonly taskDetailStepOneAdditionalService: TaskDetailStepOneAdditionalServiceService) {}
+
+  @Post()
+  async create(@Body() createDto: CreateTaskDetailStepOneAdditionalServiceDto) {
+    return this.taskDetailStepOneAdditionalService.createTaskDetailStepOneAdditionalService(createDto)
+  }
+
+  @Get(':id')
+  async findById(@Param('id') id: string) {
+    return this.taskDetailStepOneAdditionalService.getTaskDetailStepOneAdditionalServiceById(id)
+  }
+
+  @Get('task-detail-step-one/:taskDetailStepOneId')
+  async findByTaskDetailStepOneId(@Param('taskDetailStepOneId') taskDetailStepOneId: string) {
+    return this.taskDetailStepOneAdditionalService.getTaskDetailStepOneAdditionalServiceByTaskDetailId(
+      taskDetailStepOneId,
+    )
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailStepOneAdditionalServiceDto) {
+    return this.taskDetailStepOneAdditionalService.updateTaskDetailStepOneAdditionalService(id, updateDto)
+  }
+}

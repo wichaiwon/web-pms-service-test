@@ -1,7 +1,17 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Users } from '../../domain/entities/user/user.entity';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { Users } from 'src/domain/entities/user/user.entity'
+import { Tasks } from 'src/domain/entities/task/task.entity'
+import { TaskDetailEntity } from 'src/domain/entities/task/task-detail/task-detail.entity'
+import { TaskDetailAdditionalServiceEntity } from 'src/domain/entities/task/task-detail/task-detail-additional-service.entity'
+import { TaskDetailStepOneEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one.entity'
+import { TaskDetailStepOneAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-one/task-detail-step-one-additional-service.entity'
+import { TaskDetailStepTwoEntity } from 'src/domain/entities/task/task-detail-step-two/task-detail-step-two.entity'
+import { TaskDetailStepTwoAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-two/task-detail-step-two-additional-service.entity'
+import { TaskDetailStepThreeEntity } from 'src/domain/entities/task/task-detail-step-three/task-detail-step-three.entity'
+import { TaskDetailStepThreeAdditionalServiceEntity } from 'src/domain/entities/task/task-detail-step-three/task-detail-step-three-additional-service.entity'
+import { TaskDetailStepFourEntity } from 'src/domain/entities/task/task-detail-step-four/task-detail-step-four.entity'
 
 @Module({
   imports: [
@@ -14,7 +24,19 @@ import { Users } from '../../domain/entities/user/user.entity';
         username: configService.get('DB_USERNAME', 'postgres'),
         password: configService.get('DB_PASSWORD', 'postgres'),
         database: configService.get('DB_NAME', 'web_pms_db'),
-        entities: [Users],
+        entities: [
+          Users,
+          Tasks,
+          TaskDetailEntity,
+          TaskDetailAdditionalServiceEntity,
+          TaskDetailStepOneEntity,
+          TaskDetailStepOneAdditionalServiceEntity,
+          TaskDetailStepTwoEntity,
+          TaskDetailStepTwoAdditionalServiceEntity,
+          TaskDetailStepThreeEntity,
+          TaskDetailStepThreeAdditionalServiceEntity,
+          TaskDetailStepFourEntity,
+        ],
         synchronize: configService.get('NODE_ENV') !== 'production',
         logging: configService.get('NODE_ENV') === 'development',
       }),

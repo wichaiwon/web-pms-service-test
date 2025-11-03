@@ -1,5 +1,5 @@
 import { Branch, UserRole } from 'src/shared/enum/user'
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
 
 @Entity('users')
 export class Users {
@@ -9,11 +9,14 @@ export class Users {
   @Column({ unique: true })
   pkg_id_member: string
 
-  @Column({ nullable: false })
-  name: string
+  @Column({ unique: true, nullable: true })
+  email: string
 
   @Column({ nullable: false })
-  surname: string
+  firstname: string
+
+  @Column({ nullable: false })
+  lastname: string
 
   @Column({
     type: 'enum',
@@ -44,12 +47,12 @@ export class Users {
   @Column({ nullable: false })
   created_by: string
 
-  @Column({ nullable: true })
-  updated_by: string
-
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date
 
-  @UpdateDateColumn({nullable: true })
+  @Column({ nullable: true })
+  updated_by: string
+
+  @Column({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 }

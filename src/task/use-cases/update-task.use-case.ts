@@ -1,0 +1,22 @@
+import { Injectable, Inject } from '@nestjs/common'
+import type { ITaskRepository } from '../../domain/repositories/task/task.repository.interface'
+import { UpdateTaskDto } from '../../application/dto/tasks/update-task.dto'
+
+@Injectable()
+export class UpdateTaskUseCase {
+  constructor(
+    @Inject('ITaskRepository')
+    private readonly taskRepository: ITaskRepository,
+  ) {}
+
+  async execute(id: string, updateTaskDto: UpdateTaskDto): Promise<void> {
+    // Check if task exists
+    const existingTask = await this.taskRepository.getTaskById(id)
+    if (!existingTask) {
+      throw new Error(`Task with id ${id} not found`)
+    }
+
+
+    await this.taskRepository.updateTask(id, updateTaskDto)
+  }
+}
