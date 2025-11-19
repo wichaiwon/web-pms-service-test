@@ -11,6 +11,7 @@ import { UserRepository } from '../infrastructure/repositories/user.repository'
 import { LoginUseCase } from './use-cases/login.use-case'
 import { RegisterUseCase } from './use-cases/register.use-case'
 import { UpdatePasswordUseCase } from './use-cases/update-password.use-case'
+import { GetUserUseCase } from './use-cases/get-user.use-case'
 import { BcryptPasswordHasher } from '../infrastructure/services/password-hasher.service'
 import { JwtTokenService } from '../infrastructure/services/jwt-token.service'
 
@@ -20,7 +21,7 @@ import { JwtTokenService } from '../infrastructure/services/jwt-token.service'
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'your-super-secret-jwt-key-here',
-      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1d' },
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1d' as any },
     }),
   ],
   controllers: [AuthController],
@@ -32,6 +33,7 @@ import { JwtTokenService } from '../infrastructure/services/jwt-token.service'
     LoginUseCase,
     RegisterUseCase,
     UpdatePasswordUseCase,
+    GetUserUseCase,
     // Repository
     {
       provide: 'IUserRepository',

@@ -18,4 +18,6 @@ export interface ITaskRepository {
   patchTaskSuccessFlag(id: string, patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto): Promise<void>
   patchTaskInProcessFlag(id: string, patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto): Promise<void>
   patchTaskEngineChassis(id: string, patchTaskEngineChassisDto: PatchTaskEngineChassisDto): Promise<void>
+  getTaskByIdWithAllDetails(id: string): Promise<Tasks>
+  getAllTasksWithCompleteDetails(): Promise<Tasks[]>
 }

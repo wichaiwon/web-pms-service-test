@@ -70,4 +70,12 @@ export class TaskService implements ITaskService {
   ): Promise<void> {
     return this.updateTaskUseCase.execute(id, patchTaskEngineChassisDto)
   }
+
+  async getTaskByIdWithAllDetails(id: string): Promise<Tasks> {
+    return this.getTaskUseCase.executeWithAllDetails(id)
+  }
+
+  async getAllTasksWithCompleteDetails(): Promise<Tasks[]> {
+    return this.getTaskUseCase.executeAllWithCompleteDetails()
+  }
 }

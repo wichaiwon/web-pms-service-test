@@ -518,4 +518,85 @@ export class TaskController {
       )
     }
   }
+
+  @Get('with-details/:id')
+  @ApiOperation({ summary: 'Get task by ID with all details (filtered by success_flag = false and is_active = true)' })
+  @ApiParam({
+    name: 'id',
+    description: 'Task UUID',
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Task with all details retrieved successfully',
+    type: SuccessResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Task not found or does not meet criteria',
+    type: ErrorResponseDto,
+  })
+  async getTaskByIdWithAllDetails(@Param('id') id: string) {
+    try {
+      const task = await this.taskService.getTaskByIdWithAllDetails(id)
+      return {
+        success: true,
+        message: 'Task with all details retrieved successfully',
+        data: task,
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: null,
+        },
+        HttpStatus.NOT_FOUND,
+      )
+    }
+  }
+
+  @Get('complete-details/all')
+  @ApiOperation({ summary: 'Get all tasks with complete details (only tasks that have all detail tables with success_flag = false and is_active = true)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Tasks with complete details retrieved successfully',
+    type: SuccessResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error',
+    type: ErrorResponseDto,
+  })
+  async getAllTasksWithCompleteDetails() {
+    try {
+      const tasks = await this.taskService.getAllTasksWithCompleteDetails()
+      return {
+        success: true,
+        message: 'Tasks with complete details retrieved successfully',
+        data: tasks,
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
+      throw new HttpException(
+        {
+          success: false,
+          message,
+          data: [],
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      )
+    }
+  }
 }

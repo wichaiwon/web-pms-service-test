@@ -13,7 +13,7 @@ export class Tasks {
   @Column({ type: 'boolean', default: false })
   in_process_flag: boolean
 
-  @Column({ type: 'varchar', nullable: false, unique: true })
+  @Column({ type: 'varchar', nullable: true, unique: true })
   appointment_running: string
 
   @Column({ type: 'varchar', nullable: false })

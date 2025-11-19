@@ -24,6 +24,11 @@ export class RegisterDto {
   @IsString()
   password: string
 
+  @ApiProperty({ example: '1234567890' })
+  @IsNotEmpty()
+  @IsString()
+  mirai_password: string
+
   @ApiProperty({ example: 'วิชัย' })
   @IsNotEmpty()
   @IsString()

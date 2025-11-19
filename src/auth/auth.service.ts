@@ -5,6 +5,7 @@ import { RegisterDto } from '../application/dto/users/register.dto'
 import { LoginUseCase } from './use-cases/login.use-case'
 import { RegisterUseCase } from './use-cases/register.use-case'
 import { UpdatePasswordUseCase } from './use-cases/update-password.use-case'
+import { GetUserUseCase } from './use-cases/get-user.use-case'
 import { LoginResult } from 'src/shared/types/login'
 
 @Injectable()
@@ -13,6 +14,7 @@ export class AuthService {
     private readonly loginUseCase: LoginUseCase,
     private readonly registerUseCase: RegisterUseCase,
     private readonly updatePasswordUseCase: UpdatePasswordUseCase,
+    private readonly getUserUseCase: GetUserUseCase,
   ) {}
 
   async validateUser(mirai_id: string, password: string): Promise<any> {
@@ -34,5 +36,9 @@ export class AuthService {
 
   async updatePassword(miraiId: string, oldPassword: string, newPassword: string): Promise<Users> {
     return this.updatePasswordUseCase.execute(miraiId, oldPassword, newPassword)
+  }
+
+  async getUserById(id: string): Promise<Users> {
+    return this.getUserUseCase.execute(id)
   }
 }

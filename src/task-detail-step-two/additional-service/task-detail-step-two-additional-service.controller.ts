@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { TaskDetailStepTwoAdditionalServiceService } from './task-detail-step-two-additional-service.service'
@@ -17,18 +17,18 @@ export class TaskDetailStepTwoAdditionalServiceController {
     return this.taskDetailStepTwoAdditionalService.createTaskDetailStepTwoAdditionalService(createDto)
   }
   @Get(':id')
-  async findById(@Body('id') id: string) {
+  async findById(@Param('id') id: string) {
     return this.taskDetailStepTwoAdditionalService.getTaskDetailStepTwoAdditionalServiceById(id)
   }
   @Get('task-detail-step-two/:taskDetailStepTwoId')
-  async findByTaskDetailStepTwoId(@Body('taskDetailStepTwoId') taskDetailStepTwoId: string) {
+  async findByTaskDetailStepTwoId(@Param('taskDetailStepTwoId') taskDetailStepTwoId: string) {
     return this.taskDetailStepTwoAdditionalService.getTaskDetailStepTwoAdditionalServiceByTaskDetailId(
       taskDetailStepTwoId,
     )
   }
 
   @Put(':id')
-  async update(@Body('id') id: string, @Body() updateDto: UpdateTaskDetailStepTwoAdditionalServiceDto) {
+  async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailStepTwoAdditionalServiceDto) {
     return this.taskDetailStepTwoAdditionalService.updateTaskDetailStepTwoAdditionalService(id, updateDto)
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Request, Get, Patch } from '@nestjs/common'
+import { Controller, Post, Body, UseGuards, Request, Get, Patch, Param } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nestjs/swagger'
 import { AuthService } from './auth.service'
 import { RegisterDto } from '../application/dto/users/register.dto'
@@ -49,5 +49,15 @@ export class AuthController {
   async changePassword(@Request() req, @Body() changePasswordDto: ChangePasswordDto) {
     const miraiId = req.user.mirai_id
     return this.authService.updatePassword(miraiId, changePasswordDto.oldPassword, changePasswordDto.newPassword)
+  }
+
+  @ApiOperation({ summary: 'Get user by ID' })
+  @ApiResponse({ status: 200, description: 'User retrieved successfully' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiBearerAuth('Bearer')
+  @UseGuards(JwtAuthGuard)
+  @Get('user/:id')
+  async getUserById(@Param('id') id: string) {
+    return this.authService.getUserById(id)
   }
 }

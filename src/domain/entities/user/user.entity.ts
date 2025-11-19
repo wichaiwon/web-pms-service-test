@@ -32,6 +32,9 @@ export class Users {
   @Column({ nullable: false })
   password: string // Hashed password
 
+  @Column({ nullable: true })
+  mirai_password: string
+  
   @Column({ nullable: true, type: 'timestamp with time zone' })
   password_updated_at: Date
 

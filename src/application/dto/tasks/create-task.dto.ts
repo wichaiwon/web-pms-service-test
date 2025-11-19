@@ -17,7 +17,7 @@ export class CreateTaskDto {
     description: 'Appointment running number',
     example: 'APT-2024-001' 
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   appointment_running: string
 

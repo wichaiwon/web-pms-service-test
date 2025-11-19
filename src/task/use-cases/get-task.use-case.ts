@@ -71,4 +71,16 @@ export class GetTaskUseCase {
     const tasks = await this.taskRepository.getTasksByBranch(branch)
     return this.sortTasksByDateTime(tasks)
   }
+
+  async executeWithAllDetails(id: string): Promise<Tasks> {
+    if (!id) {
+      throw new Error('Task ID is required')
+    }
+
+    return this.taskRepository.getTaskByIdWithAllDetails(id)
+  }
+
+  async executeAllWithCompleteDetails(): Promise<Tasks[]> {
+    return this.taskRepository.getAllTasksWithCompleteDetails()
+  }
 }

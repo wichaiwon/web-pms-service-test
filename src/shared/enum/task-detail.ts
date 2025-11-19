@@ -12,7 +12,7 @@ export enum FuelLevel {
 }
 
 export enum TirePressure {
-  NORMAL = 'ปกติ',
+  NORMAL = 'ธรรมดา',
   NITROGEN = 'ไนโตรเจน',
 }
 
@@ -20,5 +20,5 @@ export enum AdditionalService {
   TIRE_INFLATION = 'เติมลมยาง',
   RETURN_OLD_PARTS = 'คืนอะไหล่เก่า',
   CAR_WASH = 'ล้างรถ',
-  WAIT_AT_CENTER = 'รอรับรถที่ศูนย์',
+  WAIT_AT_CENTER = 'รอรับรถที่ศูนย์บริการ',
 }
