@@ -9,9 +9,14 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({
-    origin: true, // Allow all origins in development
+    origin: [
+      'http://localhost:8082',
+      'http://localhost:3000',
+      'https://postgresql-uat.agilesoftgroup.com',
+      /\.agilesoftgroup\.com$/, // Allow all subdomains
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     credentials: true,
   })
 
@@ -60,8 +65,8 @@ async function bootstrap() {
     .setVersion('1.0.0')
     .setContact('API Support', 'https://example.com/support', 'support@example.com')
     .setLicense('MIT', 'https://opensource.org/licenses/MIT')
-    .addServer('http://localhost:8080', 'Development Server')
-    .addServer('https://7090a4063c04.ngrok-free.app', 'Ngrok Tunnel Server')
+    .addServer('http://localhost:8082', 'Local Development Server')
+    .addServer('https://postgresql-uat.agilesoftgroup.com', 'Production Server')
     .addBearerAuth(
       {
         type: 'http',
@@ -82,7 +87,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
 
-  const port = 8080
+  const port = 8082
   await app.listen(port)
 
   console.log(`Application is running on: http://localhost:${port}`)
