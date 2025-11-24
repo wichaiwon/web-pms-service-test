@@ -16,7 +16,10 @@ lerna-debug.log*
 .DS_Store
 # docker
 .dockerignore
+.env.docker
+docker-compose.yml
 dockerfile*
+.gitignore
 # Tests
 /coverage
 /.nyc_output
