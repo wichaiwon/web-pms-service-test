@@ -7,7 +7,7 @@ import { UpdateTaskDetailStepTwoAdditionalServiceDto } from 'src/application/dto
 
 @ApiTags('Task Detail Step Two Additional Services')
 @ApiBearerAuth('Bearer')
-@Controller('task-detail-step-two/additional-service')
+@Controller('task-detail-step-two-additional-service')
 @UseGuards(JwtAuthGuard)
 export class TaskDetailStepTwoAdditionalServiceController {
   constructor(private readonly taskDetailStepTwoAdditionalService: TaskDetailStepTwoAdditionalServiceService) {}

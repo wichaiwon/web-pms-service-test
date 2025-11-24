@@ -10,10 +10,10 @@ export class TaskDetailStepThreeAdditionalServiceEntity {
   @Column({ type: 'uuid' })
   task_detail_step_three_id: string
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', array: true, nullable: true })
   first_battery_voltage_image: string[]
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', array: true, nullable: true })
   second_battery_voltage_image: string[]
 
   @Column({ type: 'varchar', nullable: true })

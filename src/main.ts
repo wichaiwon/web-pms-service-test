@@ -61,7 +61,7 @@ async function bootstrap() {
     .setContact('API Support', 'https://example.com/support', 'support@example.com')
     .setLicense('MIT', 'https://opensource.org/licenses/MIT')
     .addServer('http://localhost:8080', 'Development Server')
-    .addServer('https://7090a4063c04.ngrok-free.app', 'Ngrok Tunnel Server')
+    .addServer('https://febedd3c1ada.ngrok-free.app', 'Ngrok Tunnel Server')
     .addBearerAuth(
       {
         type: 'http',
