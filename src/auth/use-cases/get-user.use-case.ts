@@ -10,10 +10,29 @@ export class GetUserUseCase {
   ) {}
 
   async execute(id: string): Promise<Users> {
+    if (!id) {
+      throw new NotFoundException({
+        message: 'User retrieval failed',
+        errors: [{
+          field: 'id',
+          message: 'User ID is required',
+          constraint: 'required',
+        }],
+      })
+    }
+
     const user = await this.userRepository.findById(id)
     
     if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`)
+      throw new NotFoundException({
+        message: 'User not found',
+        errors: [{
+          field: 'id',
+          message: `User with id '${id}' does not exist`,
+          constraint: 'not_found',
+          value: id,
+        }],
+      })
     }
 
     // Remove password from response for security

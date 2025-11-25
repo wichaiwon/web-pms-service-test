@@ -14,19 +14,40 @@ export class TaskDetailStepThreeController {
 
   @Post()
   async create(@Body() createDto: CreateTaskDetailStepThreeDto) {
-    return this.taskDetailStepThreeService.createTaskDetailStepThree(createDto)
+    const result = await this.taskDetailStepThreeService.createTaskDetailStepThree(createDto)
+    return {
+      success: true,
+      message: 'Task detail step three created successfully',
+      data: result,
+    }
   }
+
   @Get(':id')
-  async findById(@Body('id') id: string) {
-    return this.taskDetailStepThreeService.getTaskDetailStepThreeById(id)
+  async findById(@Param('id') id: string) {
+    const result = await this.taskDetailStepThreeService.getTaskDetailStepThreeById(id)
+    return {
+      success: true,
+      message: 'Task detail step three retrieved successfully',
+      data: result,
+    }
   }
+
   @Get('task/:taskId')
   async findByTaskId(@Param('taskId') taskId: string) {
-    return this.taskDetailStepThreeService.getTaskDetailStepThreeByTaskId(taskId)
+    const result = await this.taskDetailStepThreeService.getTaskDetailStepThreeByTaskId(taskId)
+    return {
+      success: true,
+      message: 'Task detail step three retrieved successfully',
+      data: result,
+    }
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailStepThreeDto) {
-    return this.taskDetailStepThreeService.updateTaskDetailStepThree(id, updateDto)
+    await this.taskDetailStepThreeService.updateTaskDetailStepThree(id, updateDto)
+    return {
+      success: true,
+      message: 'Task detail step three updated successfully',
+    }
   }
 }

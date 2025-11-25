@@ -15,71 +15,40 @@ export class TaskDetailAdditionalServiceController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() createDto: CreateTaskDetailAdditionalServiceDto) {
-    try {
-      const result = await this.service.createTaskDetailAdditionalService(createDto)
-      return {
-        success: true,
-        message: 'Task detail additional service created successfully',
-        data: result,
-      }
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: null,
-      }
+    const result = await this.service.createTaskDetailAdditionalService(createDto)
+    return {
+      success: true,
+      message: 'Task detail additional service created successfully',
+      data: result,
     }
   }
 
   @Get(':id')
   async getById(@Param('id') id: string) {
-    try {
-      const result = await this.service.getTaskDetailAdditionalServiceById(id)
-      return {
-        success: true,
-        message: 'Additional service retrieved successfully',
-        data: result,
-      }
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: null,
-      }
+    const result = await this.service.getTaskDetailAdditionalServiceById(id)
+    return {
+      success: true,
+      message: 'Additional service retrieved successfully',
+      data: result,
     }
   }
 
   @Get('task-detail/:taskDetailId')
   async getByTaskDetailId(@Param('taskDetailId') taskDetailId: string) {
-    try {
-      const result = await this.service.getTaskDetailAdditionalServiceByTaskDetailId(taskDetailId)
-      return {
-        success: true,
-        message: 'Additional services retrieved successfully',
-        data: result,
-      }
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-        data: [],
-      }
+    const result = await this.service.getTaskDetailAdditionalServiceByTaskDetailId(taskDetailId)
+    return {
+      success: true,
+      message: 'Additional services retrieved successfully',
+      data: result,
     }
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailAdditionalServiceDto) {
-    try {
-      await this.service.updateTaskDetailAdditionalService(id, updateDto)
-      return {
-        success: true,
-        message: 'Additional service updated successfully',
-      }
-    } catch (error) {
-      return {
-        success: false,
-        message: error.message,
-      }
+    await this.service.updateTaskDetailAdditionalService(id, updateDto)
+    return {
+      success: true,
+      message: 'Additional service updated successfully',
     }
   }
 }

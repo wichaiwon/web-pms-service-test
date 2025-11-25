@@ -42,17 +42,25 @@ export class UploadImageController {
     description: 'File uploaded successfully',
     schema: {
       example: {
+        success: true,
         message: 'File uploaded successfully',
-        fileUrl:
-          'https://pkg-pms.s3.ap-southeast-1.amazonaws.com/web-pms-service/1729612345678-image.jpg',
-        fileName: '1729612345678-image.jpg',
-        contentType: 'image/jpeg',
-        size: 123456,
+        data: {
+          fileUrl:
+            'https://pkg-pms.s3.ap-southeast-1.amazonaws.com/web-pms-service/1729612345678-image.jpg',
+          fileName: '1729612345678-image.jpg',
+          contentType: 'image/jpeg',
+          size: 123456,
+        },
       },
     },
   })
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return this.uploadImageService.uploadFile(file);
+    const result = await this.uploadImageService.uploadFile(file)
+    return {
+      success: true,
+      message: 'File uploaded successfully',
+      data: result,
+    }
   }
 
   @Get('presigned-url')
@@ -74,10 +82,14 @@ export class UploadImageController {
     description: 'Presigned URL generated successfully',
     schema: {
       example: {
-        uploadUrl:
-          'https://pkg-pms.s3.ap-southeast-1.amazonaws.com/web-pms-service/my-image.jpg?X-Amz-Algorithm=...',
-        fileUrl:
-          'https://pkg-pms.s3.ap-southeast-1.amazonaws.com/web-pms-service/my-image.jpg',
+        success: true,
+        message: 'Presigned URL generated successfully',
+        data: {
+          uploadUrl:
+            'https://pkg-pms.s3.ap-southeast-1.amazonaws.com/web-pms-service/my-image.jpg?X-Amz-Algorithm=...',
+          fileUrl:
+            'https://pkg-pms.s3.ap-southeast-1.amazonaws.com/web-pms-service/my-image.jpg',
+        },
       },
     },
   })
@@ -85,7 +97,12 @@ export class UploadImageController {
     @Query('fileName') fileName: string,
     @Query('contentType') contentType: string,
   ) {
-    return this.uploadImageService.generateUploadUrl(fileName, contentType);
+    const result = await this.uploadImageService.generateUploadUrl(fileName, contentType)
+    return {
+      success: true,
+      message: 'Presigned URL generated successfully',
+      data: result,
+    }
   }
 
   @Get('view-url')
@@ -101,12 +118,21 @@ export class UploadImageController {
     description: 'View URL generated successfully',
     schema: {
       example: {
-        viewUrl:
-          'https://pkg-pms.s3.ap-southeast-1.amazonaws.com/web-pms-service/my-image.jpg?X-Amz-Algorithm=...',
+        success: true,
+        message: 'View URL generated successfully',
+        data: {
+          viewUrl:
+            'https://pkg-pms.s3.ap-southeast-1.amazonaws.com/web-pms-service/my-image.jpg?X-Amz-Algorithm=...',
+        },
       },
     },
   })
   async getViewUrl(@Query('fileName') fileName: string) {
-    return this.uploadImageService.generateViewUrl(fileName);
+    const result = await this.uploadImageService.generateViewUrl(fileName)
+    return {
+      success: true,
+      message: 'View URL generated successfully',
+      data: result,
+    }
   }
 }

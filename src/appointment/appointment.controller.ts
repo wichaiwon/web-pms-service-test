@@ -34,24 +34,16 @@ export class AppointmentController {
       type: 'object',
       properties: {
         success: { type: 'boolean' },
-        message: { type: 'string' },
-        error: { type: 'string' }
+        message: { type: 'string' }
       }
     }
   })
   async manualSync() {
-    try {
-      await this.syncAppointmentsUseCase.execute()
-      return {
-        success: true,
-        message: 'Appointment sync completed successfully',
-        timestamp: new Date().toISOString()
-      }
-    } catch (error) {
-      return {
-        success: false,
-        message: 'Appointment sync failed',
-        error: error.message,
+    await this.syncAppointmentsUseCase.execute()
+    return {
+      success: true,
+      message: 'Appointment sync completed successfully',
+      data: {
         timestamp: new Date().toISOString()
       }
     }

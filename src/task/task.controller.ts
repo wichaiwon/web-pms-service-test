@@ -49,23 +49,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async createTask(@Body() createTaskDto: CreateTaskDto) {
-    try {
-      const task = await this.taskService.createTask(createTaskDto)
-      return {
-        success: true,
-        message: 'Task created successfully',
-        data: task,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: null,
-        },
-        HttpStatus.BAD_REQUEST,
-      )
+    const task = await this.taskService.createTask(createTaskDto)
+    return {
+      success: true,
+      message: 'Task created successfully',
+      data: task,
     }
   }
 
@@ -87,23 +75,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async getAllTasks() {
-    try {
-      const tasks = await this.taskService.getAllTasks()
-      return {
-        success: true,
-        message: 'Tasks retrieved successfully',
-        data: tasks,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: [],
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      )
+    const tasks = await this.taskService.getAllTasks()
+    return {
+      success: true,
+      message: 'Tasks retrieved successfully',
+      data: tasks,
     }
   }
 
@@ -130,23 +106,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async getTaskById(@Param('id') id: string) {
-    try {
-      const task = await this.taskService.getTaskById(id)
-      return {
-        success: true,
-        message: 'Task retrieved successfully',
-        data: task,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: null,
-        },
-        HttpStatus.NOT_FOUND,
-      )
+    const task = await this.taskService.getTaskById(id)
+    return {
+      success: true,
+      message: 'Task retrieved successfully',
+      data: task,
     }
   }
 
@@ -173,23 +137,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async getTasksByResponsible(@Param('userId') userId: string) {
-    try {
-      const tasks = await this.taskService.getTasksByResponsible(userId)
-      return {
-        success: true,
-        message: 'Responsible tasks retrieved successfully',
-        data: tasks,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: [],
-        },
-        HttpStatus.BAD_REQUEST,
-      )
+    const tasks = await this.taskService.getTasksByResponsible(userId)
+    return {
+      success: true,
+      message: 'Responsible tasks retrieved successfully',
+      data: tasks,
     }
   }
 
@@ -216,23 +168,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async getTasksByStatus(@Param('status') status: string) {
-    try {
-      const tasks = await this.taskService.getTasksByStatus(status)
-      return {
-        success: true,
-        message: 'Status tasks retrieved successfully',
-        data: tasks,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: [],
-        },
-        HttpStatus.BAD_REQUEST,
-      )
+    const tasks = await this.taskService.getTasksByStatus(status)
+    return {
+      success: true,
+      message: 'Status tasks retrieved successfully',
+      data: tasks,
     }
   }
 
@@ -264,24 +204,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async getTasksByUserBranch(@Param('userId') userId: string) {
-    try {
-      const tasks = await this.taskService.getTasksByUserBranch(userId)
-      return {
-        success: true,
-        message: 'User branch tasks retrieved successfully',
-        data: tasks,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      const status = message.includes('not found') ? HttpStatus.NOT_FOUND : HttpStatus.BAD_REQUEST
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: [],
-        },
-        status,
-      )
+    const tasks = await this.taskService.getTasksByUserBranch(userId)
+    return {
+      success: true,
+      message: 'User branch tasks retrieved successfully',
+      data: tasks,
     }
   }
 
@@ -309,23 +236,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async getTasksByBranch(@Param('branch') branch: Branch) {
-    try {
-      const tasks = await this.taskService.getTasksByBranch(branch)
-      return {
-        success: true,
-        message: 'Branch tasks retrieved successfully',
-        data: tasks,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: [],
-        },
-        HttpStatus.BAD_REQUEST,
-      )
+    const tasks = await this.taskService.getTasksByBranch(branch)
+    return {
+      success: true,
+      message: 'Branch tasks retrieved successfully',
+      data: tasks,
     }
   }
 
@@ -358,23 +273,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async updateTask(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    try {
-      const task = await this.taskService.updateTask(id, updateTaskDto)
-      return {
-        success: true,
-        message: 'Task updated successfully',
-        data: task,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: null,
-        },
-        HttpStatus.BAD_REQUEST,
-      )
+    const task = await this.taskService.updateTask(id, updateTaskDto)
+    return {
+      success: true,
+      message: 'Task updated successfully',
+      data: task,
     }
   }
   @Patch('engine-chassis/:id')
@@ -406,22 +309,10 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async patchTaskEngineChassis(@Param('id') id: string, @Body() patchTaskEngineChassisDto: PatchTaskEngineChassisDto) {
-    try {
-      await this.taskService.patchTaskEngineChassis(id, patchTaskEngineChassisDto)
-      return {
-        success: true,
-        message: 'Task engine chassis patched successfully',
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: null,
-        },
-        HttpStatus.BAD_REQUEST,
-      )
+    await this.taskService.patchTaskEngineChassis(id, patchTaskEngineChassisDto)
+    return {
+      success: true,
+      message: 'Task engine chassis patched successfully',
     }
   }
   @Patch('success-flag/:id')
@@ -453,22 +344,10 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async patchTaskSuccessFlag(@Param('id') id: string, @Body() patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto) {
-    try {
-      await this.taskService.patchTaskSuccessFlag(id, patchTaskSuccessFlagDto)
-      return {
-        success: true,
-        message: 'Task success flag patched successfully',
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: null,
-        },
-        HttpStatus.BAD_REQUEST,
-      )
+    await this.taskService.patchTaskSuccessFlag(id, patchTaskSuccessFlagDto)
+    return {
+      success: true,
+      message: 'Task success flag patched successfully',
     }
   }
   @Patch('in-process-flag/:id')
@@ -478,7 +357,7 @@ export class TaskController {
     description: 'Task UUID',
     example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  @ApiBody({ type: PatchTaskSuccessFlagDto })
+  @ApiBody({ type: PatchTaskInProcessFlagDto })
   @ApiResponse({
     status: 200,
     description: 'Task in-process flag patched successfully',
@@ -500,22 +379,10 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async patchTaskInProcessFlag(@Param('id') id: string, @Body() patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto) {
-    try {
-      await this.taskService.patchTaskInProcessFlag(id, patchTaskInProcessFlagDto)
-      return {
-        success: true,
-        message: 'Task in-process flag patched successfully',
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: null,
-        },
-        HttpStatus.BAD_REQUEST,
-      )
+    await this.taskService.patchTaskInProcessFlag(id, patchTaskInProcessFlagDto)
+    return {
+      success: true,
+      message: 'Task in-process flag patched successfully',
     }
   }
 
@@ -542,23 +409,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async getTaskByIdWithAllDetails(@Param('id') id: string) {
-    try {
-      const task = await this.taskService.getTaskByIdWithAllDetails(id)
-      return {
-        success: true,
-        message: 'Task with all details retrieved successfully',
-        data: task,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: null,
-        },
-        HttpStatus.NOT_FOUND,
-      )
+    const task = await this.taskService.getTaskByIdWithAllDetails(id)
+    return {
+      success: true,
+      message: 'Task with all details retrieved successfully',
+      data: task,
     }
   }
 
@@ -580,23 +435,11 @@ export class TaskController {
     type: ErrorResponseDto,
   })
   async getAllTasksWithCompleteDetails() {
-    try {
-      const tasks = await this.taskService.getAllTasksWithCompleteDetails()
-      return {
-        success: true,
-        message: 'Tasks with complete details retrieved successfully',
-        data: tasks,
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      throw new HttpException(
-        {
-          success: false,
-          message,
-          data: [],
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      )
+    const tasks = await this.taskService.getAllTasksWithCompleteDetails()
+    return {
+      success: true,
+      message: 'Tasks with complete details retrieved successfully',
+      data: tasks,
     }
   }
 }

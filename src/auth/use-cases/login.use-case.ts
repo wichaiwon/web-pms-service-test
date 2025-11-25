@@ -17,22 +17,55 @@ export class LoginUseCase {
   ) {}
 
   async execute(loginDto: LoginDto): Promise<LoginResult> {
-    // 1. Find user by mirai_id
+    // 1. Validate required fields
+    if (!loginDto.mirai_id || !loginDto.password) {
+      const errors = [
+        ...((!loginDto.mirai_id) ? [{ field: 'mirai_id', message: 'Mirai ID is required' }] : []),
+        ...((!loginDto.password) ? [{ field: 'password', message: 'Password is required' }] : []),
+      ]
+      throw new UnauthorizedException({
+        message: 'Login failed - missing credentials',
+        errors,
+      })
+    }
+
+    // 2. Find user by mirai_id
     const user = await this.userRepository.findByMiraiId(loginDto.mirai_id)
 
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials')
+      throw new UnauthorizedException({
+        message: 'Login failed',
+        errors: [{
+          field: 'mirai_id',
+          message: 'Invalid mirai_id or password',
+          constraint: 'authentication',
+        }],
+      })
     }
 
-    // 2. Validate business rules
+    // 3. Validate business rules
     if (!user.is_active) {
-      throw new UnauthorizedException('User account is not active')
+      throw new UnauthorizedException({
+        message: 'Login failed',
+        errors: [{
+          field: 'mirai_id',
+          message: 'User account is not active. Please contact administrator',
+          constraint: 'account_status',
+        }],
+      })
     }
 
-    // 3. Verify password
+    // 4. Verify password
     const isPasswordValid = await this.passwordHasher.compare(loginDto.password, user.password)
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials')
+      throw new UnauthorizedException({
+        message: 'Login failed',
+        errors: [{
+          field: 'password',
+          message: 'Invalid mirai_id or password',
+          constraint: 'authentication',
+        }],
+      })
     }
 
     // 4. Generate JWT token

@@ -1,8 +1,9 @@
 import { NestFactory } from '@nestjs/core'
-import { ValidationPipe } from '@nestjs/common'
+import { ValidationPipe, BadRequestException, HttpStatus } from '@nestjs/common'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
+import { ValidationError } from 'class-validator'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -21,6 +22,69 @@ async function bootstrap() {
       transform: true,
       whitelist: true,
       forbidNonWhitelisted: true,
+      validationError: {
+        target: false,
+        value: false,
+      },
+      exceptionFactory: (errors: ValidationError[]) => {
+        const result = errors.map((error) => {
+          const constraints = error.constraints
+          const field = error.property
+          const value = error.value
+          
+          if (constraints) {
+            const constraintKeys = Object.keys(constraints)
+            const constraintType = constraintKeys[0]
+            let message = constraints[constraintType]
+            
+            // Make messages more user-friendly with detailed information
+            if (constraintType === 'isNotEmpty') {
+              message = `'${field}' is required and cannot be empty`
+            } else if (constraintType === 'isString') {
+              message = `'${field}' must be a text value (received: ${typeof value})`
+            } else if (constraintType === 'isNumber') {
+              message = `'${field}' must be a number (received: ${typeof value})`
+            } else if (constraintType === 'isUuid') {
+              message = `'${field}' must be a valid UUID format (received: ${value})`
+            } else if (constraintType === 'isEnum') {
+              // Try to get allowed values from error message or context
+              const originalMessage = constraints[constraintType]
+              const enumMatch = originalMessage?.match(/must be one of the following values: (.+)/)
+              if (enumMatch) {
+                message = `'${field}' must be one of: ${enumMatch[1]} (received: "${value}")`
+              } else {
+                message = `'${field}' must be one of the allowed enum values (received: "${value}")`
+              }
+            } else if (constraintType === 'isBoolean') {
+              message = `'${field}' must be a boolean value (true/false) (received: ${value})`
+            } else if (constraintType === 'isArray') {
+              message = `'${field}' must be an array (received: ${typeof value})`
+            } else if (constraintType === 'arrayNotEmpty') {
+              message = `'${field}' array cannot be empty`
+            }
+            
+            return {
+              field,
+              message,
+              constraint: constraintType,
+              value: value !== undefined ? value : null,
+            }
+          }
+          
+          return {
+            field,
+            message: `Validation failed for '${field}'`,
+            value: value !== undefined ? value : null,
+          }
+        })
+        
+        return new BadRequestException({
+          success: false,
+          message: 'Validation failed - please check the errors below',
+          errors: result,
+          statusCode: HttpStatus.BAD_REQUEST,
+        })
+      },
     }),
   )
 

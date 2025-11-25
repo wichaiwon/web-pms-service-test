@@ -18,7 +18,12 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Request() req) {
-    return this.authService.login(loginDto)
+    const result = await this.authService.login(loginDto)
+    return {
+      success: true,
+      message: 'Login successful',
+      data: result,
+    }
   }
 
   @ApiOperation({ summary: 'User registration (single or bulk)' })
@@ -26,7 +31,12 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   @Post('register')
   async register(@Body() registerDto: RegisterDto | RegisterDto[]) {
-    return this.authService.register(registerDto)
+    const result = await this.authService.register(registerDto)
+    return {
+      success: true,
+      message: 'User(s) registered successfully',
+      data: result,
+    }
   }
 
   @ApiOperation({ summary: 'Get user profile' })
@@ -35,7 +45,11 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
-    return req.user
+    return {
+      success: true,
+      message: 'Profile retrieved successfully',
+      data: req.user,
+    }
   }
 
   @ApiOperation({ summary: 'Change user password' })
@@ -48,7 +62,11 @@ export class AuthController {
   @Patch('change-password')
   async changePassword(@Request() req, @Body() changePasswordDto: ChangePasswordDto) {
     const miraiId = req.user.mirai_id
-    return this.authService.updatePassword(miraiId, changePasswordDto.oldPassword, changePasswordDto.newPassword)
+    await this.authService.updatePassword(miraiId, changePasswordDto.oldPassword, changePasswordDto.newPassword)
+    return {
+      success: true,
+      message: 'Password changed successfully',
+    }
   }
 
   @ApiOperation({ summary: 'Get user by ID' })
@@ -58,6 +76,11 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('user/:id')
   async getUserById(@Param('id') id: string) {
-    return this.authService.getUserById(id)
+    const result = await this.authService.getUserById(id)
+    return {
+      success: true,
+      message: 'User retrieved successfully',
+      data: result,
+    }
   }
 }

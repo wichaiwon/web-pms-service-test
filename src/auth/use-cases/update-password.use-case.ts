@@ -13,17 +13,54 @@ export class UpdatePasswordUseCase {
   ) {}
 
   async execute(miraiId: string, oldPassword: string, newPassword: string): Promise<Users> {
-    // 1. Find user
+    // 1. Validate passwords
+    if (!oldPassword || !newPassword) {
+      const errors = [
+        ...((!oldPassword) ? [{ field: 'oldPassword', message: 'Current password is required' }] : []),
+        ...((!newPassword) ? [{ field: 'newPassword', message: 'New password is required' }] : []),
+      ]
+      throw new UnauthorizedException({
+        message: 'Password change failed',
+        errors,
+      })
+    }
+
+    if (oldPassword === newPassword) {
+      throw new UnauthorizedException({
+        message: 'Password change failed',
+        errors: [{
+          field: 'newPassword',
+          message: 'New password must be different from current password',
+          constraint: 'different',
+        }],
+      })
+    }
+
+    // 2. Find user
     const user = await this.userRepository.findByMiraiId(miraiId)
 
     if (!user) {
-      throw new UnauthorizedException('User not found')
+      throw new UnauthorizedException({
+        message: 'Password change failed',
+        errors: [{
+          field: 'mirai_id',
+          message: 'User not found',
+          constraint: 'not_found',
+        }],
+      })
     }
 
-    // 2. Validate old password
+    // 3. Validate old password
     const isOldPasswordValid = await this.passwordHasher.compare(oldPassword, user.password)
     if (!isOldPasswordValid) {
-      throw new UnauthorizedException('Old password is incorrect')
+      throw new UnauthorizedException({
+        message: 'Password change failed',
+        errors: [{
+          field: 'oldPassword',
+          message: 'Current password is incorrect',
+          constraint: 'authentication',
+        }],
+      })
     }
 
     // 3. Hash new password

@@ -14,21 +14,40 @@ export class TaskDetailStepOneController {
 
   @Post()
   async create(@Body() createDto: CreateTaskDetailStepOneDto) {
-    return this.taskDetailStepOneService.createTaskDetailStepOne(createDto)
+    const result = await this.taskDetailStepOneService.createTaskDetailStepOne(createDto)
+    return {
+      success: true,
+      message: 'Task detail step one created successfully',
+      data: result,
+    }
   }
 
   @Get(':id')
   async findById(@Param('id') id: string) {
-    return this.taskDetailStepOneService.getTaskDetailStepOneById(id)
+    const result = await this.taskDetailStepOneService.getTaskDetailStepOneById(id)
+    return {
+      success: true,
+      message: 'Task detail step one retrieved successfully',
+      data: result,
+    }
   }
 
   @Get('task/:taskId')
   async findByTaskId(@Param('taskId') taskId: string) {
-    return this.taskDetailStepOneService.getTaskDetailStepOneByTaskId(taskId)
+    const result = await this.taskDetailStepOneService.getTaskDetailStepOneByTaskId(taskId)
+    return {
+      success: true,
+      message: 'Task detail step one retrieved successfully',
+      data: result,
+    }
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateTaskDetailStepOneDto) {
-    return this.taskDetailStepOneService.updateTaskDetailStepOne(id, updateDto)
+    await this.taskDetailStepOneService.updateTaskDetailStepOne(id, updateDto)
+    return {
+      success: true,
+      message: 'Task detail step one updated successfully',
+    }
   }
 }

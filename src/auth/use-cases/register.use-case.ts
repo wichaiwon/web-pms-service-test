@@ -27,7 +27,15 @@ export class RegisterUseCase {
     const existingUser = await this.userRepository.findByMiraiId(registerDto.mirai_id)
 
     if (existingUser) {
-      throw new UnauthorizedException('User already exists')
+      throw new BadRequestException({
+        message: 'User registration failed',
+        errors: [{
+          field: 'mirai_id',
+          message: `User with mirai_id '${registerDto.mirai_id}' already exists`,
+          constraint: 'unique',
+          value: registerDto.mirai_id,
+        }],
+      })
     }
 
     // 2. Hash password
@@ -53,7 +61,17 @@ export class RegisterUseCase {
       const miraiIds = registerDtos.map(user => user.mirai_id)
       const uniqueMiraiIds = new Set(miraiIds)
       if (uniqueMiraiIds.size !== miraiIds.length) {
-        throw new BadRequestException('Duplicate mirai_id found in the request')
+        // Find duplicates
+        const duplicates = miraiIds.filter((id, index) => miraiIds.indexOf(id) !== index)
+        throw new BadRequestException({
+          message: 'Bulk registration failed - duplicate mirai_id in request',
+          errors: duplicates.map(id => ({
+            field: 'mirai_id',
+            message: `Duplicate mirai_id '${id}' found in the request`,
+            constraint: 'unique',
+            value: id,
+          })),
+        })
       }
 
       // 2. Check if any users already exist in database
@@ -66,7 +84,15 @@ export class RegisterUseCase {
         .map(user => user!.mirai_id)
 
       if (existingMiraiIds.length > 0) {
-        throw new BadRequestException(`Users with mirai_id ${existingMiraiIds.join(', ')} already exist`)
+        throw new BadRequestException({
+          message: 'Bulk registration failed - users already exist',
+          errors: existingMiraiIds.map(id => ({
+            field: 'mirai_id',
+            message: `User with mirai_id '${id}' already exists`,
+            constraint: 'unique',
+            value: id,
+          })),
+        })
       }
 
       // 3. Hash passwords for all users
