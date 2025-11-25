@@ -4,6 +4,14 @@ import { FuelLevel } from 'src/shared/enum/task-detail'
 
 export class UpdateTaskDetailDto {
   @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
+  @ApiPropertyOptional({ 
     description: 'First task detail image URL or base64 string',
     example: 'https://example.com/image1.jpg' 
   })
@@ -44,6 +52,15 @@ export class UpdateTaskDetailDto {
   @IsOptional()
   @IsBoolean()
   success_flag?: boolean
+
+  @ApiPropertyOptional({ 
+    description: 'Active status flag',
+    example: true,
+    type: Boolean 
+  })
+  @IsOptional()
+  @IsBoolean()
+  is_active?: boolean
 
   @ApiPropertyOptional({ 
     description: 'User ID who updated this task detail',

@@ -10,6 +10,9 @@ export class TaskDetailAdditionalServiceEntity {
   @Column({ type: 'uuid', nullable: false })
   task_detail_id: string
 
+  @Column({ type: 'varchar', nullable: true })
+  session_id: string
+
   @Column({ type: 'enum', enum: TirePressure, nullable: false })
   tire_pressure: TirePressure
 

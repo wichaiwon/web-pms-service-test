@@ -10,6 +10,12 @@ export class UpdateTaskDetailStepFourUseCase {
   ) {}
 
   async execute(id: string, updateDto: UpdateTaskDetailStepFourDto): Promise<void> {
-    return this.taskDetailStepFourRepository.updateTaskDetailStepFour(id, updateDto)
+    // Set updated_at timestamp
+    const updateData = {
+      ...updateDto,
+      updated_at: new Date(),
+    }
+
+    return this.taskDetailStepFourRepository.updateTaskDetailStepFour(id, updateData)
   }
 }

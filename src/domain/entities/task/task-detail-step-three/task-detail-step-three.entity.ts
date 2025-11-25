@@ -10,6 +10,9 @@ export class TaskDetailStepThreeEntity {
   @Column({ type: 'uuid' })
   task_id: string
 
+  @Column({ type: 'varchar', nullable: true })
+  session_id: string
+
   @Column({ type: 'double precision', nullable: true })
   first_battery_voltage: number
 
@@ -37,7 +40,7 @@ export class TaskDetailStepThreeEntity {
   @Column({ type: 'uuid', nullable: true })
   created_by: string
 
-  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true })
+  @Column({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

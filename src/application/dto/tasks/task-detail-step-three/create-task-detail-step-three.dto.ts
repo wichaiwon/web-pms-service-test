@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator'
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 
 export class CreateTaskDetailStepThreeDto {
@@ -9,6 +9,14 @@ export class CreateTaskDetailStepThreeDto {
   @IsNotEmpty()
   @IsUUID()
   task_id: string
+
+  @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
 
   @ApiPropertyOptional({ 
     description: 'First battery voltage measurement (V)',

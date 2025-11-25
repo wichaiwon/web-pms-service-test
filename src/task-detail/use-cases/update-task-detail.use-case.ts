@@ -24,6 +24,12 @@ export class UpdateTaskDetailUseCase {
       throw new Error('Cannot revert completed task detail to incomplete')
     }
 
-    return this.taskDetailRepository.updateTaskDetail(id, updateDto)
+    // Set updated_at timestamp
+    const updateData = {
+      ...updateDto,
+      updated_at: new Date(),
+    }
+
+    return this.taskDetailRepository.updateTaskDetail(id, updateData)
   }
 }

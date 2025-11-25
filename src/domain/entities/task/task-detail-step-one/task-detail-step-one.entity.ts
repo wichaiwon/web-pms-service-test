@@ -10,6 +10,9 @@ export class TaskDetailStepOneEntity {
   @Column({ type: 'uuid' })
   task_id: string
 
+  @Column({ type: 'varchar', nullable: true })
+  session_id: string
+
   @Column({ type: 'enum', enum: DamageCar, nullable: false })
   damage_car: DamageCar
 
@@ -28,7 +31,7 @@ export class TaskDetailStepOneEntity {
   @Column({ type: 'uuid', nullable: true })
   created_by: string
 
-  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true })
+  @Column({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

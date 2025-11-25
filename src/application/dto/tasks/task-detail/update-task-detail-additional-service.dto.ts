@@ -4,6 +4,14 @@ import { AdditionalService, TirePressure } from 'src/shared/enum/task-detail'
 
 export class UpdateTaskDetailAdditionalServiceDto {
   @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
+  @ApiPropertyOptional({ 
     description: 'Tire pressure type',
     enum: TirePressure,
     example: TirePressure.NORMAL 

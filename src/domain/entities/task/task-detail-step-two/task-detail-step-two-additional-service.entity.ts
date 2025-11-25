@@ -9,6 +9,9 @@ export class TaskDetailStepTwoAdditionalServiceEntity {
   @Column({ type: 'uuid', nullable: false })
   task_detail_step_two_id: string
 
+  @Column({ type: 'varchar', nullable: true })
+  session_id: string
+
   @Column({ type: 'varchar', array: true, nullable: true })
   left_front_tire_image: string[]
 

@@ -9,6 +9,12 @@ export class UpdateTaskDetailStepTwoUseCase {
     private readonly taskDetailStepTwoRepository: ITaskDetailStepTwoRepository,
   ) {}
   async execute(id: string, updateDto: UpdateTaskDetailStepTwoDto): Promise<void> {
-    return this.taskDetailStepTwoRepository.updateTaskDetailStepTwo(id, updateDto)
+    // Set updated_at timestamp
+    const updateData = {
+      ...updateDto,
+      updated_at: new Date(),
+    }
+
+    return this.taskDetailStepTwoRepository.updateTaskDetailStepTwo(id, updateData)
   }
 }

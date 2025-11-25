@@ -11,6 +11,14 @@ export class CreateTaskDetailStepFourDto {
   @IsUUID()
   task_id: string
 
+  @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
   @ApiProperty({ 
     description: 'Customer signature image URL or base64 string',
     example: 'https://example.com/signature.png' 

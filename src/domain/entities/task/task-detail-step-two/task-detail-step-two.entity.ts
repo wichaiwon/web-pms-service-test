@@ -18,6 +18,9 @@ export class TaskDetailStepTwoEntity {
   @Column({ type: 'uuid', nullable: false })
   task_id: string
 
+  @Column({ type: 'varchar', nullable: true })
+  session_id: string
+
   @Column({ type: 'enum', enum: SpareTire, nullable: true })
   spare_tire: SpareTire
 
@@ -104,7 +107,7 @@ export class TaskDetailStepTwoEntity {
   @Column({ type: 'uuid', nullable: false })
   created_by: string
 
-  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true})
+  @Column({ type: 'timestamp with time zone', nullable: true})
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })

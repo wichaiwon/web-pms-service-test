@@ -12,6 +12,14 @@ import {
 
 export class UpdateTaskDetailStepTwoDto {
   @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
+  @ApiPropertyOptional({ 
     description: 'Spare tire availability',
     enum: SpareTire,
     example: SpareTire.HAVE 
@@ -228,11 +236,20 @@ export class UpdateTaskDetailStepTwoDto {
   @IsBoolean()
   success_flag?: boolean
 
-  @ApiProperty({ 
+  @ApiPropertyOptional({ 
+    description: 'Active status flag',
+    example: true,
+    type: Boolean 
+  })
+  @IsOptional()
+  @IsBoolean()
+  is_active?: boolean
+
+  @ApiPropertyOptional({ 
     description: 'User ID who updated this step two detail',
     example: '123e4567-e89b-12d3-a456-426614174000' 
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
-  updated_by: string
+  updated_by?: string
 }

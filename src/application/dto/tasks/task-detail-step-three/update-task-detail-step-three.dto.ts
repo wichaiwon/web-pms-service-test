@@ -1,7 +1,15 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator'
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 
 export class UpdateTaskDetailStepThreeDto {
+  @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
   @ApiPropertyOptional({ 
     description: 'First battery voltage measurement (V)',
     example: 12.6 
@@ -59,11 +67,11 @@ export class UpdateTaskDetailStepThreeDto {
   @IsBoolean()
   success_flag?: boolean
 
-  @ApiProperty({ 
+  @ApiPropertyOptional({ 
     description: 'User ID who updated this step three detail',
     example: '123e4567-e89b-12d3-a456-426614174000' 
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
-  updated_by: string
+  updated_by?: string
 }

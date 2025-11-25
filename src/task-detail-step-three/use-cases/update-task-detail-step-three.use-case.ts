@@ -9,7 +9,13 @@ export class UpdateTaskDetailStepThreeUseCase {
     private readonly taskDetailStepThreeRepository: ITaskDetailStepThreeRepository,
   ) {}
 
-  async execute(id: string, updateData: UpdateTaskDetailStepThreeDto): Promise<void> {
+  async execute(id: string, updateDto: UpdateTaskDetailStepThreeDto): Promise<void> {
+    // Set updated_at timestamp
+    const updateData = {
+      ...updateDto,
+      updated_at: new Date(),
+    }
+
     await this.taskDetailStepThreeRepository.updateTaskDetailStepThree(id, updateData)
   }
 }

@@ -11,6 +11,14 @@ export class CreateTaskDetailStepOneDto {
   @IsUUID()
   task_id: string
 
+  @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
   @ApiProperty({ 
     description: 'Car damage assessment result',
     enum: DamageCar,
@@ -36,6 +44,15 @@ export class CreateTaskDetailStepOneDto {
   @IsOptional()
   @IsBoolean()
   success_flag?: boolean
+
+  @ApiPropertyOptional({ 
+    description: 'Active status flag',
+    example: true,
+    type: Boolean 
+  })
+  @IsOptional()
+  @IsBoolean()
+  is_active?: boolean
 
   @ApiProperty({ 
     description: 'User ID who created this step one detail',

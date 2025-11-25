@@ -8,6 +8,9 @@ export class TaskDetailStepOneAdditionalServiceEntity {
   @Column({ type: 'uuid', nullable: false })
   task_detail_step_one_id: string
 
+  @Column({ type: 'varchar', nullable: true })
+  session_id: string
+
   @Column({ type: 'varchar', array: true, nullable: true })
   additional_image: string[]
 

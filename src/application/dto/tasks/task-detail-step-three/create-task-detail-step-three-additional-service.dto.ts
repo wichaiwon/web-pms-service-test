@@ -11,6 +11,14 @@ export class CreateTaskDetailStepThreeAdditionalServiceDto {
   task_detail_step_three_id: string
 
   @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
+  @ApiPropertyOptional({ 
     description: 'Array of first battery voltage measurement image URLs or base64 strings',
     example: ['https://example.com/battery1-voltage1.jpg', 'https://example.com/battery1-voltage2.jpg'],
     type: [String],

@@ -4,6 +4,14 @@ import { DamageCar } from 'src/shared/enum/task-detail-step-one'
 
 export class UpdateTaskDetailStepOneDto {
   @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
+  @ApiPropertyOptional({ 
     description: 'Car damage assessment result',
     enum: DamageCar,
     example: DamageCar.NONE 
@@ -28,6 +36,15 @@ export class UpdateTaskDetailStepOneDto {
   @IsOptional()
   @IsBoolean()
   success_flag?: boolean
+
+  @ApiPropertyOptional({ 
+    description: 'Active status flag',
+    example: true,
+    type: Boolean 
+  })
+  @IsOptional()
+  @IsBoolean()
+  is_active?: boolean
 
   @ApiPropertyOptional({ 
     description: 'User ID who updated this step one detail',

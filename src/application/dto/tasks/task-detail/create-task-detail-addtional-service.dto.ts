@@ -11,6 +11,14 @@ export class CreateTaskDetailAdditionalServiceDto {
   @IsUUID()
   task_detail_id: string
 
+  @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
   @ApiProperty({ 
     description: 'Tire pressure type',
     enum: TirePressure,

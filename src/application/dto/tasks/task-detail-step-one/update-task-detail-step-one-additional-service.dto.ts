@@ -3,6 +3,14 @@ import { ApiPropertyOptional } from '@nestjs/swagger'
 
 export class UpdateTaskDetailStepOneAdditionalServiceDto {
   @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
+  @ApiPropertyOptional({ 
     description: 'Array of additional image URLs or base64 strings',
     example: ['https://example.com/image1.jpg', 'https://example.com/image2.jpg'],
     type: [String],

@@ -11,6 +11,14 @@ export class CreateTaskDetailStepTwoAdditionalServiceDto {
   task_detail_step_two_id: string
 
   @ApiPropertyOptional({ 
+    description: 'Session ID for tracking create/update flow',
+    example: 'session-123-456' 
+  })
+  @IsOptional()
+  @IsString()
+  session_id?: string
+
+  @ApiPropertyOptional({ 
     description: 'Array of left front tire image URLs or base64 strings',
     example: ['https://example.com/left-front-tire1.jpg', 'https://example.com/left-front-tire2.jpg'],
     type: [String],

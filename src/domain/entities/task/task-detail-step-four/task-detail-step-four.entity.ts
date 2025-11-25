@@ -12,6 +12,9 @@ export class TaskDetailStepFourEntity {
   task_id: string
 
   @Column({ type: 'varchar', nullable: true })
+  session_id: string
+
+  @Column({ type: 'varchar', nullable: true })
   signature_customer: string
 
   @Column({ type: 'enum', enum: SignatureCustomer, default: SignatureCustomer.SIGNED })
@@ -29,7 +32,7 @@ export class TaskDetailStepFourEntity {
   @Column({ type: 'uuid', nullable: true })
   created_by: string
 
-  @UpdateDateColumn({ type: 'timestamp with time zone', nullable: true })
+  @Column({ type: 'timestamp with time zone', nullable: true })
   updated_at: Date
 
   @Column({ type: 'uuid', nullable: true })
