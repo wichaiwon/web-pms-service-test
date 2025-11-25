@@ -13,6 +13,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({ summary: 'User login' })
+  @ApiBody({ type: LoginDto })
   @ApiResponse({ status: 200, description: 'Login successful' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @UseGuards(LocalAuthGuard)
@@ -27,6 +28,54 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'User registration (single or bulk)' })
+  @ApiBody({ 
+    type: RegisterDto,
+    description: 'Single user or array of users',
+    examples: {
+      single: {
+        summary: 'Single user registration',
+        value: {
+          pkg_id_member: '6805018',
+          mirai_id: '405680518',
+          email: 'wichai.wongfu.pkg@gmail.com',
+          password: '1234567890',
+          mirai_password: '1234567890',
+          firstname: 'วิชัย',
+          lastname: 'วงค์ฟู',
+          pin_code: '123456',
+          role: 'admin',
+          branch: 'สำนักงานใหญ่'
+        }
+      },
+      bulk: {
+        summary: 'Bulk user registration',
+        value: [
+          {
+            pkg_id_member: '6805018',
+            mirai_id: '405680518',
+            email: 'user1@example.com',
+            password: '1234567890',
+            mirai_password: '1234567890',
+            firstname: 'User',
+            lastname: 'One',
+            role: 'admin',
+            branch: 'สำนักงานใหญ่'
+          },
+          {
+            pkg_id_member: '6805019',
+            mirai_id: '405680519',
+            email: 'user2@example.com',
+            password: '1234567890',
+            mirai_password: '1234567890',
+            firstname: 'User',
+            lastname: 'Two',
+            role: 'user',
+            branch: 'สาขา1'
+          }
+        ]
+      }
+    }
+  })
   @ApiResponse({ status: 201, description: 'User(s) created successfully' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @Post('register')
