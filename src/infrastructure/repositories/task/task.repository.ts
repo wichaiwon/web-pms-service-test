@@ -82,6 +82,15 @@ export class TaskRepository implements ITaskRepository {
       where: { appointment_running: appointmentRunning },
     })
   }
+
+  async getAllActiveTasksWithAppointment(): Promise<Tasks[]> {
+    return this.taskRepository
+      .createQueryBuilder('task')
+      .where('task.is_active = :isActive', { isActive: true })
+      .andWhere('task.appointment_running IS NOT NULL')
+      .andWhere('task.appointment_running != :empty', { empty: '' })
+      .getMany()
+  }
   async patchTaskSuccessFlag(id: string, patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto): Promise<void> {
     const result = await this.taskRepository.update(id, {
       ...patchTaskSuccessFlagDto,

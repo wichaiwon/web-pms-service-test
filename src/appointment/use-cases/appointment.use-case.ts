@@ -24,19 +24,36 @@ export class SyncAppointmentsUseCase {
       // 1. Fetch appointments from N8N
       const appointmentsData = await this.appointmentRepository.fetchAppointment();
       
-      // 2. Process each appointment
+      // Handle case when no appointments are returned (e.g., on Sundays)
+      if (!appointmentsData || !Array.isArray(appointmentsData) || appointmentsData.length === 0) {
+        console.log('No appointments found to sync');
+        // Still check for cancelled appointments
+        await this.deactivateCancelledAppointments(new Set());
+        return;
+      }
+      
+      // 2. Create a Set of active appointment_running IDs from N8N
+      const activeAppointmentRunnings = new Set(
+        appointmentsData.map((apt) => apt.appointment_running)
+      );
+      
+      // 3. Process each appointment (create or update)
       for (const appointmentData of appointmentsData) {
         const appointment = new AppointmentEntity(appointmentData);
         
-        // 3. Find user by responsible name
+        // Find user by responsible name
         const userId = await this.findUserByResponsible(appointment.responsible);
         
-        // 4. Map to task data
+        // Map to task data
         const taskData = appointment.toTaskData(userId);
         
-        // 5. Check if task exists and update or create
+        // Check if task exists and update or create
         await this.createOrUpdateTask(taskData);
       }
+      
+      // 4. Check for cancelled appointments (tasks that have appointment_running but not in N8N anymore)
+      await this.deactivateCancelledAppointments(activeAppointmentRunnings);
+      
     } catch (error) {
       console.error('Error syncing appointments:', error);
       throw error;
@@ -79,6 +96,8 @@ export class SyncAppointmentsUseCase {
             vehicle_registration: taskData.vehicle_registration,
             vehicle_registration_province: taskData.vehicle_registration_province,
             vin_number: taskData.vin_number,
+            engine_number: taskData.engine_number,
+            chassis_number: taskData.chassis_number,
             responsible: updatedResponsible,
             lift: taskData.lift,
             status_repair_order: taskData.status_repair_order,
@@ -98,6 +117,36 @@ export class SyncAppointmentsUseCase {
       }
     } catch (error) {
       console.error('Error creating/updating task:', error);
+      throw error;
+    }
+  }
+
+  private async deactivateCancelledAppointments(activeAppointmentRunnings: Set<string>): Promise<void> {
+    try {
+      // Get all active tasks that have appointment_running
+      const activeTasks = await this.taskRepository.getAllActiveTasksWithAppointment();
+      
+      // Find tasks that are no longer in N8N (cancelled appointments)
+      const cancelledTasks = activeTasks.filter(
+        (task) => !activeAppointmentRunnings.has(task.appointment_running)
+      );
+      
+      // Deactivate each cancelled task
+      for (const task of cancelledTasks) {
+        const updateDto: UpdateTaskDto = {
+          is_active: false,
+          updated_by: task.created_by,
+        };
+        
+        await this.taskRepository.updateTask(task.id, updateDto);
+        console.log(`Task ${task.appointment_running} deactivated - appointment cancelled in N8N`);
+      }
+      
+      if (cancelledTasks.length > 0) {
+        console.log(`Deactivated ${cancelledTasks.length} cancelled appointment(s)`);
+      }
+    } catch (error) {
+      console.error('Error deactivating cancelled appointments:', error);
       throw error;
     }
   }

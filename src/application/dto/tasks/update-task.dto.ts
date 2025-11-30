@@ -29,6 +29,22 @@ export class UpdateTaskDto {
   vin_number?: string
 
   @ApiPropertyOptional({
+    description: 'Engine number',
+    example: '4G63T123456',
+  })
+  @IsOptional()
+  @IsString()
+  engine_number?: string
+
+  @ApiPropertyOptional({
+    description: 'Chassis number',
+    example: 'JHMCM56557C404453',
+  })
+  @IsOptional()
+  @IsString()
+  chassis_number?: string
+
+  @ApiPropertyOptional({
     description: 'Array of responsible user UUIDs',
     example: ['123e4567-e89b-12d3-a456-426614174000'],
     type: [String],
@@ -72,11 +88,11 @@ export class UpdateTaskDto {
   @IsBoolean()
   is_active?: boolean
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'User ID who updated this task',
     example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
-  updated_by: string
+  updated_by?: string
 }
