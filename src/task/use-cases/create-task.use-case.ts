@@ -70,6 +70,23 @@ export class CreateTaskUseCase {
       }
     }
 
+    // Check for duplicate vin_number with pending status
+    if (createTaskDto.vin_number) {
+      const existingPendingTask = await this.taskRepository.findPendingTaskByVinNumber(createTaskDto.vin_number)
+      if (existingPendingTask) {
+        throw new BadRequestException({
+          success: false,
+          message: 'Duplicate task with pending status',
+          errors: [{
+            field: 'vin_number',
+            message: `มี task ที่ยังไม่เปิดใบสั่งซ่อมและยังไม่ออกใบสรุปรถสำหรับ VIN number '${createTaskDto.vin_number}' อยู่แล้ว`,
+            constraint: 'unique',
+            value: createTaskDto.vin_number,
+          }],
+        })
+      }
+    }
+
     // Validate date format (YYYY-MM-DD)
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/
     if (!dateRegex.test(createTaskDto.date_booked)) {

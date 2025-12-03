@@ -15,6 +15,7 @@ export interface ITaskRepository {
   updateTask(id: string, updateDto: UpdateTaskDto): Promise<void>
   getTaskByStatus(status: string): Promise<Tasks[]>
   findByAppointmentRunning(appointmentRunning: string): Promise<Tasks | null>
+  findPendingTaskByVinNumber(vinNumber: string): Promise<Tasks | null>
   getAllActiveTasksWithAppointment(): Promise<Tasks[]>
   patchTaskSuccessFlag(id: string, patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto): Promise<void>
   patchTaskInProcessFlag(id: string, patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto): Promise<void>

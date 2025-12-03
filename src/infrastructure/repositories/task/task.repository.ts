@@ -91,6 +91,16 @@ export class TaskRepository implements ITaskRepository {
       .andWhere('task.appointment_running != :empty', { empty: '' })
       .getMany()
   }
+
+  async findPendingTaskByVinNumber(vinNumber: string): Promise<Tasks | null> {
+    return this.taskRepository.findOne({
+      where: {
+        vin_number: vinNumber,
+        status_repair_order: StatusRepairOrder.NOT_OPENED,
+        status_report: StatusReport.NOT_ISSUED,
+      },
+    })
+  }
   async patchTaskSuccessFlag(id: string, patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto): Promise<void> {
     const result = await this.taskRepository.update(id, {
       ...patchTaskSuccessFlagDto,
