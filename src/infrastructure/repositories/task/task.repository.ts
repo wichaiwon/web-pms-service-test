@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
-import { PatchTaskEngineChassisDto } from 'src/application/dto/tasks/patch-task-engine-chassis'
 import { PatchTaskInProcessFlagDto } from 'src/application/dto/tasks/patch-task-in-process-flag'
 import { PatchTaskSuccessFlagDto } from 'src/application/dto/tasks/patch-task-success-flag'
 import { UpdateTaskDto } from 'src/application/dto/tasks/update-task.dto'
@@ -117,14 +116,7 @@ export class TaskRepository implements ITaskRepository {
       throw new Error(`Task with id ${id} not found`)
     }
   }
-  async patchTaskEngineChassis(id: string, patchTaskEngineChassisDto: PatchTaskEngineChassisDto): Promise<void> {
-    const result = await this.taskRepository.update(id, {
-      ...patchTaskEngineChassisDto,
-    })
-    if (result.affected === 0) {
-      throw new Error(`Task with id ${id} not found`)
-    }
-  }
+  
 
   async getTaskByIdWithAllDetails(id: string): Promise<Tasks> {
     const task = await this.taskRepository
@@ -442,5 +434,27 @@ export class TaskRepository implements ITaskRepository {
       })
 
     return tasks
+  }
+
+  async getTasksWithCompleteInfo(): Promise<Tasks[]> {
+    return this.taskRepository
+      .createQueryBuilder('task')
+      .where('task.vin_number IS NOT NULL')
+      .andWhere('task.engine_number IS NOT NULL')
+      .andWhere('task.chassis_number IS NOT NULL')
+      .andWhere('task.car_type IS NOT NULL')
+      .andWhere('task.car_brand IS NOT NULL')
+      .andWhere('task.is_active = :isActive', { isActive: true })
+      .orderBy('task.created_at', 'DESC')
+      .getMany()
+  }
+
+  async getTasksWithIncompleteInfo(): Promise<Tasks[]> {
+    return this.taskRepository
+      .createQueryBuilder('task')
+      .where('(task.vin_number IS NULL OR task.engine_number IS NULL OR task.chassis_number IS NULL OR task.car_type IS NULL OR task.car_brand IS NULL)')
+      .andWhere('task.is_active = :isActive', { isActive: true })
+      .orderBy('task.created_at', 'DESC')
+      .getMany()
   }
 }

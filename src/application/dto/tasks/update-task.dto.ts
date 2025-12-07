@@ -3,7 +3,6 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
 
 export class UpdateTaskDto {
-
   @ApiPropertyOptional({
     description: 'Vehicle registration number',
     example: 'กข 1234',
@@ -11,6 +10,23 @@ export class UpdateTaskDto {
   @IsOptional()
   @IsString()
   vehicle_registration?: string
+
+  @ApiPropertyOptional({
+    description: 'Vehicle model number',
+    example: 'Civic 2020',
+  })
+  @IsOptional()
+  @IsString()
+  model_number?: string
+
+
+  @ApiPropertyOptional({
+    description: 'Vehicle model name',
+    example: 'Honda Civic',
+  })
+  @IsOptional()
+  @IsString()
+  model_name?: string
 
   @ApiPropertyOptional({
     description: 'Vehicle registration province',

@@ -9,6 +9,8 @@ export class AppointmentEntity implements AppointmentResponseDto {
   customer_firstname: string
   customer_lastname: string
   customer_contact: string
+  model_number?: string
+  model_name?: string
   engine_number: string
   vin_number: string
   chassis_number: string
@@ -39,6 +41,8 @@ export class AppointmentEntity implements AppointmentResponseDto {
       customer_firstname: this.customer_firstname,
       customer_lastname: this.customer_lastname,
       customer_contact: this.customer_contact,
+      model_number: this.model_number,
+      model_name: this.model_name,
       vin_number: this.vin_number,
       engine_number: this.engine_number,
       chassis_number: this.chassis_number,

@@ -9,7 +9,6 @@ import { UpdateTaskUseCase } from './use-cases/update-task.use-case'
 import { Branch } from '../shared/enum/user'
 import { PatchTaskSuccessFlagDto } from 'src/application/dto/tasks/patch-task-success-flag'
 import { PatchTaskInProcessFlagDto } from 'src/application/dto/tasks/patch-task-in-process-flag'
-import { PatchTaskEngineChassisDto } from 'src/application/dto/tasks/patch-task-engine-chassis'
 
 @Injectable()
 export class TaskService implements ITaskService {
@@ -64,12 +63,6 @@ export class TaskService implements ITaskService {
     return this.updateTaskUseCase.execute(id, patchTaskInProcessFlagDto)
   }
 
-  async patchTaskEngineChassis(
-    id: string,
-    patchTaskEngineChassisDto: PatchTaskEngineChassisDto,
-  ): Promise<void> {
-    return this.updateTaskUseCase.execute(id, patchTaskEngineChassisDto)
-  }
 
   async getTaskByIdWithAllDetails(id: string): Promise<Tasks> {
     return this.getTaskUseCase.executeWithAllDetails(id)
@@ -77,5 +70,13 @@ export class TaskService implements ITaskService {
 
   async getAllTasksWithCompleteDetails(): Promise<Tasks[]> {
     return this.getTaskUseCase.executeAllWithCompleteDetails()
+  }
+
+  async getTasksWithCompleteInfo(): Promise<Tasks[]> {
+    return this.getTaskUseCase.executeTasksWithCompleteInfo()
+  }
+
+  async getTasksWithIncompleteInfo(): Promise<Tasks[]> {
+    return this.getTaskUseCase.executeTasksWithIncompleteInfo()
   }
 }

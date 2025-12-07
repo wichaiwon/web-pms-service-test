@@ -3,7 +3,6 @@ import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
 import { UpdateTaskDto } from 'src/application/dto/tasks/update-task.dto'
 import { Branch } from 'src/shared/enum/user'
 import { PatchTaskSuccessFlagDto } from 'src/application/dto/tasks/patch-task-success-flag'
-import { PatchTaskEngineChassisDto } from 'src/application/dto/tasks/patch-task-engine-chassis'
 import { PatchTaskInProcessFlagDto } from 'src/application/dto/tasks/patch-task-in-process-flag'
 
 export interface ITaskService {
@@ -17,5 +16,6 @@ export interface ITaskService {
   getTasksByStatus(status: string): Promise<Tasks[]>
   patchTaskSuccessFlag(id: string, patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto): Promise<void>
   patchTaskInProcessFlag(id: string, patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto): Promise<void>
-  patchTaskEngineChassis(id: string, patchTaskEngineChassisDto: PatchTaskEngineChassisDto): Promise<void>
+  getTasksWithCompleteInfo(): Promise<Tasks[]>
+  getTasksWithIncompleteInfo(): Promise<Tasks[]>
 }

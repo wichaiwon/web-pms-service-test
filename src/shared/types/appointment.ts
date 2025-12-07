@@ -7,6 +7,8 @@ export interface AppointmentResponseDto {
   customer_firstname: string
   customer_lastname: string
   customer_contact: string
+  model_number?: string
+  model_name?: string
   engine_number: string
   vin_number: string
   chassis_number: string
@@ -25,6 +27,8 @@ export interface MappedTaskDto {
   customer_firstname: string
   customer_lastname: string
   customer_contact: string
+  model_number?: string
+  model_name?: string
   date_booked: string
   time_booked: string
   responsible?: string[]

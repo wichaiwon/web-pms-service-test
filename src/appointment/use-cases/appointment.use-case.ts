@@ -62,10 +62,11 @@ export class SyncAppointmentsUseCase {
 
   private async findUserByResponsible(responsibleName: string): Promise<string> {
     try {
-      const names = responsibleName.trim().split(' ');
+      // Ensure responsibleName is a string before using .trim()
+      const nameStr = typeof responsibleName === 'string' ? responsibleName : '';
+      const names = nameStr.trim().split(' ');
       const firstname = names[0] || '';
       const lastname = names.slice(1).join(' ') || '';
-      
       const user = await this.userRepository.findByFirstnameAndLastname(firstname, lastname);
       return user ? user.id : this.DEFAULT_USER_ID;
     } catch (error) {
@@ -89,6 +90,7 @@ export class SyncAppointmentsUseCase {
           existingTask.vehicle_registration !== taskData.vehicle_registration ||
           existingTask.vehicle_registration_province !== taskData.vehicle_registration_province ||
           existingTask.lift !== taskData.lift ||
+          existingTask.model_name !== taskData.model_name ||
           JSON.stringify(currentResponsible.sort()) !== JSON.stringify(updatedResponsible.sort());
         
         if (hasChanges) {
@@ -100,6 +102,7 @@ export class SyncAppointmentsUseCase {
             chassis_number: taskData.chassis_number,
             responsible: updatedResponsible,
             lift: taskData.lift,
+            model_name: taskData.model_name,
             status_repair_order: taskData.status_repair_order,
             status_report: taskData.status_report,
             updated_by: taskData.created_by,

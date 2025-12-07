@@ -37,6 +37,22 @@ export class CreateTaskDto {
   @IsString()
   vehicle_registration_province?: string
 
+  @ApiPropertyOptional({ 
+    description: 'Vehicle model number',
+    example: 'NLR85A' 
+  })
+  @IsOptional()
+  @IsString()
+  model_number?: string
+
+  @ApiPropertyOptional({ 
+    description: 'Vehicle model name',
+    example: 'ISUZU ELF' 
+  })
+  @IsOptional()
+  @IsString()
+  model_name?: string
+
   @ApiProperty({ 
     description: 'Customer first name',
     example: 'สมชาย' 

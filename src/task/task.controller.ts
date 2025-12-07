@@ -8,7 +8,6 @@ import {
   UseGuards,
   HttpStatus,
   HttpCode,
-  HttpException,
   Patch,
 } from '@nestjs/common'
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth, ApiBody } from '@nestjs/swagger'
@@ -18,7 +17,6 @@ import { UpdateTaskDto } from '../application/dto/tasks/update-task.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { SuccessResponseDto, ErrorResponseDto } from '../application/dto/common/response.dto'
 import { Branch } from '../shared/enum/user'
-import { PatchTaskEngineChassisDto } from 'src/application/dto/tasks/patch-task-engine-chassis'
 import { PatchTaskSuccessFlagDto } from 'src/application/dto/tasks/patch-task-success-flag'
 import { PatchTaskInProcessFlagDto } from 'src/application/dto/tasks/patch-task-in-process-flag'
 
@@ -280,41 +278,7 @@ export class TaskController {
       data: task,
     }
   }
-  @Patch('engine-chassis/:id')
-  @ApiOperation({ summary: 'Patch task engine chassis by ID' })
-  @ApiParam({
-    name: 'id',
-    description: 'Task UUID',
-    example: '123e4567-e89b-12d3-a456-426614174000',
-  })
-  @ApiBody({ type: PatchTaskEngineChassisDto })
-  @ApiResponse({
-    status: 200,
-    description: 'Task engine chassis patched successfully',
-    type: SuccessResponseDto,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Bad request - Invalid input data',
-    type: ErrorResponseDto,
-  })
-  @ApiResponse({
-    status: 401,
-    description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto,
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Task not found',
-    type: ErrorResponseDto,
-  })
-  async patchTaskEngineChassis(@Param('id') id: string, @Body() patchTaskEngineChassisDto: PatchTaskEngineChassisDto) {
-    await this.taskService.patchTaskEngineChassis(id, patchTaskEngineChassisDto)
-    return {
-      success: true,
-      message: 'Task engine chassis patched successfully',
-    }
-  }
+  
   @Patch('success-flag/:id')
   @ApiOperation({ summary: 'Patch task success flag by ID' })
   @ApiParam({
@@ -439,6 +403,58 @@ export class TaskController {
     return {
       success: true,
       message: 'Tasks with complete details retrieved successfully',
+      data: tasks,
+    }
+  }
+
+  @Get('complete-info/all')
+  @ApiOperation({ summary: 'Get all tasks with complete car information (vin_number, engine_number, chassis_number, car_type, car_brand)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Tasks with complete information retrieved successfully',
+    type: SuccessResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error',
+    type: ErrorResponseDto,
+  })
+  async getTasksWithCompleteInfo() {
+    const tasks = await this.taskService.getTasksWithCompleteInfo()
+    return {
+      success: true,
+      message: 'Tasks with complete information retrieved successfully',
+      data: tasks,
+    }
+  }
+
+  @Get('incomplete-info/all')
+  @ApiOperation({ summary: 'Get all tasks with incomplete car information (missing vin_number, engine_number, chassis_number, car_type, or car_brand)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Tasks with incomplete information retrieved successfully',
+    type: SuccessResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid JWT token',
+    type: ErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error',
+    type: ErrorResponseDto,
+  })
+  async getTasksWithIncompleteInfo() {
+    const tasks = await this.taskService.getTasksWithIncompleteInfo()
+    return {
+      success: true,
+      message: 'Tasks with incomplete information retrieved successfully',
       data: tasks,
     }
   }

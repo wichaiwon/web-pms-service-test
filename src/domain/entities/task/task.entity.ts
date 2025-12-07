@@ -16,6 +16,12 @@ export class Tasks {
   @Column({ type: 'varchar', nullable: true, unique: true })
   appointment_running: string
 
+  @Column({ type: 'varchar', nullable: true })
+  model_number: string
+
+  @Column({ type: 'varchar', nullable: true })
+  model_name: string
+
   @Column({ type: 'varchar', nullable: false })
   vehicle_registration: string
 
@@ -25,10 +31,10 @@ export class Tasks {
   @Column({ type: 'varchar', nullable: false })
   customer_firstname: string
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   customer_lastname: string
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   customer_contact: string
 
   @Column({ type: 'varchar', nullable: false })

@@ -1,5 +1,4 @@
 import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
-import { PatchTaskEngineChassisDto } from 'src/application/dto/tasks/patch-task-engine-chassis'
 import { PatchTaskInProcessFlagDto } from 'src/application/dto/tasks/patch-task-in-process-flag'
 import { PatchTaskSuccessFlagDto } from 'src/application/dto/tasks/patch-task-success-flag'
 import { UpdateTaskDto } from 'src/application/dto/tasks/update-task.dto'
@@ -19,7 +18,8 @@ export interface ITaskRepository {
   getAllActiveTasksWithAppointment(): Promise<Tasks[]>
   patchTaskSuccessFlag(id: string, patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto): Promise<void>
   patchTaskInProcessFlag(id: string, patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto): Promise<void>
-  patchTaskEngineChassis(id: string, patchTaskEngineChassisDto: PatchTaskEngineChassisDto): Promise<void>
   getTaskByIdWithAllDetails(id: string): Promise<Tasks>
   getAllTasksWithCompleteDetails(): Promise<Tasks[]>
+  getTasksWithCompleteInfo(): Promise<Tasks[]>
+  getTasksWithIncompleteInfo(): Promise<Tasks[]>
 }

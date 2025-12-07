@@ -83,4 +83,12 @@ export class GetTaskUseCase {
   async executeAllWithCompleteDetails(): Promise<Tasks[]> {
     return this.taskRepository.getAllTasksWithCompleteDetails()
   }
+
+  async executeTasksWithCompleteInfo(): Promise<Tasks[]> {
+    return this.taskRepository.getTasksWithCompleteInfo()
+  }
+
+  async executeTasksWithIncompleteInfo(): Promise<Tasks[]> {
+    return this.taskRepository.getTasksWithIncompleteInfo()
+  }
 }
