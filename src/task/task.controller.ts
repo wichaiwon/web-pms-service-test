@@ -381,34 +381,14 @@ export class TaskController {
     }
   }
 
-  @Get('complete-details/all')
-  @ApiOperation({ summary: 'Get all tasks with complete details (only tasks that have all detail tables with success_flag = false and is_active = true)' })
-  @ApiResponse({
-    status: 200,
-    description: 'Tasks with complete details retrieved successfully',
-    type: SuccessResponseDto,
+  @Get('complete-info/branch/:branch')
+  @ApiOperation({ summary: 'Get tasks with complete car information by branch (vin_number, engine_number, chassis_number, car_type, car_brand)' })
+  @ApiParam({
+    name: 'branch',
+    description: 'Branch name',
+    example: 'สำนักงานใหญ่',
+    enum: Branch,
   })
-  @ApiResponse({
-    status: 401,
-    description: 'Unauthorized - Invalid JWT token',
-    type: ErrorResponseDto,
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal server error',
-    type: ErrorResponseDto,
-  })
-  async getAllTasksWithCompleteDetails() {
-    const tasks = await this.taskService.getAllTasksWithCompleteDetails()
-    return {
-      success: true,
-      message: 'Tasks with complete details retrieved successfully',
-      data: tasks,
-    }
-  }
-
-  @Get('complete-info/all')
-  @ApiOperation({ summary: 'Get all tasks with complete car information (vin_number, engine_number, chassis_number, car_type, car_brand)' })
   @ApiResponse({
     status: 200,
     description: 'Tasks with complete information retrieved successfully',
@@ -424,8 +404,8 @@ export class TaskController {
     description: 'Internal server error',
     type: ErrorResponseDto,
   })
-  async getTasksWithCompleteInfo() {
-    const tasks = await this.taskService.getTasksWithCompleteInfo()
+  async getTasksWithCompleteInfoByBranch(@Param('branch') branch: Branch) {
+    const tasks = await this.taskService.getTasksWithCompleteInfoByBranch(branch)
     return {
       success: true,
       message: 'Tasks with complete information retrieved successfully',
@@ -433,8 +413,15 @@ export class TaskController {
     }
   }
 
-  @Get('incomplete-info/all')
-  @ApiOperation({ summary: 'Get all tasks with incomplete car information (missing vin_number, engine_number, chassis_number, car_type, or car_brand)' })
+
+  @Get('incomplete-info/branch/:branch')
+  @ApiOperation({ summary: 'Get tasks with incomplete car information by branch (missing vin_number, engine_number, chassis_number, car_type, or car_brand)' })
+  @ApiParam({
+    name: 'branch',
+    description: 'Branch name',
+    example: 'สำนักงานใหญ่',
+    enum: Branch,
+  })
   @ApiResponse({
     status: 200,
     description: 'Tasks with incomplete information retrieved successfully',
@@ -450,8 +437,8 @@ export class TaskController {
     description: 'Internal server error',
     type: ErrorResponseDto,
   })
-  async getTasksWithIncompleteInfo() {
-    const tasks = await this.taskService.getTasksWithIncompleteInfo()
+  async getTasksWithIncompleteInfoByBranch(@Param('branch') branch: Branch) {
+    const tasks = await this.taskService.getTasksWithIncompleteInfoByBranch(branch)
     return {
       success: true,
       message: 'Tasks with incomplete information retrieved successfully',

@@ -72,11 +72,11 @@ export class TaskService implements ITaskService {
     return this.getTaskUseCase.executeAllWithCompleteDetails()
   }
 
-  async getTasksWithCompleteInfo(): Promise<Tasks[]> {
-    return this.getTaskUseCase.executeTasksWithCompleteInfo()
+  async getTasksWithCompleteInfoByBranch(branch: Branch): Promise<Tasks[]> {
+    return this.getTaskUseCase.executeTasksWithCompleteInfoByBranch(branch)
   }
 
-  async getTasksWithIncompleteInfo(): Promise<Tasks[]> {
-    return this.getTaskUseCase.executeTasksWithIncompleteInfo()
+  async getTasksWithIncompleteInfoByBranch(branch: Branch): Promise<Tasks[]> {
+    return this.getTaskUseCase.executeTasksWithIncompleteInfoByBranch(branch)
   }
 }

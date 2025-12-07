@@ -84,11 +84,11 @@ export class GetTaskUseCase {
     return this.taskRepository.getAllTasksWithCompleteDetails()
   }
 
-  async executeTasksWithCompleteInfo(): Promise<Tasks[]> {
-    return this.taskRepository.getTasksWithCompleteInfo()
+  async executeTasksWithCompleteInfoByBranch(branch: Branch): Promise<Tasks[]> {
+    return this.taskRepository.getTasksWithCompleteInfoByBranch(branch)
   }
 
-  async executeTasksWithIncompleteInfo(): Promise<Tasks[]> {
-    return this.taskRepository.getTasksWithIncompleteInfo()
+  async executeTasksWithIncompleteInfoByBranch(branch: Branch): Promise<Tasks[]> {
+    return this.taskRepository.getTasksWithIncompleteInfoByBranch(branch)
   }
 }

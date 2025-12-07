@@ -20,6 +20,6 @@ export interface ITaskRepository {
   patchTaskInProcessFlag(id: string, patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto): Promise<void>
   getTaskByIdWithAllDetails(id: string): Promise<Tasks>
   getAllTasksWithCompleteDetails(): Promise<Tasks[]>
-  getTasksWithCompleteInfo(): Promise<Tasks[]>
-  getTasksWithIncompleteInfo(): Promise<Tasks[]>
+  getTasksWithCompleteInfoByBranch(branch: Branch): Promise<Tasks[]>
+  getTasksWithIncompleteInfoByBranch(branch: Branch): Promise<Tasks[]>
 }

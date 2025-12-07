@@ -436,7 +436,7 @@ export class TaskRepository implements ITaskRepository {
     return tasks
   }
 
-  async getTasksWithCompleteInfo(): Promise<Tasks[]> {
+  async getTasksWithCompleteInfoByBranch(branch: Branch): Promise<Tasks[]> {
     return this.taskRepository
       .createQueryBuilder('task')
       .where('task.vin_number IS NOT NULL')
@@ -445,15 +445,17 @@ export class TaskRepository implements ITaskRepository {
       .andWhere('task.car_type IS NOT NULL')
       .andWhere('task.car_brand IS NOT NULL')
       .andWhere('task.is_active = :isActive', { isActive: true })
+      .andWhere('task.branch_booked = :branch', { branch })
       .orderBy('task.created_at', 'DESC')
       .getMany()
   }
 
-  async getTasksWithIncompleteInfo(): Promise<Tasks[]> {
+  async getTasksWithIncompleteInfoByBranch(branch: Branch): Promise<Tasks[]> {
     return this.taskRepository
       .createQueryBuilder('task')
       .where('(task.vin_number IS NULL OR task.engine_number IS NULL OR task.chassis_number IS NULL OR task.car_type IS NULL OR task.car_brand IS NULL)')
       .andWhere('task.is_active = :isActive', { isActive: true })
+      .andWhere('task.branch_booked = :branch', { branch })
       .orderBy('task.created_at', 'DESC')
       .getMany()
   }

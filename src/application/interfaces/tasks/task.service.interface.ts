@@ -16,6 +16,5 @@ export interface ITaskService {
   getTasksByStatus(status: string): Promise<Tasks[]>
   patchTaskSuccessFlag(id: string, patchTaskSuccessFlagDto: PatchTaskSuccessFlagDto): Promise<void>
   patchTaskInProcessFlag(id: string, patchTaskInProcessFlagDto: PatchTaskInProcessFlagDto): Promise<void>
-  getTasksWithCompleteInfo(): Promise<Tasks[]>
-  getTasksWithIncompleteInfo(): Promise<Tasks[]>
+  
 }
