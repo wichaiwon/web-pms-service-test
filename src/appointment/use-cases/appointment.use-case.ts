@@ -90,7 +90,11 @@ export class SyncAppointmentsUseCase {
           existingTask.vehicle_registration !== taskData.vehicle_registration ||
           existingTask.vehicle_registration_province !== taskData.vehicle_registration_province ||
           existingTask.lift !== taskData.lift ||
+          existingTask.model_number !== taskData.model_number ||
           existingTask.model_name !== taskData.model_name ||
+          existingTask.vin_number !== taskData.vin_number ||
+          existingTask.engine_number !== taskData.engine_number ||
+          existingTask.chassis_number !== taskData.chassis_number ||
           existingTask.car_type !== taskData.car_type ||
           existingTask.car_brand !== taskData.car_brand ||
           JSON.stringify(currentResponsible.sort()) !== JSON.stringify(updatedResponsible.sort());

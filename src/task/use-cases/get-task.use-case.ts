@@ -84,11 +84,14 @@ export class GetTaskUseCase {
     return this.taskRepository.getAllTasksWithCompleteDetails()
   }
 
+
   async executeTasksWithCompleteInfoByBranch(branch: Branch): Promise<Tasks[]> {
-    return this.taskRepository.getTasksWithCompleteInfoByBranch(branch)
+    const tasks = await this.taskRepository.getTasksWithCompleteInfoByBranch(branch)
+    return this.sortTasksByDateTime(tasks)
   }
 
   async executeTasksWithIncompleteInfoByBranch(branch: Branch): Promise<Tasks[]> {
-    return this.taskRepository.getTasksWithIncompleteInfoByBranch(branch)
+    const tasks = await this.taskRepository.getTasksWithIncompleteInfoByBranch(branch)
+    return this.sortTasksByDateTime(tasks)
   }
 }
