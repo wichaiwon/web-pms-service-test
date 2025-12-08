@@ -63,6 +63,7 @@ export class TaskRepository implements ITaskRepository {
   async updateTask(id: string, updateDto: UpdateTaskDto): Promise<void> {
     const result = await this.taskRepository.update(id, {
       ...updateDto,
+      updated_at: new Date(),
     })
     if (result.affected === 0) {
       throw new Error(`Task with id ${id} not found`)

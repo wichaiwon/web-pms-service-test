@@ -17,6 +17,8 @@ export interface AppointmentResponseDto {
   branch_booked: Branch
   lift: string
   responsible: string
+  car_type?: string
+  car_brand?: string
 }
 
 export interface MappedTaskDto {

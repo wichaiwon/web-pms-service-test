@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsUUID, IsOptional, IsBoolean, IsEnum, IsArray, IsString } from 'class-validator'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { StatusRepairOrder, StatusReport } from 'src/shared/enum/task'
+import { StatusRepairOrder, StatusReport, CarType, CarBrand } from 'src/shared/enum/task'
 
 export class UpdateTaskDto {
   @ApiPropertyOptional({
@@ -78,6 +78,24 @@ export class UpdateTaskDto {
   @IsOptional()
   @IsString()
   lift?: string
+
+  @ApiPropertyOptional({
+    description: 'Car type',
+    enum: CarType,
+    example: CarType.LCV,
+  })
+  @IsOptional()
+  @IsEnum(CarType)
+  car_type?: CarType
+
+  @ApiPropertyOptional({
+    description: 'Car brand',
+    enum: CarBrand,
+    example: CarBrand.ISUZU,
+  })
+  @IsOptional()
+  @IsEnum(CarBrand)
+  car_brand?: CarBrand
 
   @ApiPropertyOptional({
     description: 'Repair order status',

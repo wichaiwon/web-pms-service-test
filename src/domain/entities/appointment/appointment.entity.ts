@@ -1,6 +1,7 @@
 import { AppointmentResponseDto } from 'src/shared/types/appointment'
 import { CreateTaskDto } from 'src/application/dto/tasks/create-task.dto'
 import { Branch } from 'src/shared/enum/user'
+import { CarType, CarBrand } from 'src/shared/enum/task'
 
 export class AppointmentEntity implements AppointmentResponseDto {
   appointment_running: string
@@ -19,6 +20,8 @@ export class AppointmentEntity implements AppointmentResponseDto {
   branch_booked: Branch
   lift: string
   responsible: string
+  car_type?: string
+  car_brand?: string
   constructor(data: AppointmentResponseDto) {
     Object.assign(this, data)
   }
@@ -31,6 +34,37 @@ export class AppointmentEntity implements AppointmentResponseDto {
   toTaskData(userId: string): CreateTaskDto {
     if (!this.branch_booked) {
       throw new Error(`branch_booked is required for appointment ${this.appointment_running}`)
+    }
+    
+    // Convert string values to enum
+    let carType: CarType | undefined;
+    let carBrand: CarBrand | undefined;
+    
+    // Map car_type from n8n to enum
+    if (this.car_type) {
+      const typeUpper = this.car_type.toUpperCase().trim();
+      if (typeUpper === 'LCV' || typeUpper.includes('LCV')) {
+        carType = CarType.LCV;
+      } else if (typeUpper === 'CV' || typeUpper.includes('CV')) {
+        carType = CarType.CV;
+      } else if (Object.values(CarType).includes(this.car_type as CarType)) {
+        // If it's already the enum value (Thai text)
+        carType = this.car_type as CarType;
+      }
+    }
+    
+    // Map car_brand from n8n to enum
+    if (this.car_brand) {
+      const brandUpper = this.car_brand.toUpperCase().trim();
+      if (brandUpper === 'ISUZU' || brandUpper.includes('ISUZU')) {
+        carBrand = CarBrand.ISUZU;
+      } else if (Object.values(CarBrand).includes(this.car_brand as CarBrand)) {
+        // If it's already the enum value (Thai text)
+        carBrand = this.car_brand as CarBrand;
+      } else {
+        // Default to OTHER for any other brand
+        carBrand = CarBrand.OTHER;
+      }
     }
     
     return {
@@ -51,6 +85,8 @@ export class AppointmentEntity implements AppointmentResponseDto {
       responsible: [userId],
       branch_booked: this.branch_booked,
       lift: this.lift,
+      car_type: carType,
+      car_brand: carBrand,
       created_by: userId,
     }
   }

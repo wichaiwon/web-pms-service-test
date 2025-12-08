@@ -19,7 +19,7 @@ export class SyncAppointmentsUseCase {
     private readonly taskRepository: ITaskRepository,
   ) {}
 
-  async execute(): Promise<void> {
+  async execute(manualSyncUserId?: string): Promise<void> {
     try {
       // 1. Fetch appointments from N8N
       const appointmentsData = await this.appointmentRepository.fetchAppointment();
@@ -28,7 +28,7 @@ export class SyncAppointmentsUseCase {
       if (!appointmentsData || !Array.isArray(appointmentsData) || appointmentsData.length === 0) {
         console.log('No appointments found to sync');
         // Still check for cancelled appointments
-        await this.deactivateCancelledAppointments(new Set());
+        await this.deactivateCancelledAppointments(new Set(), manualSyncUserId);
         return;
       }
       
@@ -48,11 +48,11 @@ export class SyncAppointmentsUseCase {
         const taskData = appointment.toTaskData(userId);
         
         // Check if task exists and update or create
-        await this.createOrUpdateTask(taskData);
+        await this.createOrUpdateTask(taskData, manualSyncUserId);
       }
       
       // 4. Check for cancelled appointments (tasks that have appointment_running but not in N8N anymore)
-      await this.deactivateCancelledAppointments(activeAppointmentRunnings);
+      await this.deactivateCancelledAppointments(activeAppointmentRunnings, manualSyncUserId);
       
     } catch (error) {
       console.error('Error syncing appointments:', error);
@@ -75,7 +75,7 @@ export class SyncAppointmentsUseCase {
     }
   }
 
-  private async createOrUpdateTask(taskData: CreateTaskDto): Promise<void> {
+  private async createOrUpdateTask(taskData: CreateTaskDto, manualSyncUserId?: string): Promise<void> {
     try {
       const existingTask = await this.taskRepository.findByAppointmentRunning(taskData.appointment_running);
       
@@ -91,6 +91,8 @@ export class SyncAppointmentsUseCase {
           existingTask.vehicle_registration_province !== taskData.vehicle_registration_province ||
           existingTask.lift !== taskData.lift ||
           existingTask.model_name !== taskData.model_name ||
+          existingTask.car_type !== taskData.car_type ||
+          existingTask.car_brand !== taskData.car_brand ||
           JSON.stringify(currentResponsible.sort()) !== JSON.stringify(updatedResponsible.sort());
         
         if (hasChanges) {
@@ -103,9 +105,11 @@ export class SyncAppointmentsUseCase {
             responsible: updatedResponsible,
             lift: taskData.lift,
             model_name: taskData.model_name,
+            car_type: taskData.car_type,
+            car_brand: taskData.car_brand,
             status_repair_order: taskData.status_repair_order,
             status_report: taskData.status_report,
-            updated_by: taskData.created_by,
+            updated_by: manualSyncUserId || taskData.created_by,
           };
           
           await this.taskRepository.updateTask(existingTask.id, updateDto);
@@ -124,7 +128,7 @@ export class SyncAppointmentsUseCase {
     }
   }
 
-  private async deactivateCancelledAppointments(activeAppointmentRunnings: Set<string>): Promise<void> {
+  private async deactivateCancelledAppointments(activeAppointmentRunnings: Set<string>, manualSyncUserId?: string): Promise<void> {
     try {
       // Get all active tasks that have appointment_running
       const activeTasks = await this.taskRepository.getAllActiveTasksWithAppointment();
@@ -138,7 +142,7 @@ export class SyncAppointmentsUseCase {
       for (const task of cancelledTasks) {
         const updateDto: UpdateTaskDto = {
           is_active: false,
-          updated_by: task.created_by,
+          updated_by: manualSyncUserId || task.created_by,
         };
         
         await this.taskRepository.updateTask(task.id, updateDto);
