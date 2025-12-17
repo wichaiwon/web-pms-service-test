@@ -25,7 +25,7 @@ export class CreateTaskDto {
     description: 'Vehicle registration number',
     example: 'กข 1234' 
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   vehicle_registration?: string
 
@@ -57,17 +57,17 @@ export class CreateTaskDto {
     description: 'Customer first name',
     example: 'สมชาย' 
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  customer_firstname: string
+  customer_firstname?: string
 
   @ApiProperty({ 
     description: 'Customer last name',
     example: 'ใจดี' 
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  customer_lastname: string
+  customer_lastname?: string
 
   @ApiProperty({ 
     description: 'Customer contact number',

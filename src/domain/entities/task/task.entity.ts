@@ -22,13 +22,13 @@ export class Tasks {
   @Column({ type: 'varchar', nullable: true })
   model_name: string
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   vehicle_registration: string
 
   @Column({ type: 'varchar', nullable: true })
   vehicle_registration_province: string
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   customer_firstname: string
 
   @Column({ type: 'varchar', nullable: true })
